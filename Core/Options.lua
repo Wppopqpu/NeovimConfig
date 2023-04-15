@@ -73,10 +73,6 @@ vim.o.updatetime = 300
 vim.o.splitbelow = true
 vim.o.splitbelow = true
 
--- invisible characters
-vim.o.list = true
-vim.o.listchars = 'space:·'
-
 vim.wildmenu = true
 
 vim.o.showtabline = 2
