@@ -1,10 +1,4 @@
-
--- global mapleader
-vim.g.mapleader = ''
-
--- local mapleader
-vim.g.maplocalleader = ''
-
+-- Options.lua
 -- line numbers
 vim.o.number=true
 
