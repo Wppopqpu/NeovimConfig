@@ -19,10 +19,6 @@ vim.o.smartindent = true
 vim.o.shiftwidth = 4
 vim.o.shiftround = true
 
--- background colour support
-vim.o.background = 'dark'
-vim.o.termguicolors = true
-
 -- cursor
 vim.o.cursorline = true
 
