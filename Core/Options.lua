@@ -63,6 +63,9 @@ vim.o.updatetime = 300
 vim.o.splitbelow = true
 vim.o.splitbelow = true
 
+vim.o.background = "dark"
+vim.o.termguicolors = true
+
 vim.wildmenu = true
 
 vim.o.showtabline = 2
