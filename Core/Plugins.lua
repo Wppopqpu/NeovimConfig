@@ -21,11 +21,11 @@ return require( 'packer' ).startup(function( use )
 	vim.opt.list = true
 	vim.opt.listchars:append "eol:↴"
 	
-	require("indent_blankline").setup({
+	require"indent_blankline".setup{
     	show_end_of_line = true,
-	})
+	}
 
-	require('gitsigns').setup({
+	require'gitsigns'.setup{
 		signs = {
 			add = {text = '▎'},
 			change = {text = '▎'},
@@ -33,17 +33,17 @@ return require( 'packer' ).startup(function( use )
 			topdelete = {text = '➤'},
 			changedelete = {text = '▎'},
 		},
-	})
+	}
 
 
-	require('lualine').setup({
+	require'lualine'.setup{
 		options = {
 			theme = 'tokyonight',
 			icons_enabled = true,
 			component_separators = '|',
 			section_separators = ' ',
 		},
-	})
+	}
 
 
 
