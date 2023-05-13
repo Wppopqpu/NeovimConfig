@@ -1,5 +1,8 @@
 -- Options.lua
 -- line numbers
+
+vim.loader.enabled()
+
 vim.o.number=true
 
 -- relative line numbers : specifies the distance from the cursor
@@ -47,7 +50,7 @@ vim.o.showmode = false
 vim.o.showcmd = true
 vim.o.cmdheight = 2
 
-vim.o.wrap = true
+vim.o.wrap = false
 
 vim.o.whichwrap = 'b,s,<,>,[,],h,l'
 
