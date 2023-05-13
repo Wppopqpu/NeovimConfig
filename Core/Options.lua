@@ -47,7 +47,7 @@ vim.o.showmode = false
 vim.o.showcmd = true
 vim.o.cmdheight = 2
 
-vim.o.wrap = false
+vim.o.wrap = true
 
 vim.o.whichwrap = 'b,s,<,>,[,],h,l'
 
