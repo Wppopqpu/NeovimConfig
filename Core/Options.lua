@@ -1,7 +1,7 @@
 -- Options.lua
 -- line numbers
 
-vim.loader.enabled()
+vim.loader.enabled = true
 
 vim.o.number=true
 
