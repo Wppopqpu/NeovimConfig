@@ -1,5 +1,12 @@
 -- Plugins.lua
 return require( 'packer' ).startup(function( use )
+	use {
+		'goolord/alpha-nvim',
+		config = function ()
+			require'alpha'.setup(require'alpha.themes.dashboard'.config)
+		end
+	}
+
 	use 'wbthomason/packer.nvim'
 
 	use 'folke/tokyonight.nvim'
