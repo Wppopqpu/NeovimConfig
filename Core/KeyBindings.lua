@@ -23,8 +23,8 @@ map( 'n', 'sc', '<C-w>c', opt )
 -- close others
 map( 'n', 'so', '<C-w>o', opt )
 
-map( 'n', 's>', ':vertical resize +20<CR>', opt )
-map( 'n', 's<', ':vertical resize -20<CR>', opt )
+map( 'n', 's.', ':vertical resize +20<CR>', opt )
+map( 'n', 's,', ':vertical resize -20<CR>', opt )
 map( "n", "s=", "<C-w>=", opt )
 map( "n", "sj", ":resize +10<CR>",opt )
 map( "n", "sk", ":resize -10<CR>",opt )
