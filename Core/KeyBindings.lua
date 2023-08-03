@@ -44,3 +44,6 @@ map( "n", "<A-l>", "<C-w>l", opt )
 -- d: delete
 map('n', '<A-m>', ':NvimTreeToggle<CR>', opt)
 
+map('n', '<C-h>', ':BufferLineCyclePrev<CR>', opt)
+map('n', '<C-l>', ':BufferLineCycleNext<CR>', opt)
+

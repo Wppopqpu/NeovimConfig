@@ -26,6 +26,8 @@ return require( 'packer' ).startup(function( use )
 	use 'nvim-tree/nvim-tree.lua'
 	use 'nvim-tree/nvim-web-devicons'
 
+	use 'akinsho/bufferline.nvim'
+
 	vim.cmd( 'colorscheme tokyonight' )
 	vim.opt.list = true
 	vim.opt.listchars:append "eol:↴"
@@ -85,6 +87,21 @@ return require( 'packer' ).startup(function( use )
     	git = {
         	enable = true
     	}
+	}
+
+
+	require('bufferline').setup {
+		options = {
+			diagnostic = 'nvim_lsp',
+			offsets = {
+				{
+					filetype = 'NvimTree',
+					text = 'File Explorer',
+					highlight = 'Directory',
+					text_align = 'left'
+				}
+			}
+		}
 	}
 
 end)
