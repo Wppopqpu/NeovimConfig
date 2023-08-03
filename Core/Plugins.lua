@@ -16,7 +16,8 @@ return require( 'packer' ).startup(function( use )
 	use 'lewis6991/gitsigns.nvim'
 
 	use 'neovim/nvim-lspconfig'
-	use 'williamboman/nvim-lsp-installer'
+	use 'williamboman/mason.nvim'
+	use 'williamboman/mason-lspconfig.nvim'
 
 
 	use 'nvim-lualine/lualine.nvim'
@@ -103,5 +104,15 @@ return require( 'packer' ).startup(function( use )
 			}
 		}
 	}
+
+	require'mason'.setup()
+	require'mason-lspconfig'.setup {
+		ensure_installed = {
+			'clangd', -- cpp
+			'lua_ls', -- lua
+		}
+	}
+	require'lspconfig'.clangd.setup{}
+	require'lspconfig'.lua_ls.setup{}
 
 end)
