@@ -18,12 +18,13 @@ return require( 'packer' ).startup(function( use )
 	use 'neovim/nvim-lspconfig'
 	use 'williamboman/nvim-lsp-installer'
 
-	use 'kyazdani42/nvim-web-devicons'
 
 	use 'nvim-lualine/lualine.nvim'
 
 	use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 
+	use 'nvim-tree/nvim-tree.lua'
+	use 'nvim-tree/nvim-web-devicons'
 
 	vim.cmd( 'colorscheme tokyonight' )
 	vim.opt.list = true
@@ -78,6 +79,12 @@ return require( 'packer' ).startup(function( use )
 			end
 		end
 		},
+	}
+
+	require'nvim-tree'.setup {
+    	git = {
+        	enable = true
+    	}
 	}
 
 end)

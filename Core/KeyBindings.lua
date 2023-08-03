@@ -34,3 +34,13 @@ map( "n", "<A-j>", "<C-w>j", opt )
 map( "n", "<A-k>", "<C-w>k", opt )
 map( "n", "<A-l>", "<C-w>l", opt )
 
+-- Alt+m: open nvim tree menu
+-- o: open/close folder
+-- a: create new file
+-- r: rename
+-- x: cut
+-- c: copy
+-- p: plaste
+-- d: delete
+map('n', '<A-m>', ':NvimTreeToggle<CR>', opt)
+
