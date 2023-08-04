@@ -32,7 +32,6 @@ return require( 'packer' ).startup(function( use )
 	vim.cmd( 'colorscheme tokyonight' )
 	vim.opt.list = true
 	vim.opt.listchars:append "eol:↴"
-	
 	require"indent_blankline".setup{
     	show_end_of_line = true,
 	}
@@ -106,10 +105,9 @@ return require( 'packer' ).startup(function( use )
 	}
 
 	require'mason'.setup()
-
-	require("mason-lspconfig").setup_handlers{
+	require'mason-lspconfig'.setup_handlers{
   		function (server_name)
-    		require("lspconfig")[server_name].setup{}
+    		require'lspconfig'[server_name].setup{}
   		end,
 	}
 end)
