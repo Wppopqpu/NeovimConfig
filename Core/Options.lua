@@ -1,5 +1,13 @@
 -- Options.lua
 -- line numbers
+vim.filetype.add{
+	extension = {
+		mpp = 'cpp',
+		ixx = 'cpp',
+		cppm = 'cpp',
+		mxx = 'cpp',
+	},
+}
 
 vim.loader.enabled = true
 
