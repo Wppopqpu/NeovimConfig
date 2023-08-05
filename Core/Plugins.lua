@@ -29,6 +29,19 @@ return require( 'packer' ).startup(function( use )
 
 	use 'akinsho/bufferline.nvim'
 
+	-- nvim-cmp
+	use 'hrsh7th/cmp-nvim-lsp' -- nvim_lsp
+	use 'hrsh7th/cmp-buffer' -- buffer
+	use 'hrsh7th/cmp-path' -- path
+	use 'hrsh7th/cmp-cmdline' -- cmdline
+	use 'hrsh7th/nvim-cmp'
+	-- vsnip
+	use 'hrsh7th/cmp-vsnip' -- vsnip
+	use 'hrsh7th/vim-vsnip'
+	use 'rafamadriz/friendly-snippets'
+	-- lspkind
+	use 'onsails/lspkind-nvim'
+
 	vim.cmd( 'colorscheme tokyonight' )
 	vim.opt.list = true
 	vim.opt.listchars:append "eol:↴"
@@ -104,10 +117,103 @@ return require( 'packer' ).startup(function( use )
 		}
 	}
 
+
+
+	-- auto completion
+	local lspkind = require'lspkind'
+	local cmp =require'cmp'
+
+	cmp.setup {
+		-- set snippet engine
+		snippet = {
+			expand = function(args)
+				vim.fn['vsnip#anonymous'](args.body)
+			end,
+		},
+		sources = cmp.config.sources({
+				{ name = 'nvim_lsp' },
+				{ name = 'vsnip' },
+			}, {
+				{ name = 'buffer' },
+				{ name = 'path' }
+			}
+		),
+		-- key bindings
+		mapping = cmp.mapping.preset.insert {
+			['<C-b>'] = cmp.mapping.scroll_docs(-4),
+			['<C-f>'] = cmp.mapping.scroll_docs(4),
+			['<C-space>'] = cmp.mapping.complete(),
+			['<C-e>'] = cmp.mapping.abort(),
+			['<CR>'] = cmp.mapping.confirm{ select = true },
+		},
+
+		-- use lspkind-nvim to show icons
+		formatting = {
+			format = lspkind.cmp_format{
+				with_text = true,
+				maxwidth = 50,
+				before = function(entry, vim_item)
+					vim_item.menu = '['..string.upper(entry.source.name)..']'
+					return vim_item
+				end
+			}
+		}
+	}-- cmd.setup
+
+	-- use buffer source for '/' and '?'
+	-- do not enable 'native_menu',
+	-- otherwise these (the fllowing two) won't work
+	cmp.setup.cmdline({ '/', '?'}, {
+		mapping = cmp.mapping.preset.cmdline(),
+		sources = {
+			{ name = 'buffer' }
+		}
+	})
+
+	-- use command line & path source for ':'
+	cmp.setup.cmdline(':', {
+		mapping = cmp.mapping.preset.cmdline(),
+		sources = cmp.config.sources({
+				{ name = 'path' }
+			}, {
+				{ name = 'cmdline' }
+			})
+	})
+
+
+
 	require'mason'.setup()
-	require'mason-lspconfig'.setup_handlers{
-  		function (server_name)
-    		require'lspconfig'[server_name].setup{}
-  		end,
+	local mason_lspconfig = require'mason-lspconfig'
+	mason_lspconfig.setup{
+		ensure_installed = {
+			'clangd', -- cpp
+			'lua_ls', -- lua
+			'marksman', -- markdown
+			'quick_lint_js', -- javascript
+		},
+		automatic_installation = false,
 	}
+
+	local lspconfig = require'lspconfig'
+	local capabilities = require'cmp_nvim_lsp'.default_capabilities()
+	mason_lspconfig.setup_handlers{
+  		function (server_name)
+    		lspconfig[server_name].setup {
+				capabilities = capabilities
+			}
+  		end,
+		--[[
+		clangd = function()
+			lspconfig.clangd.setup{
+				cmd = {
+					'clangd',
+					'--header-insertion=never',
+					'--all-scopes-completion'
+					'--competion-style=detailed'
+				}
+			}
+		end
+		--]]
+	}
+
 end)

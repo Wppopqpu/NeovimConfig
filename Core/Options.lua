@@ -77,6 +77,6 @@ vim.o.splitbelow = true
 vim.o.background = "dark"
 vim.o.termguicolors = true
 
-vim.wildmenu = true
+vim.wildmenu = false
 
 vim.o.showtabline = 2
