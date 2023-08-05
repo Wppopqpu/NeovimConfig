@@ -7,6 +7,7 @@ my neovim configuration
 download [Packer.nvim](https://github.com/wbthomason/packer.nvim)
 
 clone this repo
+
 add
 
     require(.....Entry.lua)
@@ -18,3 +19,20 @@ download [font](https://www.nerdfonts.com/font-downloads)
 for [instance](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.0/SpaceMono.zip)
 
     :PackerSync
+
+
+## Plugin List:
+
+- Packer.nvim: plugin manager
+- alpha-nvim: ui
+- tokyonight: theme
+- indent-blankline
+- gitsigns.nvim: show diff while editing
+- nvim-lspconfig
+- & mason ... (:Mason)
+- & cmp ... : lsp & auto completion
+- nvim-web-devicons: to show icons, used by other plugins
+- nvim-lualine: state bar
+- nvim-treesitter: highlight
+- nvim-tree: file explorer
+
