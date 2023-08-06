@@ -4,6 +4,8 @@ my neovim configuration
 
 ## How to use
 
+### Install
+
 download [Packer.nvim](https://github.com/wbthomason/packer.nvim)
 
 clone this repo
@@ -20,6 +22,22 @@ for [instance](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.0/
 
     :PackerSync
 
+### UpdatePlugin
+
+    :PackerSync
+
+    :MasonUpdate
+
+## If You Want to Get Better Lsp Experience
+
+- generate compile\_commands.json
+- switch you toolchain to clang (or llvm?),
+because we have clangd as cpp server
+
+for instance
+
+    xmake project -k compile_commands
+    xmake f --toolchain=clang
 
 ## Plugin List:
 
