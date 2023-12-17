@@ -41,13 +41,28 @@ return require( 'packer' ).startup(function( use )
 	use 'rafamadriz/friendly-snippets'
 	-- lspkind
 	use 'onsails/lspkind-nvim'
-
-	vim.cmd( 'colorscheme tokyonight' )
-	vim.opt.list = true
-	vim.opt.listchars:append "eol:↴"
-	require"indent_blankline".setup{
-    	show_end_of_line = true,
+	-- nvim-orgmode
+	use { 'nvim-orgmode/orgmode', config = function()
+		require'orgmode'.setup{}
+	end
 	}
+	vim.cmd( 'colorscheme tokyonight' )
+
+	--indent blankline
+	local highlight = {
+	    "CursorColumn",
+	    "Whitespace",
+	}
+
+	require("ibl").setup {
+	    indent = { highlight = highlight, char = "" },
+	    whitespace = {
+	        highlight = highlight,
+	        remove_blankline_trail = false,
+ 	   },
+	    scope = { enabled = false },
+	}
+
 
 	require'gitsigns'.setup{
 		signs = {
@@ -69,6 +84,8 @@ return require( 'packer' ).startup(function( use )
 		},
 	}
 
+	require'orgmode'.setup_ts_grammar()
+
 	require'nvim-treesitter.configs'.setup {
 		ensure_installed =
 		{ 'html'
@@ -79,11 +96,12 @@ return require( 'packer' ).startup(function( use )
 		, 'typescript'
 		, 'cpp'
 		, 'c'
+		, 'org'
 		, 'python'},
 
 	highlight = {
 		enabled = true,
-		additional_vim_regex_highlighting = false,
+		additional_vim_regex_highlighting = {'org'},
 		disable = function(lang, buf)
 			local max_filesize = 100 * 1024 -- 100 KB
 			local ok, stats = pcall(
@@ -94,6 +112,11 @@ return require( 'packer' ).startup(function( use )
 			end
 		end
 		},
+	}
+
+	require'orgmode'.setup {
+		org_agenda_files = {'~/Dropbox/org/*', '~/my-orgs/**/*'},
+		org_default_notes_file = '~Dropbox/org/refile.org',
 	}
 
 	require'nvim-tree'.setup {
@@ -133,9 +156,9 @@ return require( 'packer' ).startup(function( use )
 		sources = cmp.config.sources({
 				{ name = 'nvim_lsp' },
 				{ name = 'vsnip' },
-			}, {
+				{ name = 'orgmode' },
 				{ name = 'buffer' },
-				{ name = 'path' }
+				{ name = 'path' },
 			}
 		),
 		-- key bindings
@@ -215,5 +238,7 @@ return require( 'packer' ).startup(function( use )
 		end
 		--]]
 	}
+
+
 
 end)
