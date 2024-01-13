@@ -1,5 +1,5 @@
 -- Entry.lua
 
-require( 'Core.Options' )
-require( 'Core.KeyBindings' )
-require( 'Core.Plugins' )
+require'NeovimConfig.Core.Options'
+require'NeovimConfig.Core.plugins'
+require'NeovimConfig.Core.KeyBindings'

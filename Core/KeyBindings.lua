@@ -1,38 +1,32 @@
 -- KeyBindings.lua
-
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
-
-local map = vim.api.nvim_set_keymap
-local opt = { noremap = true, silent = true }
+-- only defines common key mappings
+local map = vim.keymap.set
 
 
-map( 'n', '<C-u>', '9k', opt )
-map( 'n', '<C-d>', '9j', opt )
 
-map( 'v', '<', '<gv', opt )
-map( 'v', '>', '>gv', opt )
+map('v', '<', '<gv', {desc='Adjust indent (less).'})
+map('v', '>', '>gv', {desc='Adjust indent (more).'})
 
 
 -- vertical
-map( 'n', 'sv', ':vsp<CR>', opt )
+map('n', 'sv', ':vsp<CR>', {desc='Split window (vertical).'})
 -- horizonal
-map( 'n', 'sh', ':sp<CR>', opt )
+map('n', 'sh', ':sp<CR>', {desc='Split window (horizonal).'})
 -- close current
-map( 'n', 'sc', '<C-w>c', opt )
+map('n', 'sc', '<C-w>c', {desc='Close current window.'})
 -- close others
-map( 'n', 'so', '<C-w>o', opt )
+map('n', 'so', '<C-w>o', {desc='Close other window.'})
 
-map( 'n', 's.', ':vertical resize +20<CR>', opt )
-map( 'n', 's,', ':vertical resize -20<CR>', opt )
-map( "n", "s=", "<C-w>=", opt )
-map( "n", "sj", ":resize +10<CR>",opt )
-map( "n", "sk", ":resize -10<CR>",opt )
+map('n', 's.', ':vertical resize +20<CR>', {desc='Vertical resize (+).'})
+map('n', 's,', ':vertical resize -20<CR>', {desc='Vertical resize (-).'} )
+map('n', 's=', '<C-w>=', {desc='Reset window size.'})
+map('n', 'sj', ':resize +10<CR>', {desc='Resize (+).'})
+map('n', 'sk', ':resize -10<CR>', {desc='Resize (-).'})
 
-map( "n", "<A-h>", "<C-w>h", opt )
-map( "n", "<A-j>", "<C-w>j", opt )
-map( "n", "<A-k>", "<C-w>k", opt )
-map( "n", "<A-l>", "<C-w>l", opt )
+map( 'n', '<A-h>', '<C-w>h', {desc='Change window (left).'})
+map( 'n', '<A-j>', '<C-w>j', {desc='Change window (right).'})
+map( 'n', '<A-k>', '<C-w>k', {desc='Change window (up).'})
+map( 'n', '<A-l>', '<C-w>l', {desc='Change window (down).'})
 
 -- Alt+m: open nvim tree menu
 -- o: open/close folder
@@ -42,6 +36,7 @@ map( "n", "<A-l>", "<C-w>l", opt )
 -- c: copy
 -- p: plaste
 -- d: delete
+--[[
 map('n', '<A-m>', ':NvimTreeToggle<CR>', opt)
 
 map('n', '<C-h>', ':BufferLineCyclePrev<CR>', opt)
@@ -91,3 +86,4 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 -- for the keybindings of nvim-cmp, v Core/Plugins.lua
+-- ]]

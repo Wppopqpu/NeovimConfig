@@ -1,4 +1,9 @@
 -- Options.lua
+
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
+
 -- line numbers
 vim.filetype.add{
 	extension = {
@@ -11,72 +16,76 @@ vim.filetype.add{
 
 vim.loader.enabled = true
 
-vim.o.number=true
+vim.opt.number=true
 
 -- relative line numbers : specifies the distance from the cursor
-vim.o.relativenumber = true
+vim.opt.relativenumber = true
 
 -- reserved space when moving
-vim.o.scrolloff = 8
-vim.o.sidescrolloff = 8
+vim.opt.scrolloff = 8
+vim.opt.sidescrolloff = 8
 
 -- tab settings
-vim.o.tabstop = 4
-vim.o.expandtab = false
-vim.o.autoindent = true
-vim.o.smartindent = true
+vim.opt.tabstop = 4
+vim.opt.expandtab = false
+vim.opt.autoindent = true
+vim.opt.smartindent = true
 
 -- shift adjustments
-vim.o.shiftwidth = 4
-vim.o.shiftround = true
+vim.opt.shiftwidth = 4
+vim.opt.shiftround = true
 
 -- cursor
-vim.o.cursorline = true
+vim.opt.cursorline = true
 
 
 -- auto read & write
-vim.o.autowrite = true
-vim.o.autoread = true
+vim.opt.autowrite = true
+vim.opt.autoread = true
 
 
-vim.o.laststatus = 2
+vim.opt.laststatus = 2
 
 -- sign column
-vim.o.signcolumn = 'yes'
+vim.opt.signcolumn = 'yes'
 
-vim.o.colorcolumn = '80'
+vim.opt.colorcolumn = '80'
 
 -- search
-vim.o.ignorecase = true
-vim.o.smartcase = true
-vim.o.hlsearch = true
-vim.o.incsearch = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.hlsearch = true
+vim.opt.incsearch = true
 
-vim.o.showmode = false
+vim.opt.showmode = false
 
 -- command
-vim.o.showcmd = true
-vim.o.cmdheight = 2
+vim.opt.showcmd = true
+vim.opt.cmdheight = 2
 
-vim.o.wrap = false
+vim.opt.wrap = false
 
-vim.o.whichwrap = 'b,s,<,>,[,],h,l'
 
-vim.o.hidden = true
+vim.opt.hidden = true
 
 -- no backup
-vim.o.swapfile = false
-vim.o.backup = false
-vim.o.writebackup = false
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.writebackup = false
 
-vim.o.updatetime = 300
+vim.opt.updatetime = 300
 
-vim.o.splitbelow = true
-vim.o.splitbelow = true
+vim.opt.splitbelow = true
 
-vim.o.background = "dark"
-vim.o.termguicolors = true
+vim.opt.background = "dark"
+vim.opt.termguicolors = true
 
 vim.wildmenu = false
 
-vim.o.showtabline = 2
+vim.opt.showtabline = 2
+
+
+vim.opt.mousemoveevent = true
+
+vim.opt.list = true
+vim.opt.listchars = { eol = '↲', trail = '·' }
