@@ -23,10 +23,12 @@ map('n', 's=', '<C-w>=', {desc='Reset window size.'})
 map('n', 'sj', ':resize +10<CR>', {desc='Resize (+).'})
 map('n', 'sk', ':resize -10<CR>', {desc='Resize (-).'})
 
-map( 'n', '<A-h>', '<C-w>h', {desc='Change window (left).'})
-map( 'n', '<A-j>', '<C-w>j', {desc='Change window (right).'})
-map( 'n', '<A-k>', '<C-w>k', {desc='Change window (up).'})
-map( 'n', '<A-l>', '<C-w>l', {desc='Change window (down).'})
+map('n', '<A-h>', '<C-w>h', {desc='Change window (left).'})
+map('n', '<A-j>', '<C-w>j', {desc='Change window (right).'})
+map('n', '<A-k>', '<C-w>k', {desc='Change window (up).'})
+map('n', '<A-l>', '<C-w>l', {desc='Change window (down).'})
+
+map('n', '<leader>l', ':set list!<CR>')
 
 -- Alt+m: open nvim tree menu
 -- o: open/close folder

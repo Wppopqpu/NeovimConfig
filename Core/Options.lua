@@ -87,5 +87,4 @@ vim.opt.showtabline = 2
 
 vim.opt.mousemoveevent = true
 
-vim.opt.list = true
-vim.opt.listchars = { eol = '↲', trail = '·' }
+vim.opt.listchars:prepend{ eol = '↲', trail = '·', tab = '<->' }
