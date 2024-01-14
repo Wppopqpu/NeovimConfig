@@ -32,12 +32,24 @@ return {
 				},
 			}
 
-			local map = vim.keymap.set
+			require'which-key'.register({
+				x = {
+					name = 'xmake',
+					i = { '<cmd>XmakeSetMenu<cr>', 'Open menu.' },
+					m = { '<cmd>XmakeSetMode<cr>', 'Select build mode.' },
+					t = { '<cmd>XmakeSetTarget<cr>', 'Set build target.' },
+					b = { '<cmd>XmakeBuild<cr>', 'Build.' },
+					c = { '<cmd>XmakClean<cr>', 'Clean.' },
+				},
+
+			}, { prefix = '<leader>' })
+			--[[
 			map('n', '<leader>xi', ':XmakeSetMenu<CR>')
 			map('n', '<leader>xm', ':XmakeSetMode<CR>')
 			map('n', '<leader>xt', ':XmakeSetTarget<CR>')
-			map('n', '<leader>xb', ':XmakeBuild')
-			map('n', '<leader>xc', ':XmakeClean')
+			map('n', '<leader>xb', ':XmakeBuild<CR>')
+			map('n', '<leader>xc', ':XmakeClean<CR>')
+			--]]
 		end,
 	},
 }

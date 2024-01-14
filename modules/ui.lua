@@ -78,6 +78,17 @@ return {
 						reveal = { 'close' },
 					},
 					separator_style = 'slant',
+					get_element_icon = function(element)
+						local icon, hl = require'nvim-web-devicons'
+							.get_icon_by_filetype(element.filetype
+								, { default = false })
+						return icon, hl
+					end,
+
+					numbers = function(opts)
+						return string.format('%s%s', opts.id
+							, opts.lower(opts.ordinal))
+					end,
 
 					offsets = {
 						{
@@ -92,7 +103,21 @@ return {
 			local map = vim.keymap.set
 			map('n', '<C-h>', ':BufferLineCyclePrev<CR>')
 			map('n', '<C-l>', ':BufferLineCycleNext<CR>')
+			map('n', '<leader>bp', ':BufferLinePick<CR>')
 		end,
+	},
+	{
+		'nvim-tree/nvim-tree.lua',
+		lazy = true,
+		dependencies = {
+			'nvim-tree/nvim-web-devicons'
+		},
+		config = function()
+			require'nvim-tree'.setup{}
+		end,
+		keys = {
+			{ '<A-m>', ':NvimTreeToggle<CR>' }
+		},
 	},
 
 }
