@@ -1,5 +1,5 @@
 return {
-	'lewis6991/gitsignes.nvim',
+	'lewis6991/gitsigns.nvim',
 	event = 'VeryLazy',
 	config = function()
 		local gs = require'gitsignes'
