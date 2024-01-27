@@ -117,10 +117,11 @@ return {
 		},
 		config = function()
 			require'nvim-tree'.setup{}
+			require'which-key'.register{
+				['<A-m>'] = { ':NvimTreeToggle<CR>', 'toggle file explorer' },
+			}
 		end,
-		keys = {
-			{ '<A-m>', ':NvimTreeToggle<CR>' }
-		},
+		event = 'VeryLazy',
 	},
 
 }
