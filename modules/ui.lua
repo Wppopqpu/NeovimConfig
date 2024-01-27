@@ -100,10 +100,13 @@ return {
 					},
 				},
 			}
-			local map = vim.keymap.set
-			map('n', '<C-h>', ':BufferLineCyclePrev<CR>')
-			map('n', '<C-l>', ':BufferLineCycleNext<CR>')
-			map('n', '<leader>bp', ':BufferLinePick<CR>')
+			local wk = require'which-key'
+			wk.register{
+				['<C-h>'] = { ':BufferLineCyclePrev<CR>', 'next buffer' },
+				['<C-l>'] = { ':BufferLineCycleNext<CR>', 'prev buffer' },
+				['<C-p>'] = { ':BufferLinePick<CR>', 'pick buffer' },
+				['<C-D>'] = { ':bdelete<CR>', 'delete buffer' },
+			}
 		end,
 	},
 	{
