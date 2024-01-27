@@ -2,7 +2,7 @@ return {
 	'lewis6991/gitsigns.nvim',
 	event = 'VeryLazy',
 	config = function()
-		local gs = require'gitsignes'
+		local gs = require'gitsigns'
 		gs.setup{
 			on_attach = function(buf)
 				local wk = require'which-key'
