@@ -36,7 +36,6 @@ return {
 						end
 					end,
 				},
-				indent = { enable = true },
 			}
 			vim.cmd':TSUpdate'
 		end,
