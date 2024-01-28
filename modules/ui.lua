@@ -105,7 +105,7 @@ return {
 				['<C-h>'] = { ':BufferLineCyclePrev<CR>', 'next buffer' },
 				['<C-l>'] = { ':BufferLineCycleNext<CR>', 'prev buffer' },
 				['<C-p>'] = { ':BufferLinePick<CR>', 'pick buffer' },
-				['<C-D>'] = { ':bdelete<CR>', 'delete buffer' },
+				['<C-x>'] = { ':bdelete<CR>', 'delete buffer' },
 			}
 		end,
 	},
