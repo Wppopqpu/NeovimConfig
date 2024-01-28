@@ -1,9 +1,32 @@
 -- KeyBindings.lua
 -- only defines common key mappings
-local map = vim.keymap.set
+local wk = require'which-key'
+wk.register{
+	s = {
+		name = 'multiwindow',
+		v = { ':vsp<CR>', 'split vertically' },
+		h = { ':sp<CR>', 'split horizonally' },
+		c = { '<C-w>c', 'close current one' },
+		o = { '<C-w>o', 'close others' },
+		t = { function()
+			vim.cmd'vsp'
+			vim.cmd('term bash '..vim.getcwd())
+		end, 'split bash window' },
+		j = { ':resize -10<CR>', 'resize (-)' },
+		k = { ':resize +10<CR>', 'resize (+)' },
+		[','] = { ':vertical resize -20<CR>', 'vertical resize (-)' },
+		['.'] = { ':vertical resize +20<CR>', 'vertical resize (+)' },
+	},
+}
+wk.register{
+	['<A-h>'] = { '<C-w>h', 'switch window (left)' },
+	['<A-j>'] = { '<C-w>j', 'switch window (down)' },
+	['<A-k>'] = { '<C-w>k', 'switch window (up)' },
+	['<A-l>'] = { '<C-w>l', 'switch window (right}' },
+	['<leader>l'] = { ':set !list<CR>', 'toggle list mode' },
+}
 
-
-
+--[[
 map('v', '<', '<gv', {desc='Adjust indent (less).'})
 map('v', '>', '>gv', {desc='Adjust indent (more).'})
 
@@ -29,6 +52,7 @@ map('n', '<A-k>', '<C-w>k', {desc='Change window (up).'})
 map('n', '<A-l>', '<C-w>l', {desc='Change window (down).'})
 
 map('n', '<leader>l', ':set list!<CR>')
+--]]
 
 -- Alt+m: open nvim tree menu
 -- o: open/close folder
