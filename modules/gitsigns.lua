@@ -37,7 +37,7 @@ return {
 					},
 				}, { prefix = '<leader>', buffer = buf })
 				wk.register({
-					H = {
+					h = {
 						name = 'Gitsignes.',
 						s = function()
 							gs.stage_hunk { vim.fn.line'.', vim.fn.line'v' }
@@ -46,7 +46,7 @@ return {
 							gs.reset_hunk { vim.fn.line'.', vim.fn.line'v' }
 						end,
 					},
-				}, { prefix = '<leader>', buffer = buf, mode = 'v' })
+				}, { prefix = '<leader>', buffer = buf, mode = {'v'} })
 				wk.register({
 					h = {
 						name = 'Gitsignes.',
