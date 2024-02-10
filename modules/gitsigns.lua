@@ -37,16 +37,16 @@ return {
 					},
 				}, { prefix = '<leader>', buffer = buf })
 				wk.register({
-					v = {
+					h = {
 						name = 'Gitsignes.',
-						s = function()
+						s = { function()
 							gs.stage_hunk { vim.fn.line'.', vim.fn.line'v' }
-						end,
-						r = function()
+						end, 'stage hunk' },
+						r = { function()
 							gs.reset_hunk { vim.fn.line'.', vim.fn.line'v' }
-						end,
+						end, 'reset hunk' },
 					},
-				}, { prefix = '<leader>', buffer = buf, mode = {'v'} })
+				}, { prefix = '<leader>', buffer = buf, mode = 'v' })
 				wk.register({
 					h = {
 						name = 'Gitsignes.',
