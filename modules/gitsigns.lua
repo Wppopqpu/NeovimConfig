@@ -37,7 +37,7 @@ return {
 					},
 				}, { prefix = '<leader>', buffer = buf })
 				wk.register({
-					h = {
+					v = {
 						name = 'Gitsignes.',
 						s = function()
 							gs.stage_hunk { vim.fn.line'.', vim.fn.line'v' }
