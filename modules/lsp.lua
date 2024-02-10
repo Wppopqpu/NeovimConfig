@@ -1,3 +1,17 @@
+local ensure_installed = {
+	'clangd',
+	'html',
+	'jsonls',
+	'ltex',
+	'lua_ls',
+	'pyre',
+	'tsserver',
+}
+
+if os.getenv'NVIM_LSP_AUTO_INSTALL' == 'no' then
+	ensure_installed = {}
+end
+
 return {
 	{
 		'williamboman/mason.nvim',
@@ -9,15 +23,7 @@ return {
 		lazy = true,
 		config = function()
 			require'mason-lspconfig'.setup{
-				ensure_installed = {
-					'clangd',
-					'html',
-					'jsonls',
-					'ltex',
-					'lua_ls',
-					'pyre',
-					'tsserver',
-				},
+				ensure_installed = ensure_installed,
 			}
 		end,
 	},
