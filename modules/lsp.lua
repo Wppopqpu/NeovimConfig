@@ -28,9 +28,6 @@ return {
 			require'mason'
 			require'mason-lspconfig'
 			local lspconfig = require'lspconfig'
-			for i, v in pairs(lspconfig.configs) do
-				lspconfig[i].setup{}
-			end
 		end
 	},
 	{
