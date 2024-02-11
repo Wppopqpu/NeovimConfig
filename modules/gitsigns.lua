@@ -28,12 +28,23 @@ return {
 						b = { function()
 							gs.blame_line{ full = true }
 						end, 'Blame line.'},
-						tb = { gs.toggle_current_line_blame, 'Current line blame' },
+						-- tb = { gs.toggle_current_line_blame, 'Current line blame' },
 						d = { gs.diffthis, 'Diff this.' },
 						D = { function()
 							gs.diffthis'~'
 						end, 'Diff this (~)' },
-						td = { gs.toggle_deleted, 'Toggle deleted.' },
+						-- td = { gs.toggle_deleted, 'Toggle deleted.' },
+						t = {
+							name = 'Toggle option',
+							b = {
+								gs.toggle_current_line_blame,
+								'Current line blame',
+							},
+							d = {
+								gs.toggle_deleted,
+								'Deleted',
+							},
+						},
 					},
 				}, { prefix = '<leader>', buffer = buf })
 				wk.register({
