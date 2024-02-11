@@ -28,7 +28,7 @@ return {
 						b = { function()
 							gs.blame_line{ full = true }
 						end, 'Blame line.'},
-						tb = { gs.toggle_current_line_blame, 'Current line bllame' },
+						tb = { gs.toggle_current_line_blame, 'Current line blame' },
 						d = { gs.diffthis, 'Diff this.' },
 						D = { function()
 							gs.diffthis'~'
