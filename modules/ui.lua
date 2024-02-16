@@ -1,3 +1,4 @@
+local hl = 'Statement'
 local startUpImage = {
 	'    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠤⠖⠚⢉⣩⣭⡭⠛⠓⠲⠦⣄⡀⠀⠀⠀⠀⠀⠀⠀  ',
 	'    ⠀⠀⠀⠀⠀⠀⢀⡴⠋⠁⠀⠀⠊⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠳⢦⡀⠀⠀⠀⠀  ',
@@ -56,6 +57,7 @@ return {
 						type = 'text',
 						val = startUpImage,
 						opts = {
+							hl = hl,
 							position = 'center',
 						},
 					},
