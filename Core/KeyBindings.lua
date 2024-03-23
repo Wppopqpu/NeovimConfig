@@ -1,6 +1,11 @@
 -- KeyBindings.lua
 -- only defines common key mappings
+
 local wk = require'which-key'
+-- if in initial start
+if wk==nil then
+	return
+end
 wk.register{
 	s = {
 		name = 'multiwindow',
