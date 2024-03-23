@@ -48,7 +48,7 @@ return {
 					'vimdoc',
 				},
 				highlight = {
-					enable = true, 
+					enable = true,
 					disabled = function(lang, buf)
 						local max = 100*1024
 						local ok, stats = pcall(vim.loop.fs_stat
