@@ -14,10 +14,6 @@ local expected = {
 	tsserver = {},
 }
 
-function startServer(name, config)
-	require'lspconfig'[name].setup(config)
-end
-
 
 
 return {
@@ -37,6 +33,13 @@ return {
 		config = function()
 			require'mason'
 			require'mason-lspconfig'
+
+
+			local lspconfig = require'lspconfig'
+
+			local startServer = function(name, config)
+				lspconfig[name].setup(config)
+			end
 
 			for k, v in pairs(expected) do
 				pcall(startServer, k, v)
