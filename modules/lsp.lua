@@ -1,16 +1,24 @@
-local ensure_installed = {
-	'clangd',
-	'html',
-	'jsonls',
-	'ltex',
-	'lua_ls',
-	'pyre',
-	'tsserver',
+local expected = {
+	clangd = {
+		settings = {
+			C_Cpp = {
+				defaultLanguageVersion = 'cpp20',
+			},
+		},
+	},
+	html = {},
+	jsonls = {},
+	ltex = {},
+	lua_ls = {},
+	pyre = {},
+	tsserver = {},
 }
 
-if os.getenv'NVIM_LSP_AUTO_INSTALL' == 'no' then
-	ensure_installed = {}
+function startServer(name, config)
+	require'lspconfig'[name].setup(config)
 end
+
+
 
 return {
 	{
@@ -21,11 +29,7 @@ return {
 	{
 		'williamboman/mason-lspconfig.nvim',
 		lazy = true,
-		config = function()
-			require'mason-lspconfig'.setup{
-				ensure_installed = ensure_installed,
-			}
-		end,
+		config = true
 	},
 	{
 		'neovim/nvim-lspconfig',
@@ -33,7 +37,10 @@ return {
 		config = function()
 			require'mason'
 			require'mason-lspconfig'
-			local lspconfig = require'lspconfig'
+
+			for k, v in pairs(expected) do
+				pcall(startServer, k, v)
+			end
 		end
 	},
 	{
