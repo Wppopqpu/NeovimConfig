@@ -25,6 +25,7 @@ return {
 		'neovim/nvim-lspconfig',
 		event = 'VeryLazy',
 		config = function()
+			-- load order solved there.
 			require'mason'
 			require'mason-lspconfig'
 
