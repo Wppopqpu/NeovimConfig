@@ -94,5 +94,14 @@ return {
 		},
 		event = 'VeryLazy',
 	},
+	-- auto kill lsp to free ram
+	{
+		'zeioth/garbage-day.nvim',
+		dependencies = 'neovim/nvim-lspconfig',
+		opts = {
+			-- time to wait before killing after nvim lose focus.
+			grace_period = 60*5,
+		},
+	},
 
 }
