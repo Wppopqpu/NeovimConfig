@@ -1,11 +1,5 @@
 local expected = {
-	clangd = {
-		settings = {
-			C_Cpp = {
-				defaultLanguageVersion = 'cpp20',
-			},
-		},
-	},
+	clangd = {},
 	html = {},
 	jsonls = {},
 	ltex = {},
