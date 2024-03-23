@@ -1,7 +1,28 @@
+-- file for treesitter to update at most once a day automatically.
+local dateFile = require'NeovimConfig.Core.lazypath'
+	..'ts_last_update_time.txt'
+
+local tsUpdate = function()
+	local date = vim.fn.strftime'%Y%m%d'
+
+	local file = io.open(dateFile, 'r+')
+	if file:read('*a') ~= date then
+		vim.cmd'TSUpdate'
+		file:seek('set', 0)
+		file:write(date)
+	end
+	file:close()
+end
+
 return {
 	{
 		'nvim-treesitter/nvim-treesitter',
 		event = 'VeryLazy',
+		build = function()
+			local file = io.open(dateFile, 'w+')
+			file.write'00000000'
+			file:close()
+		end,
 		config = function()
 			require'nvim-treesitter.install'.prefer_git = true
 			require'nvim-treesitter.configs'.setup{
@@ -37,7 +58,7 @@ return {
 					end,
 				},
 			}
-			vim.cmd':TSUpdate'
+			tsUpdate()
 		end,
 	},
 }
