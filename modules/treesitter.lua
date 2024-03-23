@@ -42,6 +42,7 @@ return {
 					'lua',
 					'make',
 					'markdown',
+					'markdown_inline', -- two markdown plugin are for lspsaga
 					'query',
 					'vim',
 					'vimdoc',

@@ -51,26 +51,41 @@ return {
 			}
 			local wk = require'which-key'
 			wk.register({
-				c = {
+				h = {
 					name = 'call hierarchy',
 					i = { ':Lspsaga incoming_calls<CR>', 'incoming' },
 					o = { ':Lspsaga outgoing_calls<CR>', 'outgoing' },
 				},
 				a = { ':Lspsaga code_action<CR>', 'code action' },
 				d = {
-					name = 'to defination',
+					name = 'defination',
 					p = {
-						name = '+peek',
+						name = 'peek',
 						f = { ':Lspsaga peek_defination<CR>' },
 						t = { ':Lspsaga peek_type_defination<CR>' },
 					},
 					g = {
-						name = '+go to',
+						name = 'go to',
 						f = { ':Lspsaga goto_defination<CR>' },
 						t = { ':Lspsaga goto_type_defination<CR>' },
 					},
+					o = { '<cmd>Lspsaga outline', 'symbols outline' },
+					r = { '<cmd>Lspsaga rename', 'rename' },
 				},
-			}, {prefix = '<leader'})
+				e = {
+					name = 'diagnostic',
+					j = { ':Lspsaga diagnostic_jump_next<CR>', 'next' },
+					k = { ':Lspsaga diagnostic_jump_prev<CR>', 'prev' },
+				},
+				f = { ':Lspsaga finder<CR>', 'lsp finder' },
+				t = { ':Lspsaga term_toggle<CR>', 'terminal' },
+
+
+			}, {prefix = '<leader>'})
+			wk.register({
+				K = { '<cmd>Lspsaga hover_doc', 'hover doc' },
+			},{})
+
 		end,
 		dependencies = {
 			'nvim-treesitter/nvim-treesitter',
