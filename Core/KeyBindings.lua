@@ -15,8 +15,8 @@ wk.register{
 		o = { '<C-w>o', 'close others' },
 		t = { function()
 			vim.cmd'vsp'
-			vim.cmd('term bash '..vim.getcwd())
-		end, 'split bash window' },
+			vim.cmd('term')
+		end, 'split shell window' },
 		j = { ':resize -10<CR>', 'resize (-)' },
 		k = { ':resize +10<CR>', 'resize (+)' },
 		[','] = { ':vertical resize -20<CR>', 'vertical resize (-)' },
