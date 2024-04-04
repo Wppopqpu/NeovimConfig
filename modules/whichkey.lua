@@ -6,6 +6,9 @@ return {
 			vim.opt.timeout = true
 			vim.opt.timeoutlen = 500
 		end,
-		config = true,
+		config = function()
+			require'which-key'.setup{}
+			require'NeovimConfig.Core.KeyBindings'
+		end,
 	},
 }
