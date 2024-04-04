@@ -100,7 +100,7 @@ return {
 		dependencies = 'neovim/nvim-lspconfig',
 		opts = {
 			-- time to wait before killing after nvim lose focus.
-			grace_period = 60*5,
+			grace_period = 60*15,
 		},
 	},
 
