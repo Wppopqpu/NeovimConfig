@@ -74,7 +74,6 @@ return {
 					k = { ':Lspsaga diagnostic_jump_prev<CR>', 'prev' },
 				},
 				f = { ':Lspsaga finder<CR>', 'lsp finder' },
-				t = { ':Lspsaga term_toggle<CR>', 'terminal' },
 
 
 			}, {prefix = '<leader>'})
@@ -85,7 +84,7 @@ return {
 			'nvim-tree/nvim-web-devicons',
 			'neovim/nvim-lspconfig',
 		},
-		event = 'VeryLazy',
+		event = 'LspAttach',
 	},
 	-- auto kill lsp to free ram
 	{
