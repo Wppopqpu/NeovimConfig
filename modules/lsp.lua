@@ -12,11 +12,6 @@ local expected = {
 
 return {
 	{
-		'williamboman/mason.nvim',
-		lazy = true,
-		config = true,
-	},
-	{
 		'williamboman/mason-lspconfig.nvim',
 		lazy = true,
 		config = true
