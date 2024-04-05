@@ -6,21 +6,25 @@ return {
 	{
 		'hrsh7th/cmp-nvim-lsp',
 		lazy = true,
+		event = 'VeryLazy',
 	},
 	{
 		'hrsh7th/cmp-buffer',
 		lazy = true,
+		event = 'VeryLazy',
 	},
 	{
 		'hrsh7th/cmp-path',
 		lazy = true,
+		event = 'VeryLazy',
 	},
 	{
 		'hrsh7th/cmp-cmdline',
 		lazy = true,
+		event = 'VeryLazy',
 	},
 	{
-		'hrsh7th/nvim-cmp',
+		'hrsh7th/nvim-cmp', -- load by lspconfig
 		lazy = true,
 		config = function()
 			local cmp = require'cmp'
@@ -83,9 +87,11 @@ return {
 	{
 		'hrsh7th/cmp-vsnip',
 		lazy = true,
+		event = 'VeryLazy',
 	},
 	{
 		'hrsh7th/vim-vsnip',
 		lazy = true,
+		event = 'VeryLazy',
 	},
 }
