@@ -27,6 +27,9 @@ wk.register{
 	['<A-l>'] = { '<C-w>l', 'switch window (right}' },
 	['<leader>l'] = { ':set !list<CR>', 'toggle list mode' },
 }
+wk.register({
+	['<esc>'] = { '<c-\\><c-n>', 'exit insert mode' },
+}, { mode = 't' })
 
 --[[
 map('v', '<', '<gv', {desc='Adjust indent (less).'})
