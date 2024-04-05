@@ -64,8 +64,8 @@ return {
 						f = { ':Lspsaga goto_defination<CR>' },
 						t = { ':Lspsaga goto_type_defination<CR>' },
 					},
-					o = { '<cmd>Lspsaga outline', 'symbols outline' },
-					r = { '<cmd>Lspsaga rename', 'rename' },
+					o = { '<cmd>Lspsaga outline<cr>', 'symbols outline' },
+					r = { '<cmd>Lspsaga rename<cr>', 'rename' },
 				},
 				e = {
 					name = 'diagnostic',
@@ -78,7 +78,7 @@ return {
 
 			}, {prefix = '<leader>'})
 			wk.register({
-				K = { '<cmd>Lspsaga hover_doc', 'hover doc' },
+				K = { '<cmd>Lspsaga hover_doc<cr>', 'hover doc' },
 			},{})
 
 		end,
