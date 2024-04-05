@@ -163,5 +163,10 @@ return {
 		end,
 		event = 'VeryLazy',
 	},
+	{
+		'echasnovski/mini.animate',
+		config = true,
+		event = 'VeryLazy',
+	},
 
 }
