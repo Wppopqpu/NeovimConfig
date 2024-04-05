@@ -1,5 +1,9 @@
 return {
 	{
+		'onsails/lspkind.nvim',
+		lazy = true,
+	},
+	{
 		'hrsh7th/cmp-nvim-lsp',
 		lazy = true,
 	},
@@ -20,8 +24,16 @@ return {
 		lazy = true,
 		config = function()
 			local cmp = require'cmp'
+			local lspkind = require'lspkind'
 
 			cmp.setup {
+				formatting = {
+					format = lspkind.cmp_format{
+						mode = 'symbol',
+						maxwidth = 50,
+						ellipsis_char = '...',
+					},
+				},
 				snippet = {
 					expand = function(args)
 						vim.fn['vsnip#anonymous'](args.body)
