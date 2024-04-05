@@ -108,7 +108,16 @@ return {
 				['<C-l>'] = { ':BufferLineCycleNext<CR>', 'prev buffer' },
 				['<C-p>'] = { ':BufferLinePick<CR>', 'pick buffer' },
 				['<C-x>'] = { ':bdelete<CR>', 'delete buffer' },
+				['<c-X>'] = { ':bdelete!<cr>', 'force delete buffer' },
 			}
+			wk.register({
+				b = {
+					name = 'bufferline operations',
+					x = { '<cmd>bdelete<cr>', 'close buffer' },
+					X = { '<cmd>bdelete!<cr>', 'force close buffer' },
+					t = { '<cmd>term<cr>', 'open terminal buffer' },
+				}
+			}, { prefix = '<leader>' })
 		end,
 	},
 	{
