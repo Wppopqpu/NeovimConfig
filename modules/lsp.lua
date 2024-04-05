@@ -28,6 +28,8 @@ return {
 			local lspconfig = require'lspconfig'
 
 			local startServer = function(name, config)
+				config.capabilities =
+					require'cmp_nvim_lsp'.default_capabilities()
 				lspconfig[name].setup(config)
 			end
 
