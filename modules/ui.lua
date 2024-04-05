@@ -136,8 +136,6 @@ return {
 				['<C-h>'] = { ':BufferLineCyclePrev<CR>', 'next buffer' },
 				['<C-l>'] = { ':BufferLineCycleNext<CR>', 'prev buffer' },
 				['<C-p>'] = { ':BufferLinePick<CR>', 'pick buffer' },
-				['<C-x>'] = { ':bdelete<CR>', 'delete buffer' },
-				['<c-X>'] = { ':bdelete!<cr>', 'force delete buffer' },
 			}
 			wk.register({
 				b = {
