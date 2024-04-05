@@ -18,6 +18,7 @@ return {
 	},
 	{
 		'neovim/nvim-lspconfig',
+		event = 'VeryLazy',
 		config = function()
 			-- load order solved there.
 			require'mason'
@@ -34,6 +35,13 @@ return {
 
 			for k, v in pairs(expected) do
 				pcall(startServer, k, v)
+			end
+
+			-- if nvim was start with a file arg,
+			-- i.e. the file was opened before lspconfig was setup,
+			-- we should manually start it.
+			if '' ~= vim.fn.expand'%p' then
+				vim.cmd'LspStart'
 			end
 		end
 	},
