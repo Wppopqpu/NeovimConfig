@@ -6,6 +6,8 @@ local expected = {
 	lua_ls = {},
 	pyre = {},
 	tsserver = {},
+	leanls = {},
+	lean3ls = {},
 }
 
 
