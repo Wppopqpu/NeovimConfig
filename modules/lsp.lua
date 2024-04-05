@@ -66,6 +66,7 @@ return {
 					},
 					o = { '<cmd>Lspsaga outline<cr>', 'symbols outline' },
 					r = { '<cmd>Lspsaga rename<cr>', 'rename' },
+					k = { '<cmd>Lspsaga hover_doc<cr>', 'hover doc' },
 				},
 				e = {
 					name = 'diagnostic',
@@ -77,9 +78,6 @@ return {
 
 
 			}, {prefix = '<leader>'})
-			wk.register({
-				K = { '<cmd>Lspsaga hover_doc<cr>', 'hover doc' },
-			},{})
 
 		end,
 		dependencies = {
