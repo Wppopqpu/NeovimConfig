@@ -1,11 +1,11 @@
 local expected = {
 	clangd = {},
-	-- html = {},
-	-- jsonls = {},
-	-- ltex = {},
-	-- lua_ls = {},
-	-- pyre = {},
-	-- tsserver = {},
+	html = {},
+	jsonls = {},
+	ltex = {},
+	lua_ls = {},
+	pyre = {},
+	tsserver = {},
 }
 
 
