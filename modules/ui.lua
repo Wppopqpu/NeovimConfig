@@ -99,6 +99,12 @@ return {
 							highlight = 'Directory',
 							text_align = 'center',
 						},
+						{
+							filetype = 'sagaoutline',
+							text = 'outline',
+							highlight = 'Directory',
+							text_align = 'center',
+						},
 					},
 				},
 			}
