@@ -94,6 +94,7 @@ return {
 			-- time to wait before killing after nvim lose focus.
 			grace_period = 60*15,
 		},
+		event = 'LspAttach',
 	},
 
 }
