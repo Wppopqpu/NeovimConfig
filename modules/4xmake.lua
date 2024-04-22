@@ -1,7 +1,13 @@
+local branch = "v2"
+if vim.system == nil then
+	branch = "v1"
+end
+
 return {
 	{
 		'Mythos-404/xmake.nvim',
 		lazy = true,
+		branch = branch,
 		event = 'BufReadPost xmake.lua',
 		dependencies = {
 			'MunifTanjim/nui.nvim',
