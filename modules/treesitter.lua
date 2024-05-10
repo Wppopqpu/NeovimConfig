@@ -49,6 +49,10 @@ return {
 				highlight = {
 					enable = true,
 					disabled = function(lang, buf)
+						if vim.env.NVIM_NO_CLANGD==nil
+							and (lang=='c' or lang=='cpp') then
+							return false
+						end
 						local max = 100*1024
 						local ok, stats = pcall(vim.loop.fs_stat
 							, vim.api.nvim_buf_get_name(buf))

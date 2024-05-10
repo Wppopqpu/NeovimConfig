@@ -1,14 +1,25 @@
-local expected = {
-	clangd = {},
-	html = {},
-	jsonls = {},
-	ltex = {},
-	lua_ls = {},
-	pyre = {},
-	tsserver = {},
-	leanls = {},
-	lean3ls = {},
-}
+local get_config = function()
+	return {
+		clangd = {
+			capabilities = {
+				textDocument = {
+					semanticHighlightingCapabilities = {
+						semanticHighlighting = true,
+					},
+				},
+			},
+			on_init = require'nvim-lsp-clangd-highlight'.on_init
+		},
+		html = {},
+		jsonls = {},
+		ltex = {},
+		lua_ls = {},
+		pyre = {},
+		tsserver = {},
+		leanls = {},
+		lean3ls = {},
+	}
+end
 
 
 
@@ -35,7 +46,7 @@ return {
 				lspconfig[name].setup(config)
 			end
 
-			for k, v in pairs(expected) do
+			for k, v in pairs(get_config()) do
 				pcall(startServer, k, v)
 			end
 
@@ -46,6 +57,10 @@ return {
 				vim.cmd'LspStart'
 			end
 		end
+	},
+	{
+		'adam-wolski/nvim-lsp-clangd-highlight',
+		lazy = true,
 	},
 	{
 		'nvimdev/lspsaga.nvim',
