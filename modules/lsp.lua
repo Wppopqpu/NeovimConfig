@@ -94,9 +94,6 @@ return {
 			-- if nvim was start with a file arg,
 			-- i.e. the file was opened before lspconfig was setup,
 			-- we should manually start it.
-			if '' ~= vim.fn.expand'%p' then
-				vim.cmd'LspStart'
-			end
 		end
 	},
 	{
