@@ -19,44 +19,44 @@ local get_config = function()
 		leanls = {},
 		lean3ls = {},
 	}
+	function on_attach(client, n_buffer)
+		local wk = require'which-key'
+		wk.register({
+			h = {
+				name = 'call hierarchy',
+				i = { ':Lspsaga incoming_calls<CR>', 'incoming' },
+				o = { ':Lspsaga outgoing_calls<CR>', 'outgoing' },
+			},
+			a = { ':Lspsaga code_action<CR>', 'code action' },
+			d = {
+				name = 'defination',
+				p = {
+					name = 'peek',
+					f = { ':Lspsaga peek_defination<CR>' },
+					t = { ':Lspsaga peek_type_defination<CR>' },
+				},
+				g = {
+					name = 'go to',
+					f = { ':Lspsaga goto_defination<CR>' },
+					t = { ':Lspsaga goto_type_defination<CR>' },
+				},
+				o = { '<cmd>Lspsaga outline<cr>', 'symbols outline' },
+				r = { '<cmd>Lspsaga rename<cr>', 'rename' },
+				k = { '<cmd>Lspsaga hover_doc<cr>', 'hover doc' },
+			},
+			e = {
+				name = 'diagnostic',
+				j = { ':Lspsaga diagnostic_jump_next<CR>', 'next' },
+				k = { ':Lspsaga diagnostic_jump_prev<CR>', 'prev' },
+			},
+			f = { ':Lspsaga finder<CR>', 'lsp finder' },
+
+		}, { prefix = '<leader>', buffer = n_buffer })
+
+	end
+
 	for _, each in pairs(config) do
-		each.on_attach = function(client, n_buffer)
-			local wk = require'which-key'
-					wk.register({
-						h = {
-							name = 'call hierarchy',
-							i = { ':Lspsaga incoming_calls<CR>', 'incoming' },
-							o = { ':Lspsaga outgoing_calls<CR>', 'outgoing' },
-						},
-						a = { ':Lspsaga code_action<CR>', 'code action' },
-						d = {
-							name = 'defination',
-								p = {
-								name = 'peek',
-								f = { ':Lspsaga peek_defination<CR>' },
-								t = { ':Lspsaga peek_type_defination<CR>' },
-							},
-							g = {
-								name = 'go to',
-								f = { ':Lspsaga goto_defination<CR>' },
-								t = { ':Lspsaga goto_type_defination<CR>' },
-							},
-							o = { '<cmd>Lspsaga outline<cr>', 'symbols outline' },
-							r = { '<cmd>Lspsaga rename<cr>', 'rename' },
-							k = { '<cmd>Lspsaga hover_doc<cr>', 'hover doc' },
-						},
-						e = {
-							name = 'diagnostic',
-							j = { ':Lspsaga diagnostic_jump_next<CR>', 'next' },
-							k = { ':Lspsaga diagnostic_jump_prev<CR>', 'prev' },
-						},
-						f = { ':Lspsaga finder<CR>', 'lsp finder' },
-
-
-					}, { prefix = '<leader>', buffer = n_buffer })
-
-
-		end
+		each.on_attach = on_attach
 	end
 
 	return config
