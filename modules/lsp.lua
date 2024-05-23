@@ -24,21 +24,21 @@ local get_config = function()
 		wk.register({
 			h = {
 				name = 'call hierarchy',
-				i = { ':Lspsaga incoming_calls<CR>', 'incoming' },
-				o = { ':Lspsaga outgoing_calls<CR>', 'outgoing' },
+				i = { '<cmd>Lspsaga incoming_calls<CR>', 'incoming' },
+				o = { '<cmd>Lspsaga outgoing_calls<CR>', 'outgoing' },
 			},
-			a = { ':Lspsaga code_action<CR>', 'code action' },
+			a = { '<cmd>Lspsaga code_action<CR>', 'code action' },
 			d = {
-				name = 'defination',
+				name = 'definition',
 				p = {
 					name = 'peek',
-					f = { ':Lspsaga peek_defination<CR>' },
-					t = { ':Lspsaga peek_type_defination<CR>' },
+					f = { '<cmd>Lspsaga peek_definition<CR>', "definition" },
+					t = { '<cmd>Lspsaga peek_type_definition<CR>', "type definition" },
 				},
 				g = {
 					name = 'go to',
-					f = { ':Lspsaga goto_defination<CR>' },
-					t = { ':Lspsaga goto_type_defination<CR>' },
+					f = { '<cmd>Lspsaga goto_definition<CR>', "definition" },
+					t = { '<cmd>Lspsaga goto_type_definition<CR>', "type definition" },
 				},
 				o = { '<cmd>Lspsaga outline<cr>', 'symbols outline' },
 				r = { '<cmd>Lspsaga rename<cr>', 'rename' },
@@ -46,10 +46,10 @@ local get_config = function()
 			},
 			e = {
 				name = 'diagnostic',
-				j = { ':Lspsaga diagnostic_jump_next<CR>', 'next' },
-				k = { ':Lspsaga diagnostic_jump_prev<CR>', 'prev' },
+				j = { '<cmd>Lspsaga diagnostic_jump_next<CR>', 'next' },
+				k = { '<cmd>Lspsaga diagnostic_jump_prev<CR>', 'prev' },
 			},
-			f = { ':Lspsaga finder<CR>', 'lsp finder' },
+			f = { '<cmd>Lspsaga finder<CR>', 'lsp finder' },
 
 		}, { prefix = '<leader>', buffer = n_buffer })
 
