@@ -30,19 +30,14 @@ local get_config = function()
 			a = { '<cmd>Lspsaga code_action<CR>', 'code action' },
 			d = {
 				name = 'definition',
-				p = {
-					name = 'peek',
-					f = { '<cmd>Lspsaga peek_definition<CR>', "definition" },
-					t = { '<cmd>Lspsaga peek_type_definition<CR>', "type definition" },
-				},
-				g = {
-					name = 'go to',
-					f = { '<cmd>Lspsaga goto_definition<CR>', "definition" },
-					t = { '<cmd>Lspsaga goto_type_definition<CR>', "type definition" },
-				},
+				p = { '<cmd>Lspsaga peek_definition<CR>', "peek definition" },
+				P = { '<cmd>Lspsaga peek_type_definition<CR>', "peek type definition" },
+				g = { '<cmd>Lspsaga goto_definition<CR>', "goto definition" },
+				G = { '<cmd>Lspsaga goto_type_definition<CR>', "goto type definition" },
 				o = { '<cmd>Lspsaga outline<cr>', 'symbols outline' },
 				r = { '<cmd>Lspsaga rename<cr>', 'rename' },
 				k = { '<cmd>Lspsaga hover_doc<cr>', 'hover doc' },
+				K = { "<cmd>Lspsaga hover_doc ++keep<cr>", "hover doc (keep)" },
 			},
 			e = {
 				name = 'diagnostic',
