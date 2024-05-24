@@ -159,6 +159,11 @@ return {
 		event = 'VeryLazy',
 	},
 	{
+		"lewis6991/satellite.nvim",
+		config = true,
+		event = "VeryLazy",
+	},
+	{
 		'echasnovski/mini.animate',
 		config = true,
 		event = 'VeryLazy',
