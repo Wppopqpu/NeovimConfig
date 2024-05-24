@@ -61,7 +61,7 @@ vim.opt.incsearch = true
 vim.opt.showmode = false
 
 -- command
-vim.opt.showcmd = true
+vim.opt.cmdheight = 0
 
 vim.opt.wrap = false
 
