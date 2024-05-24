@@ -86,6 +86,5 @@ vim.wildmenu = false
 vim.opt.showtabline = 2
 
 
-vim.opt.mousemoveevent = true
 
 vim.opt.listchars:prepend{ eol = '↲', trail = '·', tab = '<->' }

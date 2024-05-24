@@ -99,11 +99,6 @@ return {
 		config = function()
 			require'bufferline'.setup {
 				options = {
-					hover = {
-						enable = true,
-						delay = 200,
-						reveal = { 'close' },
-					},
 					separator_style = 'slant',
 					get_element_icon = function(element)
 						local icon, hl = require'nvim-web-devicons'
