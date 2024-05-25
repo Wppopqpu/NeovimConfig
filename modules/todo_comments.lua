@@ -10,7 +10,7 @@ return {
 					name = "todo comments",
 					["["] = { todo.jump_prev, "previos" },
 					["]"] = { todo.jump_next, "next" },
-					l = { "<cmd>TodoTrouble", "list" },
+					l = { "<cmd>TodoTrouble<cr>", "list" },
 				}
 			}, { prefix = "<leader>" })
 		end,
