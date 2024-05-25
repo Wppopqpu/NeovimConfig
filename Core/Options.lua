@@ -87,3 +87,6 @@ vim.opt.showtabline = 2
 
 
 vim.opt.listchars:prepend{ eol = '↲', trail = '·', tab = '<->' }
+
+-- integrate with system clipboard
+vim.opt.clipboard:append{ "unnamedplus" }
