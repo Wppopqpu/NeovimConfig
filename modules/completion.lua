@@ -24,6 +24,10 @@ return {
 		event = 'VeryLazy',
 	},
 	{
+		"hrsh7th/cmp-emoji",
+		event = "VeryLazy",
+	},
+	{
 		'hrsh7th/nvim-cmp', -- load by lspconfig
 		lazy = true,
 		config = function()
@@ -53,6 +57,7 @@ return {
 				sources = cmp.config.sources({
 					{ name = 'nvim_lsp' },
 					{ name = 'vsnip' },
+					{ name = "emoji" },
 				}, {
 					{ name = 'buffer' },
 				}),
