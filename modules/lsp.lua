@@ -50,8 +50,15 @@ local get_config = function()
 
 	end
 
+
+	-- use cmp's default capabilities
 	for _, each in pairs(config) do
 		each.on_attach = on_attach
+		local capabilities = require("cmp_nvim_lsp").default_capabilities()
+		if nil ~= each.capabilities then
+			table.merge(capabilities, each.capabilities)
+			each.capabilities = capabilities
+		end
 	end
 
 	return config
