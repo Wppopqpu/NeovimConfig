@@ -64,7 +64,7 @@ return {
 		event = "VeryLazy",
 		dependencies = { 'nvim-tree/nvim-web-devicons' },
 		config = true,
-			
+		priority = 300,	
 	},
 	{
 		'goolord/alpha-nvim',
@@ -143,6 +143,7 @@ return {
 				}
 			}, { prefix = '<leader>' })
 		end,
+		priority = 300,
 	},
 	{
 		'nvim-tree/nvim-tree.lua',
