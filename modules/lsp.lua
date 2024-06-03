@@ -128,5 +128,17 @@ return {
 		},
 		event = 'LspAttach',
 	},
+	{
+		"danymat/neogen",
+		config = function()
+			require("neogen").setup{}
+
+			require("which-key").register({
+				dn = { "<cmd>Neogen<cr>", "create doc" },
+			}, { prefix = "<leader>" })
+		end,
+		event = "VeryLazy",
+	},
+
 
 }
