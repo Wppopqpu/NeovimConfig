@@ -52,13 +52,15 @@ local get_config = function()
 
 
 	-- use cmp's default capabilities
+	local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+	local default = {
+		on_attach = on_attach,
+		capabilities = capabilities,
+	}
+
 	for _, each in pairs(config) do
-		each.on_attach = on_attach
-		local capabilities = require("cmp_nvim_lsp").default_capabilities()
-		if nil ~= each.capabilities then
-			table.merge(capabilities, each.capabilities)
-			each.capabilities = capabilities
-		end
+		each = vim.tbl_deep_extend("keep", each, default)
 	end
 
 	return config
