@@ -38,6 +38,7 @@ return {
 					'git_rebase',
 					'javascript',
 					'json',
+					"jsonc", -- required by neoconf setting file
 					'lua',
 					'make',
 					'markdown',
