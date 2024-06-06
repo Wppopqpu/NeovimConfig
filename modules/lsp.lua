@@ -136,7 +136,7 @@ return {
 			require("neogen").setup{}
 
 			require("which-key").register({
-				dn = { "<cmd>Neogen<cr>", "create doc" },
+				n = { "<cmd>Neogen<cr>", "create doc" },
 			}, { prefix = "<leader>" })
 		end,
 		event = "VeryLazy",
