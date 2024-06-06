@@ -1,7 +1,12 @@
 return {
 	{
 		"folke/neoconf.nvim",
-		config = true,
-		priority = 1000
+		config = function()
+			require("neoconf").setup{}
+
+			require("NeovimConfig.details.lsp_setup").setup()
+		end,
+		priority = 1000,
+		event = "VeryLazy",
 	},
 }

@@ -50,7 +50,7 @@ return {
 				highlight = {
 					enable = true,
 					disabled = function(lang, buf)
-						if vim.env.NVIM_NO_CLANGD==nil
+						if require("NeovimConfig.details.lsp_disable"):has("clangd")
 							and (lang=='c' or lang=='cpp') then
 							return true
 						end
