@@ -69,7 +69,7 @@ local get_config = function()
 	return config
 end
 
-local startServer = function(name, config)
+local config_server = function(name, config)
 	local lspconfig = require'lspconfig'
 
 	config.capabilities =
@@ -85,7 +85,7 @@ function M.setup()
 
 	for k, v in pairs(get_config()) do
 		if not disabled:has(k) then
-			startServer(k, v)
+			config_server(k, v)
 		end
 	end
 
