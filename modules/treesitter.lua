@@ -31,6 +31,7 @@ return {
 					'cmake',
 					'cpp',
 					'csv',
+					"doxygen",
 					'gitattributes',
 					'gitcommit',
 					'gitignore',
