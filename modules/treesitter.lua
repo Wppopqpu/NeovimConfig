@@ -63,6 +63,9 @@ return {
 						end
 					end,
 				},
+				incremental_selection = {
+					enable = true,
+				},
 			}
 		end,
 	},
