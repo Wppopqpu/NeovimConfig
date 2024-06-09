@@ -28,6 +28,11 @@ return {
 		event = "VeryLazy",
 	},
 	{
+		"petertriho/cmp-git",
+		config = true,
+		event = "VeryLazy",
+	},
+	{
 		'hrsh7th/nvim-cmp', -- load by lspconfig
 		lazy = true,
 		config = function()
