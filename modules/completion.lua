@@ -66,6 +66,7 @@ return {
 					{ name = "emoji" },
 				}, {
 					{ name = 'buffer' },
+					{ name = "path" },
 				}),
 			}
 
