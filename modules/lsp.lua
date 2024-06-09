@@ -45,5 +45,25 @@ return {
 		},
 		event = 'LspAttach',
 	},
+	{
+		"folke/lazydev.nvim",
+		event = "VeryLazy",
+		dependencies = { "Bilal2453/luvit-meta" },
+		enabled = function()
+			-- only enable when supported
+			local version = vim.version()
+			if version.major == 0 and version.minor < 10 then
+				return false
+			end
+			return true
 
+		end,
+		config = function()
+			require("lazydev").setup {
+				library = {
+					{ path = "luvit-meta/library", words = { "vim%.uv" } },
+				},
+			}
+		end,
+	},
 }

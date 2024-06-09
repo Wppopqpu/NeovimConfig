@@ -55,6 +55,7 @@ return {
 					['<cr>'] = cmp.mapping.confirm{ select = true },
 				},
 				sources = cmp.config.sources({
+					{ name = "lazydev", group_index=0 },
 					{ name = 'nvim_lsp' },
 					{ name = 'vsnip' },
 					{ name = "emoji" },
