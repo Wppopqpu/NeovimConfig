@@ -75,6 +75,7 @@ return {
 					{ name = 'git' },
 				}, {
 					{ name = 'buffer' },
+					{ name = "path" },
 				}),
 			})
 
