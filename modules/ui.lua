@@ -151,7 +151,29 @@ return {
 			'nvim-tree/nvim-web-devicons'
 		},
 		config = function()
-			require'nvim-tree'.setup{}
+			require'nvim-tree'.setup{
+				on_attach = function(bufnr)
+					local wk = require("which-key")
+					local preview = require("nvim-tree-preview")
+					local api = require("nvim-tree.api")
+
+					wk.register({
+						P = { preview.watch, "nvim-tree: open preview" },
+						["<esc>"] = { preview.unwatch, "nvim-tree: close preview" },
+						-- smart tab behavior: only preview files, expand/collapse directories (recommended)
+						["<tab>"] = {function()
+							local ok, node = pcall(api.tree.get_node_under_cursor)
+							if ok and node then
+								if node.type == 'directory' then
+									api.node.open.edit()
+								else
+									preview.node(node, { toggle_focus = true })
+								end
+							end
+						end, "Preview" },
+					}, { buffer = bufnr, nowait = true })
+				end,
+			} -- setup
 			on_lazy.register(function()
 				require'which-key'.register{
 					['<A-m>'] = { ':NvimTreeToggle<CR>', 'toggle file explorer' },
@@ -159,6 +181,14 @@ return {
 			end)
 		end,
 	},
+	{
+		"b0o/nvim-tree-preview.lua",
+		config = true,
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+	},
+
 	{
 		"lewis6991/satellite.nvim",
 		config = true,
