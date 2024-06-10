@@ -107,4 +107,8 @@ return {
 		lazy = true,
 		event = 'VeryLazy',
 	},
+	{
+		"rafamadriz/friendly-snippets",
+		event = "VeryLazy",
+	},
 }
