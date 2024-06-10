@@ -1,40 +1,29 @@
-local ensure_installed = {
-	'clangd',
-	'html',
-	'jsonls',
-	'ltex',
-	'lua_ls',
-	'pyre',
-	'tsserver',
-}
 
-if os.getenv'NVIM_LSP_AUTO_INSTALL' == 'no' then
-	ensure_installed = {}
-end
 
 return {
 	{
-		'williamboman/mason.nvim',
-		lazy = true,
-		config = true,
-	},
-	{
 		'williamboman/mason-lspconfig.nvim',
 		lazy = true,
-		config = function()
-			require'mason-lspconfig'.setup{
-				ensure_installed = ensure_installed,
-			}
-		end,
+		config = true
 	},
 	{
 		'neovim/nvim-lspconfig',
 		event = 'VeryLazy',
 		config = function()
+			-- load order solved there.
 			require'mason'
 			require'mason-lspconfig'
-			local lspconfig = require'lspconfig'
-		end
+			-- neoconf must be setup before setting up servers.
+			require"neoconf"
+
+		end,
+		init = function()
+			require("NeovimConfig.details.on_lazy").register(require("NeovimConfig.details.lsp_setup").setup)
+		end,
+	},
+	{
+		'adam-wolski/nvim-lsp-clangd-highlight',
+		lazy = true,
 	},
 	{
 		'nvimdev/lspsaga.nvim',
@@ -44,35 +33,43 @@ return {
 					extend_gitsigns = true,
 				},
 			}
-			local wk = require'which-key'
-			wk.register({
-				c = {
-					name = 'call hierarchy',
-					i = { ':Lspsaga incoming_calls<CR>', 'incoming' },
-					o = { ':Lspsaga outgoing_calls<CR>', 'outgoing' },
-				},
-				a = { ':Lspsaga code_action<CR>', 'code action' },
-				d = {
-					name = 'to defination',
-					p = {
-						name = '+peek',
-						f = { ':Lspsaga peek_defination<CR>' },
-						t = { ':Lspsaga peek_type_defination<CR>' },
-					},
-					g = {
-						name = '+go to',
-						f = { ':Lspsaga goto_defination<CR>' },
-						t = { ':Lspsaga goto_type_defination<CR>' },
-					},
-				},
-			}, {prefix = '<leader'})
 		end,
 		dependencies = {
 			'nvim-treesitter/nvim-treesitter',
 			'nvim-tree/nvim-web-devicons',
 			'neovim/nvim-lspconfig',
 		},
-		event = 'VeryLazy',
+		event = 'LspAttach',
 	},
+	-- auto kill lsp to free ram
+	{
+		'zeioth/garbage-day.nvim',
+		dependencies = 'neovim/nvim-lspconfig',
+		opts = {
+			-- time to wait before killing after nvim lose focus.
+			grace_period = 60*15,
+		},
+		event = 'LspAttach',
+	},
+	{
+		"folke/lazydev.nvim",
+		event = "VeryLazy",
+		dependencies = { "Bilal2453/luvit-meta" },
+		enabled = function()
+			-- only enable when supported
+			local version = vim.version()
+			if version.major == 0 and version.minor < 10 then
+				return false
+			end
+			return true
 
+		end,
+		config = function()
+			require("lazydev").setup {
+				library = {
+					{ path = "luvit-meta/library", words = { "vim%.uv" } },
+				},
+			}
+		end,
+	},
 }

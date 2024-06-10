@@ -1,6 +1,8 @@
 -- KeyBindings.lua
 -- only defines common key mappings
+
 local wk = require'which-key'
+-- if in initial start
 wk.register{
 	s = {
 		name = 'multiwindow',
@@ -10,8 +12,8 @@ wk.register{
 		o = { '<C-w>o', 'close others' },
 		t = { function()
 			vim.cmd'vsp'
-			vim.cmd('term bash '..vim.getcwd())
-		end, 'split bash window' },
+			vim.cmd('term')
+		end, 'split shell window' },
 		j = { ':resize -10<CR>', 'resize (-)' },
 		k = { ':resize +10<CR>', 'resize (+)' },
 		[','] = { ':vertical resize -20<CR>', 'vertical resize (-)' },
@@ -25,6 +27,9 @@ wk.register{
 	['<A-l>'] = { '<C-w>l', 'switch window (right}' },
 	['<leader>l'] = { ':set !list<CR>', 'toggle list mode' },
 }
+wk.register({
+	['<esc>'] = { '<c-\\><c-n>', 'exit insert mode' },
+}, { mode = 't' })
 
 --[[
 map('v', '<', '<gv', {desc='Adjust indent (less).'})

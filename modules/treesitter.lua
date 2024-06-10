@@ -1,7 +1,27 @@
+-- file for treesitter to update at most once a day automatically.
+local dateFile = require'NeovimConfig.Core.lazypath'
+	..'ts_last_update_time.txt'
+--[[
+local tsUpdate = function()
+	local date = vim.fn.strftime'%Y%m%d'
+
+	local file = io.open(dateFile, 'r+')
+	if file:read('*a') ~= date then
+		vim.cmd'TSUpdate'
+		file:seek('set', 0)
+		file:write(date)
+	end
+	file:close()
+end
+--]]
+
 return {
 	{
 		'nvim-treesitter/nvim-treesitter',
 		event = 'VeryLazy',
+		build = function()
+			vim.cmd'TSUpdate'
+		end,
 		config = function()
 			require'nvim-treesitter.install'.prefer_git = true
 			require'nvim-treesitter.configs'.setup{
@@ -11,6 +31,7 @@ return {
 					'cmake',
 					'cpp',
 					'csv',
+					"doxygen",
 					'gitattributes',
 					'gitcommit',
 					'gitignore',
@@ -18,16 +39,22 @@ return {
 					'git_rebase',
 					'javascript',
 					'json',
+					"jsonc", -- required by neoconf setting file
 					'lua',
 					'make',
 					'markdown',
+					'markdown_inline', -- two markdown plugin are for lspsaga
 					'query',
 					'vim',
 					'vimdoc',
 				},
 				highlight = {
-					enable = true, 
+					enable = true,
 					disabled = function(lang, buf)
+						if require("NeovimConfig.details.lsp_disable"):has("clangd")
+							and (lang=='c' or lang=='cpp') then
+							return true
+						end
 						local max = 100*1024
 						local ok, stats = pcall(vim.loop.fs_stat
 							, vim.api.nvim_buf_get_name(buf))
@@ -36,8 +63,10 @@ return {
 						end
 					end,
 				},
+				incremental_selection = {
+					enable = true,
+				},
 			}
-			vim.cmd':TSUpdate'
 		end,
 	},
 }

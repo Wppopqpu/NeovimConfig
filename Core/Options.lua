@@ -61,8 +61,7 @@ vim.opt.incsearch = true
 vim.opt.showmode = false
 
 -- command
-vim.opt.showcmd = true
-vim.opt.cmdheight = 2
+vim.opt.cmdheight = 0
 
 vim.opt.wrap = false
 
@@ -86,6 +85,8 @@ vim.wildmenu = false
 vim.opt.showtabline = 2
 
 
-vim.opt.mousemoveevent = true
 
 vim.opt.listchars:prepend{ eol = '↲', trail = '·', tab = '<->' }
+
+-- integrate with system clipboard
+vim.opt.clipboard:append{ "unnamedplus" }

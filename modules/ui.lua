@@ -1,3 +1,5 @@
+local on_lazy = require("NeovimConfig.details.on_lazy")
+
 local hl = 'Statement'
 local startUpImage = {
 	'    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠤⠖⠚⢉⣩⣭⡭⠛⠓⠲⠦⣄⡀⠀⠀⠀⠀⠀⠀⠀  ',
@@ -37,10 +39,32 @@ return {
 		config = true,
 	},
 	{
+		'folke/noice.nvim',
+		event = 'VeryLazy',
+		opts = {
+			lsp = {
+				override = {
+					['vim.lsp.util.convert_input_to_markdown'] = true,
+					['vim.lsp.util.stylize_markdown'] = true,
+					['cmp.entry.get_documentation'] = true,
+				},
+			},
+
+			presets = {
+				bottom_search = true,
+				command_palette = true,
+				long_message_to_split = true,
+			},
+		},
+		dependencies = {
+			'MunifTanjim/nui.nvim',
+			'rcarriga/nvim-notify',
+		}
+	},
+	{
 		'nvim-lualine/lualine.nvim',
 		dependencies = { 'nvim-tree/nvim-web-devicons' },
 		config = true,
-			
 	},
 	{
 		'goolord/alpha-nvim',
@@ -74,11 +98,6 @@ return {
 		config = function()
 			require'bufferline'.setup {
 				options = {
-					hover = {
-						enable = true,
-						delay = 200,
-						reveal = { 'close' },
-					},
 					separator_style = 'slant',
 					get_element_icon = function(element)
 						local icon, hl = require'nvim-web-devicons'
@@ -95,34 +114,66 @@ return {
 					offsets = {
 						{
 							filetype = 'NvimTree',
-							text = 'Explorer',
+							text = 'explorer',
+							highlight = 'Directory',
+							text_align = 'center',
+						},
+						{
+							filetype = 'sagaoutline',
+							text = 'outline',
 							highlight = 'Directory',
 							text_align = 'center',
 						},
 					},
 				},
 			}
-			local wk = require'which-key'
-			wk.register{
-				['<C-h>'] = { ':BufferLineCyclePrev<CR>', 'next buffer' },
-				['<C-l>'] = { ':BufferLineCycleNext<CR>', 'prev buffer' },
-				['<C-p>'] = { ':BufferLinePick<CR>', 'pick buffer' },
-				['<C-x>'] = { ':bdelete<CR>', 'delete buffer' },
-			}
+			on_lazy.register(function()
+				local wk = require'which-key'
+				wk.register{
+					['<C-h>'] = { ':BufferLineCyclePrev<CR>', 'next buffer' },
+					['<C-l>'] = { ':BufferLineCycleNext<CR>', 'prev buffer' },
+					['<C-p>'] = { ':BufferLinePick<CR>', 'pick buffer' },
+				}
+				wk.register({
+					b = {
+						name = 'bufferline operations',
+						x = { '<cmd>bdelete<cr>', 'close buffer' },
+						X = { '<cmd>bdelete!<cr>', 'force close buffer' },
+						t = { '<cmd>term<cr>', 'open terminal buffer' },
+					}
+				}, { prefix = '<leader>' })
+			end)
 		end,
 	},
 	{
 		'nvim-tree/nvim-tree.lua',
-		lazy = true,
 		dependencies = {
 			'nvim-tree/nvim-web-devicons'
 		},
 		config = function()
 			require'nvim-tree'.setup{}
-			require'which-key'.register{
-				['<A-m>'] = { ':NvimTreeToggle<CR>', 'toggle file explorer' },
-			}
+			on_lazy.register(function()
+				require'which-key'.register{
+					['<A-m>'] = { ':NvimTreeToggle<CR>', 'toggle file explorer' },
+				}
+			end)
 		end,
+	},
+	{
+		"lewis6991/satellite.nvim",
+		config = true,
+		event = "VeryLazy",
+		enabled = function()
+			local version = vim.version()
+			if version.major == 0 and version.minor < 10 then
+				return false
+			end
+			return true
+		end,
+	},
+	{
+		'echasnovski/mini.animate',
+		config = true,
 		event = 'VeryLazy',
 	},
 
