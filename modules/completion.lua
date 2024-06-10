@@ -6,35 +6,31 @@ return {
 	{
 		'hrsh7th/cmp-nvim-lsp',
 		lazy = true,
-		event = 'VeryLazy',
 	},
 	{
 		'hrsh7th/cmp-buffer',
 		lazy = true,
-		event = 'VeryLazy',
 	},
 	{
 		'hrsh7th/cmp-path',
 		lazy = true,
-		event = 'VeryLazy',
 	},
 	{
 		'hrsh7th/cmp-cmdline',
 		lazy = true,
-		event = 'VeryLazy',
 	},
 	{
 		"hrsh7th/cmp-emoji",
-		event = "VeryLazy",
+		lazy = true,
 	},
 	{
 		"petertriho/cmp-git",
+		lazy = true,
 		config = true,
-		event = "VeryLazy",
 	},
 	{
-		'hrsh7th/nvim-cmp', -- load by lspconfig
-		lazy = true,
+		'hrsh7th/nvim-cmp',
+		event = "VeryLazy",
 		config = function()
 			local cmp = require'cmp'
 			local lspkind = require'lspkind'
@@ -95,7 +91,18 @@ return {
     			}),
     			matching = { disallow_symbol_nonprefix_matching = false },
 			})
-		end
+		end,
+		dependencies = {
+			"hrsh7th/cmp-path",
+			"petertriho/cmp-git",
+			"hrsh7th/cmp-emoji",
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-cmdline",
+			"hrsh7th/cmp-nvim-lsp",
+			"onsails/lspkind.nvim",
+			"L3MON4D3/LuaSnip",
+			"saadparwaiz1/cmp_luasnip",
+		},
 	},
 --[[
 	{
@@ -111,8 +118,7 @@ return {
 --]]
 	{
 		"L3MON4D3/LuaSnip",
-		event = "VeryLazy",
-
+		lazy = true,
 		-- see the doc of friendly-snippets
 		dependencies = { "rafamadriz/friendly-snippets" },
 		config = function()
@@ -121,7 +127,7 @@ return {
 	},
 	{
 		"saadparwaiz1/cmp_luasnip",
-		event = "VeryLazy",
+		lazy = true,
 	},
 	{
 		"rafamadriz/friendly-snippets",
