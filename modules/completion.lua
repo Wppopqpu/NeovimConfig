@@ -49,7 +49,7 @@ return {
 				},
 				snippet = {
 					expand = function(args)
-						vim.fn['vsnip#anonymous'](args.body)
+						require("luasnip").lsp_expand(args.body)
 					end,
 				},
 				mapping = cmp.mapping.preset.insert{
@@ -62,7 +62,7 @@ return {
 				sources = cmp.config.sources({
 					{ name = "lazydev", group_index=0 },
 					{ name = 'nvim_lsp' },
-					{ name = 'vsnip' },
+					{ name = "luasnip" },
 					{ name = "emoji" },
 				}, {
 					{ name = 'buffer' },
@@ -97,6 +97,7 @@ return {
 			})
 		end
 	},
+--[[
 	{
 		'hrsh7th/cmp-vsnip',
 		lazy = true,
@@ -107,8 +108,23 @@ return {
 		lazy = true,
 		event = 'VeryLazy',
 	},
+--]]
+	{
+		"L3MON4D3/LuaSnip",
+		event = "VeryLazy",
+
+		-- see the doc of friendly-snippets
+		dependencies = { "rafamadriz/friendly-snippets" },
+		config = function()
+			require("luasnip.loaders.from_vscode").lazy_load()
+		end,
+	},
+	{
+		"saadparwaiz1/cmp_luasnip",
+		event = "VeryLazy",
+	},
 	{
 		"rafamadriz/friendly-snippets",
-		event = "VeryLazy",
+		lazy = true, -- load by luasnip
 	},
 }
