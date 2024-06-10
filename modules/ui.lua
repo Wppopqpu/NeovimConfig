@@ -171,7 +171,7 @@ return {
 									preview.node(node, { toggle_focus = true })
 								end
 							end
-						end, "Preview" },
+						end, "nvim-tree preview" },
 					}, { buffer = bufnr, nowait = true })
 				end,
 			} -- setup
