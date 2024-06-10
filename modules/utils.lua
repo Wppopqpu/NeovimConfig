@@ -10,4 +10,13 @@ return {
 		end,
 		event = "VeryLazy",
 	},
+	{
+		"kylechui/nvim-surround",
+		version = "*",
+		event = "VeryLazy",
+		config = function()
+			require("nvim-surround").setup {
+			}
+		end,
+	},
 }
