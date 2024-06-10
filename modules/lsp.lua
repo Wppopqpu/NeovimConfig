@@ -15,6 +15,8 @@ return {
 			require'mason-lspconfig'
 			-- neoconf must be setup before setting up servers.
 			require"neoconf"
+
+			require("NeovimConfig.details.on_lazy").register(require("NeovimConfig.details.lsp_setup").setup)
 		end
 	},
 	{
