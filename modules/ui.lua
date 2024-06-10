@@ -1,3 +1,5 @@
+local on_lazy = require("NeovimConfig.details.on_lazy")
+
 local hl = 'Statement'
 local startUpImage = {
 	'    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠤⠖⠚⢉⣩⣭⡭⠛⠓⠲⠦⣄⡀⠀⠀⠀⠀⠀⠀⠀  ',
@@ -94,51 +96,53 @@ return {
 		'akinsho/bufferline.nvim',
 		dependencies = 'nvim-tree/nvim-web-devicons',
 		config = function()
-			require'bufferline'.setup {
-				options = {
-					separator_style = 'slant',
-					get_element_icon = function(element)
-						local icon, hl = require'nvim-web-devicons'
-							.get_icon_by_filetype(element.filetype
-								, { default = false })
-						return icon, hl
-					end,
+			on_lazy.register(function()
+				require'bufferline'.setup {
+					options = {
+						separator_style = 'slant',
+						get_element_icon = function(element)
+							local icon, hl = require'nvim-web-devicons'
+								.get_icon_by_filetype(element.filetype
+									, { default = false })
+							return icon, hl
+						end,
 
-					numbers = function(opts)
-						return string.format('%s%s', opts.id
-							, opts.lower(opts.ordinal))
-					end,
+						numbers = function(opts)
+							return string.format('%s%s', opts.id
+								, opts.lower(opts.ordinal))
+						end,
 
-					offsets = {
-						{
-							filetype = 'NvimTree',
-							text = 'explorer',
-							highlight = 'Directory',
-							text_align = 'center',
-						},
-						{
-							filetype = 'sagaoutline',
-							text = 'outline',
-							highlight = 'Directory',
-							text_align = 'center',
+						offsets = {
+							{
+								filetype = 'NvimTree',
+								text = 'explorer',
+								highlight = 'Directory',
+								text_align = 'center',
+							},
+							{
+								filetype = 'sagaoutline',
+								text = 'outline',
+								highlight = 'Directory',
+								text_align = 'center',
+							},
 						},
 					},
-				},
-			}
-			local wk = require'which-key'
-			wk.register{
-				['<C-h>'] = { ':BufferLineCyclePrev<CR>', 'next buffer' },
-				['<C-l>'] = { ':BufferLineCycleNext<CR>', 'prev buffer' },
-				['<C-p>'] = { ':BufferLinePick<CR>', 'pick buffer' },
-			}
-			wk.register({
-				b = {
-					name = 'bufferline operations',
-					x = { '<cmd>bdelete<cr>', 'close buffer' },
-					X = { '<cmd>bdelete!<cr>', 'force close buffer' },
-					t = { '<cmd>term<cr>', 'open terminal buffer' },
 				}
-			}, { prefix = '<leader>' })
+				local wk = require'which-key'
+				wk.register{
+					['<C-h>'] = { ':BufferLineCyclePrev<CR>', 'next buffer' },
+					['<C-l>'] = { ':BufferLineCycleNext<CR>', 'prev buffer' },
+					['<C-p>'] = { ':BufferLinePick<CR>', 'pick buffer' },
+				}
+				wk.register({
+					b = {
+						name = 'bufferline operations',
+						x = { '<cmd>bdelete<cr>', 'close buffer' },
+						X = { '<cmd>bdelete!<cr>', 'force close buffer' },
+						t = { '<cmd>term<cr>', 'open terminal buffer' },
+					}
+				}, { prefix = '<leader>' })
+			end)
 		end,
 	},
 	{
@@ -148,9 +152,11 @@ return {
 		},
 		config = function()
 			require'nvim-tree'.setup{}
-			require'which-key'.register{
-				['<A-m>'] = { ':NvimTreeToggle<CR>', 'toggle file explorer' },
-			}
+			on_lazy.register(function()
+				require'which-key'.register{
+					['<A-m>'] = { ':NvimTreeToggle<CR>', 'toggle file explorer' },
+				}
+			end)
 		end,
 	},
 	{
