@@ -188,6 +188,7 @@ return {
 	{
 		"b0o/nvim-tree-preview.lua",
 		config = true,
+		event = "VeryLazy",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 		},
