@@ -158,6 +158,7 @@ return {
 					local api = require("nvim-tree.api")
 
 					wk.register({
+						o = { api.node.open.edit, "nvim-tree: open edit" },
 						P = { preview.watch, "nvim-tree: open preview" },
 						["<esc>"] = { preview.unwatch, "nvim-tree: close preview" },
 						-- smart tab behavior: only preview files, expand/collapse directories (recommended)
