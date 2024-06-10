@@ -96,38 +96,38 @@ return {
 		'akinsho/bufferline.nvim',
 		dependencies = 'nvim-tree/nvim-web-devicons',
 		config = function()
-			on_lazy.register(function()
-				require'bufferline'.setup {
-					options = {
-						separator_style = 'slant',
-						get_element_icon = function(element)
-							local icon, hl = require'nvim-web-devicons'
-								.get_icon_by_filetype(element.filetype
-									, { default = false })
-							return icon, hl
-						end,
+			require'bufferline'.setup {
+				options = {
+					separator_style = 'slant',
+					get_element_icon = function(element)
+						local icon, hl = require'nvim-web-devicons'
+							.get_icon_by_filetype(element.filetype
+								, { default = false })
+						return icon, hl
+					end,
 
-						numbers = function(opts)
-							return string.format('%s%s', opts.id
-								, opts.lower(opts.ordinal))
-						end,
+					numbers = function(opts)
+						return string.format('%s%s', opts.id
+							, opts.lower(opts.ordinal))
+					end,
 
-						offsets = {
-							{
-								filetype = 'NvimTree',
-								text = 'explorer',
-								highlight = 'Directory',
-								text_align = 'center',
-							},
-							{
-								filetype = 'sagaoutline',
-								text = 'outline',
-								highlight = 'Directory',
-								text_align = 'center',
-							},
+					offsets = {
+						{
+							filetype = 'NvimTree',
+							text = 'explorer',
+							highlight = 'Directory',
+							text_align = 'center',
+						},
+						{
+							filetype = 'sagaoutline',
+							text = 'outline',
+							highlight = 'Directory',
+							text_align = 'center',
 						},
 					},
-				}
+				},
+			}
+			on_lazy.register(function()
 				local wk = require'which-key'
 				wk.register{
 					['<C-h>'] = { ':BufferLineCyclePrev<CR>', 'next buffer' },
