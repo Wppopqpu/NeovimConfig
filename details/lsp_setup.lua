@@ -22,7 +22,7 @@ local get_config = function()
 		leanls = {},
 		lean3ls = {},
 	}
-	function on_attach(client, n_buffer)
+	local function on_attach(client, n_buffer)
 		local wk = require'which-key'
 		wk.register({
 			h = {
@@ -62,8 +62,8 @@ local get_config = function()
 		capabilities = capabilities,
 	}
 
-	for _, each in pairs(config) do
-		each = vim.tbl_deep_extend("keep", each, default)
+	for k, each in pairs(config) do
+		config[k] = vim.tbl_deep_extend("keep", each, default)
 	end
 
 	return config

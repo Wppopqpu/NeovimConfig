@@ -16,8 +16,10 @@ return {
 			-- neoconf must be setup before setting up servers.
 			require"neoconf"
 
+		end,
+		init = function()
 			require("NeovimConfig.details.on_lazy").register(require("NeovimConfig.details.lsp_setup").setup)
-		end
+		end,
 	},
 	{
 		'adam-wolski/nvim-lsp-clangd-highlight',
