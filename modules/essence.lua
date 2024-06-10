@@ -6,7 +6,6 @@ return {
 
 			require("NeovimConfig.details.lsp_setup").setup()
 		end,
-		priority = 1000,
 		event = "VeryLazy",
 	},
 }
