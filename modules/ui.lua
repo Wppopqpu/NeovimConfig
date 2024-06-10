@@ -151,32 +151,34 @@ return {
 			'nvim-tree/nvim-web-devicons'
 		},
 		config = function()
-			require'nvim-tree'.setup{
-				on_attach = function(bufnr)
-					local wk = require("which-key")
-					local preview = require("nvim-tree-preview")
-					local api = require("nvim-tree.api")
-
-					-- use default mappings
-					api.config.mappings.default_on_attach(bufnr)
-					wk.register({
-						P = { preview.watch, "nvim-tree: open preview" },
-						["<esc>"] = { preview.unwatch, "nvim-tree: close preview" },
-						-- smart tab behavior: only preview files, expand/collapse directories (recommended)
-						["<tab>"] = {function()
-							local ok, node = pcall(api.tree.get_node_under_cursor)
-							if ok and node then
-								if node.type == 'directory' then
-									api.node.open.edit()
-								else
-									preview.node(node, { toggle_focus = true })
-								end
-							end
-						end, "nvim-tree preview" },
-					}, { buffer = bufnr, nowait = true })
-				end,
-			} -- setup
+			require("nvim-tree").setup()
 			on_lazy.register(function()
+				require'nvim-tree'.setup{
+					on_attach = function(bufnr)
+						local wk = require("which-key")
+						local preview = require("nvim-tree-preview")
+						local api = require("nvim-tree.api")
+
+						-- use default mappings
+						api.config.mappings.default_on_attach(bufnr)
+						wk.register({
+							P = { preview.watch, "nvim-tree: open preview" },
+							["<esc>"] = { preview.unwatch, "nvim-tree: close preview" },
+							-- smart tab behavior: only preview files, expand/collapse directories (recommended)
+							["<tab>"] = {function()
+								local ok, node = pcall(api.tree.get_node_under_cursor)
+								if ok and node then
+									if node.type == 'directory' then
+										api.node.open.edit()
+									else
+										preview.node(node, { toggle_focus = true })
+									end
+								end
+							end, "nvim-tree preview" },
+						}, { buffer = bufnr, nowait = true })
+					end,
+				} -- setup
+
 				require'which-key'.register{
 					['<A-m>'] = { ':NvimTreeToggle<CR>', 'toggle file explorer' },
 				}
