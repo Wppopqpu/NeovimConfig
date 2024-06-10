@@ -2,12 +2,18 @@ local M = {}
 
 local is_setup = false
 
+--- calculate new blendness with old blendness
+---@param raw integer # old blendness
+---@return integer # new blendness
 local function calculate_blendness(raw)
-	return M.opt.blendness * (100 - raw) / 100
+	-- between opt.blendness and 100
 	return M.opt.blendness * (100 - raw) / 100 + raw
 end
 
 -- NOTE: this must be called before any related apis is called
+
+--- setup patches
+---@param opt table
 function M.setup(opt)
 	-- parse options
 	opt = opt or {}
