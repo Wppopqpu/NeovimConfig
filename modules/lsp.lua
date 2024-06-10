@@ -13,6 +13,8 @@ return {
 			-- load order solved there.
 			require'mason'
 			require'mason-lspconfig'
+			-- neoconf must be setup before setting up servers.
+			require"neoconf"
 		end
 	},
 	{
