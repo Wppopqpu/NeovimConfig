@@ -7,7 +7,8 @@ local is_setup = false
 ---@return integer # new blendness
 local function calculate_blendness(raw)
 	-- between opt.blendness and 100
-	return M.opt.blendness * (100 - raw) / 100 + raw
+	-- return M.opt.blendness * (100 - raw) / 100 + raw
+	return (50-raw/2)*(1-math.cos(raw/100))
 end
 
 -- NOTE: this must be called before any related apis is called
