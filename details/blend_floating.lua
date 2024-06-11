@@ -8,27 +8,21 @@ local is_setup = false
 local function calculate_blendness(raw)
 	-- between opt.blendness and 100
 	-- return M.opt.blendness * (100 - raw) / 100 + raw
-	return (50-raw/2)*(1-math.cos(raw/100))
+	return (50-M.opt.blendness/2)*(1-math.cos(raw/100))
 end
 
--- NOTE: this must be called before any related apis is called
-
---- setup patches
----@param opt table
-function M.setup(opt)
-	-- parse options
+--- parse user options, and merge with defaults
+---@param opt table # user options
+local function parse_options(opt)
 	opt = opt or {}
 	local defaults = {
 		blendness = 20,
 	}
 	M.opt = vim.tbl_extend("keep", opt, defaults)
 
-	if is_setup then
-		return
-	end
-	is_setup = true
+end
 
-
+local function patch()
 	local old_open_win = vim.api.nvim_open_win
 	local old_set_option = vim.api.nvim_set_option_value
 	local old_set_var = vim.api.nvim_win_set_var
@@ -53,7 +47,7 @@ function M.setup(opt)
 	end
 
 	vim.api.nvim_set_option_value = function(name, value, option)
-		if opt.window ~= nil and name == "winblend" then
+		if option.window ~= nil and name == "winblend" then
 			return old_set_option("winblend", calculate_blendness(value), option)
 		end
 
@@ -68,6 +62,22 @@ function M.setup(opt)
 
 		old_set_var(win, name, value)
 	end
+
+end
+
+-- NOTE: this must be called before any related apis is called
+
+--- setup patches
+---@param opt table
+function M.setup(opt)
+	parse_options(opt)
+
+	if is_setup then
+		return
+	end
+	is_setup = true
+
+	patch()
 
 end
 
