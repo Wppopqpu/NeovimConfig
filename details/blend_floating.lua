@@ -8,7 +8,7 @@ local is_setup = false
 local function calculate_blendness(raw)
 	-- between opt.blendness and 100
 	-- return M.opt.blendness * (100 - raw) / 100 + raw
-	return (50-M.opt.blendness/2)*(1-math.cos(raw/100))
+	return M.opt.blendness+(50-M.opt.blendness/2)*(1-math.cos(raw*math.pi/100))
 end
 
 --- parse user options, and merge with defaults
