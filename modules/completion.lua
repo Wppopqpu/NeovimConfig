@@ -36,6 +36,15 @@ return {
 			local lspkind = require'lspkind'
 
 			cmp.setup {
+				experimental = {
+					ghost_text = true,
+				},
+				view = {
+					docs = {
+						auto_open = true,
+					},
+				},
+				preselect = cmp.PreselectMode.Item,
 				formatting = {
 					format = lspkind.cmp_format{
 						mode = 'symbol',
@@ -64,6 +73,14 @@ return {
 					{ name = 'buffer' },
 					{ name = "path" },
 				}),
+				window = {
+					completion = {
+						winblend = 15,
+					},
+					documentation = {
+						winblend = 15
+					},
+				},
 			}
 
 			cmp.setup.filetype('gitcommit', {
