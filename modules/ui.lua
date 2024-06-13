@@ -149,10 +149,20 @@ return {
 		dependencies = {
 			'nvim-tree/nvim-web-devicons'
 		},
+		init = function()
+			vim.g.load_netrw = 1
+			vim.g.load_netrw_plugin = 1
+		end,
 		config = function()
-			require("nvim-tree").setup()
-			on_lazy.register(function()
+			local function setup()
 				require'nvim-tree'.setup{
+					view = {
+						float = {
+							enable = true,
+							quit_on_focus_loss = false,
+						},
+					},
+					hijack_unnamed_buffer_when_opening = true,
 					on_attach = function(bufnr)
 						local wk = require("which-key")
 						local preview = require("nvim-tree-preview")
@@ -181,13 +191,15 @@ return {
 				require'which-key'.register{
 					['<A-m>'] = { ':NvimTreeToggle<CR>', 'toggle file explorer' },
 				}
-			end)
+			end
+
+			setup()
 		end,
 	},
 	{
 		"b0o/nvim-tree-preview.lua",
 		config = true,
-		event = "VeryLazy",
+		lazy = true,
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 		},
