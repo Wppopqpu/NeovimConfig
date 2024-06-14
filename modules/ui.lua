@@ -153,6 +153,7 @@ return {
 			vim.g.load_netrw = 1
 			vim.g.load_netrw_plugin = 1
 		end,
+		event = "VeryLazy",
 		config = function()
 			local function setup()
 				require'nvim-tree'.setup{
