@@ -25,7 +25,9 @@ wk.register{
 	['<A-j>'] = { '<C-w>j', 'switch window (down)' },
 	['<A-k>'] = { '<C-w>k', 'switch window (up)' },
 	['<A-l>'] = { '<C-w>l', 'switch window (right}' },
-	['<leader>l'] = { ':set !list<CR>', 'toggle list mode' },
+	['<leader>l'] = { function()
+		vim.o.list = not vim.o.list
+	end, 'toggle list mode' },
 }
 wk.register({
 	['<esc>'] = { '<c-\\><c-n>', 'exit insert mode' },
