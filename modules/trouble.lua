@@ -5,7 +5,7 @@ return {
 		config = function()
 			local trouble = require("trouble")
 			require("which-key").register({
-				x = {
+				k = {
 					name = "trouble list",
 					x = { trouble.toggle, "common" },
 					w = { function()
