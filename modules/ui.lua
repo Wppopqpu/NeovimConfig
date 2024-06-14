@@ -198,7 +198,19 @@ return {
 	},
 	{
 		"b0o/nvim-tree-preview.lua",
-		config = true,
+		config = function()
+			-- HACK: preview uses a wrong and silly way to validate `title_pos`,
+			-- so we have to setup it like this.
+			-- `title_pos` should be a string, 
+			-- but the assertion assumes it is a integer index.
+
+			-- TODO: fix it when preview's authors realised their error.
+			require("nvim-tree-preview").setup {
+				--- @diagnostic disable-next-line
+				title_pos = 1,
+			}
+			require("nvim-tree-preview.config").title_pos = "top-center"
+		end,
 		lazy = true,
 		dependencies = {
 			"nvim-lua/plenary.nvim",
