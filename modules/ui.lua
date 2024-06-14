@@ -129,9 +129,9 @@ return {
 			on_lazy.register(function()
 				local wk = require'which-key'
 				wk.register{
-					['<C-h>'] = { ':BufferLineCyclePrev<CR>', 'next buffer' },
-					['<C-l>'] = { ':BufferLineCycleNext<CR>', 'prev buffer' },
-					['<C-p>'] = { ':BufferLinePick<CR>', 'pick buffer' },
+					['<C-h>'] = { '<cmd>BufferLineCyclePrev<CR>', 'next buffer' },
+					['<C-l>'] = { '<cmd>BufferLineCycleNext<CR>', 'prev buffer' },
+					['<C-p>'] = { '<cmd>BufferLinePick<CR>', 'pick buffer' },
 				}
 				wk.register({
 					b = {
@@ -190,7 +190,7 @@ return {
 				} -- setup
 
 				require'which-key'.register{
-					['<A-m>'] = { ':NvimTreeToggle<CR>', 'toggle file explorer' },
+					['<A-m>'] = { '<cmd>NvimTreeToggle<CR>', 'toggle file explorer' },
 				}
 			end
 

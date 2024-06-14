@@ -6,13 +6,13 @@ return {
 			require'which-key'.register({
 				c = {
 					name = 'Cmus',
-					c = { ':Cmus<CR>', 'Menu' },
-					n = { ':CmusCurrent<CR>', 'Current' },
-					h = { ':CmusPrevious<CR>', 'Previous' },
-					l = { ':CmusNext<CR>', 'Next' },
-					z = { ':CmusPlay<CR>', 'Play' },
-					x = { ':CmusPause<CR>', 'Pause' },
-					d = { ':CmusStop<CR>', 'Stop' },
+					c = { '<cmd>Cmus<CR>', 'Menu' },
+					n = { '<cmd>CmusCurrent<CR>', 'Current' },
+					h = { '<cmd>CmusPrevious<CR>', 'Previous' },
+					l = { '<cmd>CmusNext<CR>', 'Next' },
+					z = { '<cmd>CmusPlay<CR>', 'Play' },
+					x = { '<cmd>CmusPause<CR>', 'Pause' },
+					d = { '<cmd>CmusStop<CR>', 'Stop' },
 				}
 			}, { prefix = '<leader>' })
 

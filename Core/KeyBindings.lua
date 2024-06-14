@@ -6,18 +6,18 @@ local wk = require'which-key'
 wk.register{
 	s = {
 		name = 'multiwindow',
-		v = { ':vsp<CR>', 'split vertically' },
-		h = { ':sp<CR>', 'split horizonally' },
+		v = { '<cmd>vsp<CR>', 'split vertically' },
+		h = { '<cmd>sp<CR>', 'split horizonally' },
 		c = { '<C-w>c', 'close current one' },
 		o = { '<C-w>o', 'close others' },
 		t = { function()
 			vim.cmd'vsp'
 			vim.cmd('term')
 		end, 'split shell window' },
-		j = { ':resize -10<CR>', 'resize (-)' },
-		k = { ':resize +10<CR>', 'resize (+)' },
-		[','] = { ':vertical resize -20<CR>', 'vertical resize (-)' },
-		['.'] = { ':vertical resize +20<CR>', 'vertical resize (+)' },
+		j = { '<cmd>resize -10<CR>', 'resize (-)' },
+		k = { '<cmd>resize +10<CR>', 'resize (+)' },
+		[','] = { '<cmd>vertical resize -20<CR>', 'vertical resize (-)' },
+		['.'] = { '<cmd>vertical resize +20<CR>', 'vertical resize (+)' },
 	},
 }
 wk.register{

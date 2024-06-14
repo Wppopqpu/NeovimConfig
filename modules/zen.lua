@@ -4,7 +4,7 @@ return {
 		config = function()
 			require("zen-mode").setup{}
 			require("which-key").register({
-				z = { ":ZenMode<cr>", "toggle zen mode" },
+				z = { "<cmd>ZenMode<cr>", "toggle zen mode" },
 			}, { prefix = "<leader>" })
 		end,
 		event = "VeryLazy"
