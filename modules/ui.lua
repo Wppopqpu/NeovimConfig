@@ -189,8 +189,10 @@ return {
 					end,
 				} -- setup
 
+				local tree = require("nvim-tree.api").tree
 				require'which-key'.register{
-					['<A-m>'] = { '<cmd>NvimTreeToggle<CR>', 'toggle file explorer' },
+					['<A-m>'] = { tree.toggle, 'toggle file explorer' },
+					["<A-M>"] = { tree.open, "open file explorer" },
 				}
 			end
 
