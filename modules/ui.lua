@@ -150,8 +150,8 @@ return {
 			'nvim-tree/nvim-web-devicons'
 		},
 		init = function()
-			vim.g.load_netrw = 1
-			vim.g.load_netrw_plugin = 1
+			vim.g.loaded_netrw = 1
+			vim.g.loaded_netrwPlugin = 1
 		end,
 		event = "VeryLazy",
 		config = function()
