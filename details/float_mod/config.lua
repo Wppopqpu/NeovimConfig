@@ -4,9 +4,13 @@ local M = {
 			enabled = true,
 			blendness = 20,
 		},
-		shade = {
+		shadow = {
 			enabled = true,
-			blendness = 60,
+			blendness = 5,
+			zindex = 1,
+			h_offset = 3,
+			v_offset = 3,
+			purge_interval = 500
 		},
 	},
 }
