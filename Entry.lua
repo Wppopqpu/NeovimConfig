@@ -11,6 +11,8 @@ end
 
 local on_lazy = require("NeovimConfig.details.on_lazy")
 
+require("NeovimConfig.details.events")
+
 on_lazy.register(function()
 	require("NeovimConfig.details.float_mod").setup{}
 end)

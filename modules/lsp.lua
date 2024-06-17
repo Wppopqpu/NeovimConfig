@@ -53,7 +53,8 @@ return {
 	},
 	{
 		"folke/lazydev.nvim",
-		event = "VeryLazy",
+		init = events.lazyfile.loader("lua", "lazydev"),
+		lazy = true,
 		dependencies = { "Bilal2453/luvit-meta" },
 		enabled = function()
 			-- only enable when supported
