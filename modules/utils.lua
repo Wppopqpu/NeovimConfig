@@ -19,4 +19,12 @@ return {
 			}
 		end,
 	},
+	{
+		"folke/edgy.nvim",
+		event = "VeryLazy",
+		config =function()
+			require("edgy").setup{
+			}
+		end,
+	},
 }
