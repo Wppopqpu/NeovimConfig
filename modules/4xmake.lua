@@ -8,7 +8,8 @@ return {
 		'Mythos-404/xmake.nvim',
 		lazy = true,
 		branch = branch,
-		event = 'BufReadPost xmake.lua',
+		-- event = 'BufReadPost xmake.lua',
+		event = "User LazyFname xmake.lua",
 		dependencies = {
 			'MunifTanjim/nui.nvim',
 			'nvim-lua/plenary.nvim',

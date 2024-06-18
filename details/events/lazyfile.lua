@@ -1,6 +1,17 @@
 local M = {}
 
-M.handlers = {}
+M.ft_handlers = {}
+M.triggered_fnames = {}
+
+--- post LazyFt event
+---@param ft string filetype
+local function post_ft(ft)
+	vim.cmd("doautocmd User LazyFt "..ft)
+end
+
+local function post_fname(fname)
+	vim.cmd("doautocmd User LazyFname "..fname)
+end
 
 --- add new handlers
 ---@param ft string filetype
@@ -36,12 +47,17 @@ vim.api.nvim_create_autocmd("User", {
 	pattern = "VeryLazy",
 	callback = function()
 		M.lazied = true
-		for _, each in pairs(M.handlers) do
+		for ft, each in pairs(M.ft_handlers) do
 			if each.triggered then
+				post_ft(ft)
 				for _, handler in ipairs(each) do
 					handler()
 				end
+				each = { triggered = true }
 			end
+		end
+		for _, each in ipairs(M.triggered_fnames) do
+			post_fname(each)
 		end
 	end,
 })
@@ -52,15 +68,30 @@ vim.api.nvim_create_autocmd("Filetype", {
 	callback = function(info)
 		local ft = info.match
 
-		M.handlers[ft] = M.handlers[ft] or {}
+		M.ft_handlers[ft] = M.ft_handlers[ft] or {}
 		if M.lazied then
-			for _, each in ipairs(M.handlers[ft]) do
+			post_ft(ft)
+			for _, each in ipairs(M.ft_handlers[ft]) do
 				each()
 			end
-			M.handlers[ft] = { triggered = true }
+			M.ft_handlers[ft] = { triggered = true }
 			return
 		end
-		M.handlers[ft].triggered = true
+		M.ft_handlers[ft].triggered = true
+	end,
+})
+
+vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
+	group = augroup,
+	pattern = "*",
+	callback = function(info)
+		local fname = info.file
+
+		if M.lazied then
+			post_fname(fname)
+			return
+		end
+		table.insert(M.triggered_fnames, fname)
 	end,
 })
 
