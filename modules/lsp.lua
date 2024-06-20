@@ -74,4 +74,15 @@ return {
 			}
 		end,
 	},
+	{
+		"p00f/clangd_extensions.nvim",
+		config = function()
+			-- according to its intro,
+			-- there is no need to call setup if we satisfy the default config.
+
+			-- install
+			_G.clangd_ext = require("clangd_extensions")
+		end,
+		event = "User LazyFt cpp",
+	},
 }
