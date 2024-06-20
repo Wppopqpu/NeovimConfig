@@ -83,6 +83,6 @@ return {
 			-- install
 			_G.clangd_ext = require("clangd_extensions")
 		end,
-		event = "User LazyFt cpp",
+		lazy = true,
 	},
 }
