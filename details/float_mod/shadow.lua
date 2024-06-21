@@ -122,7 +122,7 @@ local protoshadow = {
 		return self
 	end,
 	delete = function(self)
-		managed_windows[self.win_handle] = nil
+		managed_windows[self.target] = nil
 	end,
 	update = function(self)
 		if not self:is_valid() then
