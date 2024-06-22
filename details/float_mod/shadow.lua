@@ -18,7 +18,10 @@ local config = require("NeovimConfig.details.float_mod.config").shadow
 local managed_windows = {}
 
 vim.api.nvim_create_user_command("ShadowInspect", function(info)
-	print(vim.inspect(managed_windows))
+	-- print(vim.inspect(managed_windows))
+	for k, v in pairs(managed_windows) do
+		print(k..":"..v.win_handle)
+	end
 end, {})
 
 --- force update shadows
@@ -35,6 +38,16 @@ local timer = vim.uv.new_timer()
 timer:start(config.purge_interval, config.purge_interval, purge)
 --]]
 
+local in_debug = config.use_debug
+
+vim.api.nvim_create_user_command("ShadowToggleDebug", function()
+	in_debug = not in_debug
+	if in_debug then
+		print("debug enabled")
+	else
+		print("debug disabled")
+	end
+end, {})
 
 -- old apis
 
@@ -115,6 +128,7 @@ local protoshadow = {
 		self.win_handle = old_open_win(buffer, false, get_win_config(self))
 		assert(self.win_handle > 0)
 		set_win_option(self)
+		assert(managed_windows[target] == nil)
 		managed_windows[target] = self
 
 		-- can only be initialised **once**
@@ -189,6 +203,7 @@ vim.api.nvim_open_win = function(buf, enter, opt)
 	end
 
 	if opt.relative ~= nil then
+		assert(managed_windows[result] == nil)
 		new_shadow():init(result)
 	end
 	return result
@@ -209,6 +224,7 @@ vim.api.nvim_win_hide = function(win)
 	end
 end
 
+--[[
 --- @diagnostic disable-next-line
 vim.api.nvim_win_set_width = function(win, width)
 	old_set_width(win, width)
@@ -224,7 +240,9 @@ vim.api.nvim_win_set_height = function(win, height)
 		managed_windows[win]:update_size()
 	end
 end
+--]]
 
+--[[
 --- @diagnostic disable-next-line
 vim.api.nvim_win_close = function(win, force)
 	old_close(win, force)
@@ -232,6 +250,7 @@ vim.api.nvim_win_close = function(win, force)
 		managed_windows[win]:close()
 	end
 end
+--]]
 
 --- @diagnostic disable-next-line
 vim.api.nvim_win_set_option = function(win, option, value)
@@ -279,7 +298,7 @@ vim.api.nvim_create_autocmd("WinResized", {
 	callback = function(ev)
 		for _, target in ipairs(vim.v.event.windows) do
 			if managed_windows[target] ~= nil then
-				managed_windows[target]:update()
+				managed_windows[target]:update_size()
 			end
 		end
 	end,
