@@ -40,6 +40,24 @@ timer:start(config.purge_interval, config.purge_interval, purge)
 
 local in_debug = config.use_debug
 
+local fname = vim.fn.stdpath("log").."/shadow.log"
+local logfile = io.open(fname, "w+")
+logfile = logfile or setmetatable({}, {
+	__index = function(k, v)
+		return function(...) end
+	end,
+})
+vim.api.nvim_create_autocmd("VimLeave", {
+	callback = function()
+		logfile:close()
+		logfile = setmetatable({}, {
+			__index = function(k, v)
+				return function(...) end
+			end,
+		})
+	end,
+})
+
 vim.api.nvim_create_user_command("ShadowToggleDebug", function()
 	in_debug = not in_debug
 	if in_debug then
@@ -131,11 +149,18 @@ local protoshadow = {
 		assert(managed_windows[target] == nil)
 		managed_windows[target] = self
 
+		if in_debug then
+			logfile:write("shadow init: "..self.target.." "..self.win_handle.."\n")
+		end
+
 		-- can only be initialised **once**
 		self.init = nil
 		return self
 	end,
 	delete = function(self)
+		if in_debug then
+			logfile:write("shadow delete: "..self.target.." "..self.win_handle.."\n")
+		end
 		managed_windows[self.target] = nil
 	end,
 	update = function(self)
@@ -179,6 +204,9 @@ local protoshadow = {
 		return vim.api.nvim_win_is_valid(self.win_handle)
 	end,
 	close = function(self)
+		if in_debug then
+			logfile:write("shadow close: "..self.target.." "..self.win_handle.."\n")
+		end
 		if self:is_open() then
 			old_close(self.win_handle, true)
 		end
