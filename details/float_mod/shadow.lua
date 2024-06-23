@@ -10,6 +10,7 @@
 --- @field close fun(self:Shadow) close shadow and remove it from global table
 --- @field is_valid fun(self:Shadow):boolean check if target window and shadow window are valid
 --- @field is_open fun(self:Shadow):boolean check if shadow window is valid
+--- @field get_desc fun(self:Shadow):string get log desc
 
 
 local config = require("NeovimConfig.details.float_mod.config").shadow
@@ -150,7 +151,7 @@ local protoshadow = {
 		managed_windows[target] = self
 
 		if in_debug then
-			logfile:write("shadow init: "..self.target.." "..self.win_handle.."\n")
+			logfile:write("shadow init: "..self.target..self:get_desc().."\n")
 		end
 
 		-- can only be initialised **once**
@@ -159,7 +160,7 @@ local protoshadow = {
 	end,
 	delete = function(self)
 		if in_debug then
-			logfile:write("shadow delete: "..self.target.." "..self.win_handle.."\n")
+			logfile:write("shadow delete: "..self:get_desc().."\n")
 		end
 		managed_windows[self.target] = nil
 	end,
@@ -205,12 +206,15 @@ local protoshadow = {
 	end,
 	close = function(self)
 		if in_debug then
-			logfile:write("shadow close: "..self.target.." "..self.win_handle.."\n")
+			logfile:write("shadow close: "..self:get_desc().."\n")
 		end
 		if self:is_open() then
 			old_close(self.win_handle, true)
 		end
 		self:delete()
+	end,
+	get_desc = function(self)
+		return self.target.."("..vim.api.nvim_get_option_value("filetype", { win = self.target }).."):"..self.win_handle
 	end,
 }
 
@@ -270,7 +274,7 @@ vim.api.nvim_win_set_height = function(win, height)
 end
 --]]
 
---[[
+-- lspsaga' window sometimes do nto trigger WinClosed
 --- @diagnostic disable-next-line
 vim.api.nvim_win_close = function(win, force)
 	old_close(win, force)
@@ -278,7 +282,6 @@ vim.api.nvim_win_close = function(win, force)
 		managed_windows[win]:close()
 	end
 end
---]]
 
 --- @diagnostic disable-next-line
 vim.api.nvim_win_set_option = function(win, option, value)
