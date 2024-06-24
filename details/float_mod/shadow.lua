@@ -24,7 +24,7 @@ local managed_windows = {}
 vim.api.nvim_create_user_command("ShadowInspect", function(info)
 	-- print(vim.inspect(managed_windows))
 	for k, v in pairs(managed_windows) do
-		print(k..":"..v.win_handle)
+		print(v:get_desc())
 	end
 end, {})
 
@@ -184,7 +184,7 @@ local protoshadow = {
 		managed_windows[target] = self
 
 		if in_debug then
-			logfile:write("shadow init: "..self.target..self:get_desc().."\n")
+			logfile:write("shadow init: "..self:get_desc().."\n")
 		end
 
 		-- can only be initialised **once**
@@ -247,7 +247,7 @@ local protoshadow = {
 		self:delete()
 	end,
 	get_desc = function(self)
-		return self.target.."("..vim.api.nvim_get_option_value("filetype", { win = self.target }).."):"..self.win_handle
+		return self.target.."("..vim.api.nvim_get_option_value("filetype", { buf = vim.api.nvim_win_get_buf(self.target) }).."):"..self.win_handle
 	end,
 }
 
