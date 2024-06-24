@@ -247,6 +247,9 @@ local protoshadow = {
 		self:delete()
 	end,
 	get_desc = function(self)
+		if not vim.api.nvim_win_is_valid(self.target) then
+			return self.target.."!:"..self.win_handle
+		end
 		return self.target.."("..vim.api.nvim_get_option_value("filetype", { buf = vim.api.nvim_win_get_buf(self.target) }).."):"..self.win_handle
 	end,
 }
