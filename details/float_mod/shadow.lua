@@ -1,3 +1,6 @@
+local M = {}
+_G.shadow = M
+
 --- @class Shadow
 --- @field win_handle integer window handle
 --- @field target integer handle of the managed window
@@ -69,15 +72,18 @@ vim.api.nvim_create_user_command("ShadowToggleDebug", function()
 end, {})
 
 -- old apis
+M.raw = {}
 
-local old_open_win = vim.api.nvim_open_win
-local old_set_config = vim.api.nvim_win_set_config
-local old_hide = vim.api.nvim_win_hide
-local old_close = vim.api.nvim_win_close
-local old_set_width = vim.api.nvim_win_set_width
-local old_set_height = vim.api.nvim_win_set_height
-local old_set_option_value = vim.api.nvim_set_option_value
-local old_win_call = vim.api.nvim_win_call
+M.raw.old_open_win = vim.api.nvim_open_win
+M.raw.old_set_config = vim.api.nvim_win_set_config
+M.raw.old_hide = vim.api.nvim_win_hide
+M.raw.old_close = vim.api.nvim_win_close
+M.raw.old_set_width = vim.api.nvim_win_set_width
+M.raw.old_set_height = vim.api.nvim_win_set_height
+M.raw.old_set_option_value = vim.api.nvim_set_option_value
+M.raw.old_win_call = vim.api.nvim_win_call
+
+
 
 
 --- generate shadow window config
@@ -110,6 +116,31 @@ local function calculate_blendness(old)
 	-- return config.blendness
 end
 
+--- get literal expression of a variable
+---@param v any
+---@return string
+local function get_literal(v)
+	local t = type(v)
+	if t == "string" then
+		return "\""..v.."\""
+	end
+	if t == "table" then
+		local result = "{"
+		for k, value in pairs(v) do
+			result = result.."["..get_literal(k).."]="..get_literal(value)..","
+		end
+		return result.."}"
+	end
+	if t == "boolean" then
+		if v == true then
+			return "true"
+		end
+		return "false"
+	end
+	assert(t=="number")
+	return v
+end
+
 --- set shadow window option
 ---@param shadow Shadow
 local function set_win_option(shadow)
@@ -121,7 +152,7 @@ local function set_win_option(shadow)
 	}
 
 	for k, v in pairs(options) do
-		old_set_option_value(k, v, { win = win })
+		M.raw.old_set_option_value(k, v, { win = win })
 	end
 end
 
@@ -144,7 +175,9 @@ local protoshadow = {
 		assert(target > 0)
 		self.target = target
 
-		self.win_handle = old_open_win(buffer, false, get_win_config(self))
+		-- self.win_handle = M.raw.old_open_win(buffer, false, get_win_config(self))
+		vim.cmd("noautocmd lua ".."shadow.tmp=shadow.raw.old_open_win("..buffer..",false,"..get_literal(get_win_config(self))..")")
+		self.win_handle = shadow.tmp
 		assert(self.win_handle > 0)
 		set_win_option(self)
 		assert(managed_windows[target] == nil)
@@ -169,7 +202,7 @@ local protoshadow = {
 			return self:close() -- nil
 		end
 
-		old_set_config(self.win_handle, get_win_config(self))
+		M.raw.old_set_config(self.win_handle, get_win_config(self))
 		set_win_option(self)
 		return self
 	end,
@@ -178,7 +211,7 @@ local protoshadow = {
 			return self:close()
 		end
 
-		old_set_config(self.win_handle, get_win_config(self))
+		M.raw.old_set_config(self.win_handle, get_win_config(self))
 		return self
 	end,
 	update_options = function(self)
@@ -194,8 +227,8 @@ local protoshadow = {
 			return self:close()
 		end
 
-		old_set_width(self.win_handle, vim.api.nvim_win_get_width(self.target))
-		old_set_height(self.win_handle, vim.api.nvim_win_get_height(self.target))
+		M.raw.old_set_width(self.win_handle, vim.api.nvim_win_get_width(self.target))
+		M.raw.old_set_height(self.win_handle, vim.api.nvim_win_get_height(self.target))
 		return self
 	end,
 	is_valid = function(self)
@@ -209,7 +242,7 @@ local protoshadow = {
 			logfile:write("shadow close: "..self:get_desc().."\n")
 		end
 		if self:is_open() then
-			old_close(self.win_handle, true)
+			M.raw.old_close(self.win_handle, true)
 		end
 		self:delete()
 	end,
@@ -228,7 +261,7 @@ local augroup = vim.api.nvim_create_augroup("__shadow_impl", { clear = true })
 
 --- @diagnostic disable-next-line
 vim.api.nvim_open_win = function(buf, enter, opt)
-	local result = old_open_win(buf, enter, opt)
+	local result = M.raw.old_open_win(buf, enter, opt)
 
 	if result <= 0 then
 		return result
@@ -243,14 +276,14 @@ end
 
 --- @diagnostic disable-next-line
 vim.api.nvim_win_set_config = function(win, opt)
-	old_set_config(win, opt)
+	M.raw.old_set_config(win, opt)
 	if managed_windows[win] ~= nil then
 		managed_windows[win]:update_config()
 	end
 end
 --- @diagnostic disable-next-line
 vim.api.nvim_win_hide = function(win)
-	old_hide(win)
+	M.raw.old_hide(win)
 	if managed_windows[win] ~= nil then
 		managed_windows[win]:update_config()
 	end
@@ -259,7 +292,7 @@ end
 --[[
 --- @diagnostic disable-next-line
 vim.api.nvim_win_set_width = function(win, width)
-	old_set_width(win, width)
+	M.raw.old_set_width(win, width)
 	if managed_windows[win] ~= nil then
 		managed_windows[win]:update_size()
 	end
@@ -267,7 +300,7 @@ end
 
 --- @diagnostic disable-next-line
 vim.api.nvim_win_set_height = function(win, height)
-	old_set_height(win, height)
+	M.raw.old_set_height(win, height)
 	if managed_windows[win] ~= nil then
 		managed_windows[win]:update_size()
 	end
@@ -277,7 +310,7 @@ end
 -- lspsaga' window sometimes do nto trigger WinClosed
 --- @diagnostic disable-next-line
 vim.api.nvim_win_close = function(win, force)
-	old_close(win, force)
+	M.raw.old_close(win, force)
 	if managed_windows[win] ~= nil then
 		managed_windows[win]:close()
 	end
@@ -290,7 +323,7 @@ end
 
 --- @diagnostic disable-next-line
 vim.api.nvim_set_option_value = function(name, value, opt)
-	old_set_option_value(name, value, opt)
+	M.raw.old_set_option_value(name, value, opt)
 
 	if opt.win ~= nil and name == "winblend" and managed_windows[opt.win] ~= nil then
 		managed_windows[opt.win]:update_options()
@@ -303,7 +336,7 @@ end
 --[[
 --- @diagnostic disable-next-line
 vim.api.nvim_win_call = function(win, fun)
-	old_win_call(win, fun)
+	N.raw.old_win_call(win, fun)
 	if managed_windows[win] ~= nil then
 		managed_windows[win]:update()
 	end
