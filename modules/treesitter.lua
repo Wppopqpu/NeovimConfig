@@ -45,6 +45,7 @@ return {
 					'markdown',
 					'markdown_inline', -- two markdown plugin are for lspsaga
 					'query',
+					"regex", -- required by noice
 					'vim',
 					'vimdoc',
 				},
