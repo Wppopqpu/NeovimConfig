@@ -21,9 +21,15 @@ return {
 			require("NeovimConfig.details.on_lazy").register(require("NeovimConfig.details.lsp_setup").setup)
 		end,
 	},
+	--[[
 	{
 		'adam-wolski/nvim-lsp-clangd-highlight',
 		lazy = true,
+	},
+	--]]
+	{
+		"Wppopqpu/nvim-clangd-hl",
+		lazy = false,
 	},
 	{
 		'nvimdev/lspsaga.nvim',
