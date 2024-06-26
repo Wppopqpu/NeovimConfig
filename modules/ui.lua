@@ -1,5 +1,5 @@
 local on_lazy = require("NeovimConfig.details.on_lazy")
-
+--[[
 local hl = 'Statement'
 local startUpImage = {
 	'    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠤⠖⠚⢉⣩⣭⡭⠛⠓⠲⠦⣄⡀⠀⠀⠀⠀⠀⠀⠀  ',
@@ -23,6 +23,7 @@ local startUpImage = {
 	'    ⡇⠀⠇⠀⠀⡇⡸⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠮⢧⣀⣻⢂⠀⠀⠀⠀⠀⠀⢧  ',
 	'    ⣇⠀⢠⠀⠀⢳⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⡎⣆⠀⠀⠀⠀⠀⠘  ',
 }
+--]]
 
 return {
 	{
@@ -75,13 +76,15 @@ return {
 			dashboard.section.header.val = startUpImage
 			alpha.setup(dashboard.config)
 			--]]
+			local image = require("NeovimConfig.details.startup_image")
+
 			require'alpha'.setup{
 				layout = {
 					header = {
 						type = 'text',
-						val = startUpImage,
+						val = image.text,
 						opts = {
-							hl = hl,
+							hl = image.hl,
 							position = 'center',
 						},
 					},
