@@ -41,6 +41,17 @@ return {
 					k = { builtin.keymaps, "key mappings" },
 					s = { builtin.spell_suggest, "spell_suggest" },
 					a = { builtin.autocmds, "autocmds" },
+					m = { builtin.man_pages, "man pages" },
+					n = { builtin.builtin, "pickers" },
+					i = {
+						name = "git",
+						i = { builtin.git_files, "files" },
+						t = { builtin.git_stash, "stash" },
+						s = { builtin.git_status, "status" },
+						c = { builtin.git_commits, "commits" },
+						b = { builtin.git_branches, "branches" },
+						o = { builtin.git_bcommits, "bcommits" },
+					},
 				},
 			}, { prefix = "<leader>" })
 		end,
