@@ -16,6 +16,9 @@ end
 vim.opt.rtp:prepend(path2Lazy)
 
 require'lazy'.setup("NeovimConfig.modules", {
+	install = {
+		colorscheme = { "tokyonight" },
+	},
 	ui = {
 		border = "rounded",
 	},

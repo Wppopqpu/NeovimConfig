@@ -35,6 +35,7 @@ local get_config = function()
 
 	local config = {
 		clangd = {
+			--[[
 			capabilities = {
 				textDocument = {
 					semanticHighlightingCapabilities = {
@@ -43,6 +44,7 @@ local get_config = function()
 				},
 			},
 			on_init = require'nvim-lsp-clangd-highlight'.on_init,
+			--]]
 			on_attach = function(client, bufnr)
 				on_attach(client, bufnr)
 
@@ -72,6 +74,9 @@ local get_config = function()
 						},
 					},
 				}, { buf = bufnr })
+
+				vim.api.nvim_set_option_value("omnifunc", "v:lua.vim.lsp.omnifunc", { buffer = bufnr })
+				require("nvim-clangd-hl").on_attach()
 			end,
 		},
 		html = {},
