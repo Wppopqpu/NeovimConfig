@@ -53,6 +53,13 @@ local get_config = function()
 				inlay.setup_autocmd()
 				inlay.set_inlay_hints()
 
+				vim.api.nvim_create_autocmd({"TextChanged", "InsertLeave"}, {
+					buffer = bufnr,
+					callback = function()
+						require("clangd_extensions.inlay_hints").set_inlay_hints()
+					end,
+				})
+
 				wk.register({
 					gs = { "<cmd>ClangdSwitchSourceHeader<cr>", "switch between src & header" },
 					["<leader>"] = {
