@@ -76,7 +76,8 @@ return {
 			dashboard.section.header.val = startUpImage
 			alpha.setup(dashboard.config)
 			--]]
-			local image = require("NeovimConfig.details.startup_image")
+			local modname = "NeovimConfig.details.startup_image"
+			local image = require(modname)
 
 			require'alpha'.setup{
 				layout = {
@@ -90,6 +91,8 @@ return {
 					},
 				},
 			}
+
+			package.preload[modname]=nil
 		end,
 		dependencies = {
 			{'nvim-tree/nvim-web-devicons'}
