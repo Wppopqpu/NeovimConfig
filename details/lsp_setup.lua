@@ -74,9 +74,6 @@ local get_config = function()
 						},
 					},
 				}, { buf = bufnr })
-
-				vim.api.nvim_set_option_value("omnifunc", "v:lua.vim.lsp.omnifunc", { buf = bufnr })
-				require("nvim-clangd-hl").on_attach()
 			end,
 		},
 		html = {},
