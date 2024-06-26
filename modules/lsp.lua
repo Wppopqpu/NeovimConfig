@@ -29,7 +29,7 @@ return {
 	--]]
 	{
 		"Wppopqpu/nvim-clangd-hl",
-		lazy = false,
+		lazy = true,
 	},
 	{
 		'nvimdev/lspsaga.nvim',
