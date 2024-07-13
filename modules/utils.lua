@@ -108,10 +108,18 @@ return {
 		'folke/which-key.nvim',
 		event = 'VeryLazy',
 		config = function()
-			require'which-key'.setup {
+			local wk = require("which-key")
+
+			wk.setup {
 				preset = "helix",
 				-- TODO: use new spec for key mappings.
 				notify = false,
+			}
+
+			wk.add {
+				{ "<leader>?", function ()
+					wk.show{ global = true }
+				end, desc = "which key" },
 			}
 			require'NeovimConfig.Core.KeyBindings'
 		end,
