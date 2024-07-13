@@ -116,6 +116,7 @@ local function calculate_blendness(old)
 	-- return config.blendness
 end
 
+--[[
 --- get literal expression of a variable
 ---@param v any
 ---@return string
@@ -140,6 +141,7 @@ local function get_literal(v)
 	assert(t=="number")
 	return v
 end
+--]]
 
 --- set shadow window option
 ---@param shadow Shadow
@@ -176,7 +178,8 @@ local protoshadow = {
 		self.target = target
 
 		-- self.win_handle = M.raw.old_open_win(buffer, false, get_win_config(self))
-		vim.cmd("noautocmd lua ".."shadow.tmp=shadow.raw.old_open_win("..buffer..",false,"..get_literal(get_win_config(self))..")")
+		shadow.tmp_arg = get_win_config(self)
+		vim.cmd("noautocmd lua ".."shadow.tmp=shadow.raw.old_open_win("..buffer..", false, shadow.tmp_arg)")
 		self.win_handle = shadow.tmp
 		assert(self.win_handle > 0)
 		set_win_option(self)
