@@ -18,7 +18,7 @@ return {
 			require'xmake'.setup{}
 			local xmakeComponent = {
 				function()
-					local xmake = require'xmake.project_config'.info
+					local xmake = require'xmake.project'.info
 					if xmake.target.tg == '' then
 						return ''
 					end
@@ -28,7 +28,7 @@ return {
 					return vim.o.columns > 100
 				end,
 				on_click = function()
-					require'xmake.project_config.menu'.init()
+					require'xmake.project._menu'.init()
 				end,
 			}
 			require'lualine'.setup {
