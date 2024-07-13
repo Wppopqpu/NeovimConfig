@@ -15,6 +15,22 @@ _G.shadow = M
 --- @field is_open fun(self:Shadow):boolean check if shadow window is valid
 --- @field get_desc fun(self:Shadow):string get log desc
 
+local hl_ns = vim.api.nvim_create_namespace("__shadow")
+local bgcolor = "#19032E"
+local function set_hl(group_name)
+	local hl = vim.api.nvim_set_hl(hl_ns, group_name, {
+		bg = bgcolor,
+	})
+end
+
+set_hl("Normal")
+set_hl("NormalFloat")
+set_hl("NormalNC")
+
+local function make_hl(win, buf)
+	vim.api.nvim_win_set_hl_ns(win, hl_ns)
+end
+
 
 local config = require("NeovimConfig.details.float_mod.config").shadow
 
@@ -33,8 +49,9 @@ local function purge()
 	for _, each in pairs(managed_windows) do
 		each:update()
 	end
-	vim.cmd("redraw!")
 end
+
+vim.loop.new_timer():start(0, config.purge_interval,  vim.schedule_wrap(purge))
 
 vim.api.nvim_create_user_command("ShadowPurge", purge, {})
 --[[
@@ -185,6 +202,8 @@ local protoshadow = {
 		set_win_option(self)
 		assert(managed_windows[target] == nil)
 		managed_windows[target] = self
+
+		make_hl(self.win_handle, buffer)
 
 		if in_debug then
 			logfile:write("shadow init: "..self:get_desc().."\n")
