@@ -107,12 +107,12 @@ return {
 	{
 		'folke/which-key.nvim',
 		event = 'VeryLazy',
-		init = function()
-			vim.opt.timeout = true
-			vim.opt.timeoutlen = 500
-		end,
 		config = function()
-			require'which-key'.setup{}
+			require'which-key'.setup {
+				preset = "helix",
+				-- TODO: use new spec for key mappings.
+				notify = false,
+			}
 			require'NeovimConfig.Core.KeyBindings'
 		end,
 	},
