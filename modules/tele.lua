@@ -40,7 +40,7 @@ return {
 					H = { builtin.highlights, "highlights" },
 					k = { builtin.keymaps, "key mappings" },
 					s = { builtin.spell_suggest, "spell_suggest" },
-					a = { builtin.autocmds, "autocmds" },
+					a = { builtin.autocommands, "autocmds" },
 					m = { builtin.man_pages, "man pages" },
 					n = { builtin.builtin, "pickers" },
 					i = {
