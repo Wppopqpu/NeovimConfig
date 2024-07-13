@@ -6,18 +6,18 @@ local wk = require'which-key'
 wk.register{
 	s = {
 		name = 'multiwindow',
-		v = { ':vsp<CR>', 'split vertically' },
-		h = { ':sp<CR>', 'split horizonally' },
+		v = { '<cmd>vsp<CR>', 'split vertically' },
+		h = { '<cmd>sp<CR>', 'split horizonally' },
 		c = { '<C-w>c', 'close current one' },
 		o = { '<C-w>o', 'close others' },
 		t = { function()
 			vim.cmd'vsp'
 			vim.cmd('term')
 		end, 'split shell window' },
-		j = { ':resize -10<CR>', 'resize (-)' },
-		k = { ':resize +10<CR>', 'resize (+)' },
-		[','] = { ':vertical resize -20<CR>', 'vertical resize (-)' },
-		['.'] = { ':vertical resize +20<CR>', 'vertical resize (+)' },
+		j = { '<cmd>resize -10<CR>', 'resize (-)' },
+		k = { '<cmd>resize +10<CR>', 'resize (+)' },
+		[','] = { '<cmd>vertical resize -20<CR>', 'vertical resize (-)' },
+		['.'] = { '<cmd>vertical resize +20<CR>', 'vertical resize (+)' },
 	},
 }
 wk.register{
@@ -25,7 +25,9 @@ wk.register{
 	['<A-j>'] = { '<C-w>j', 'switch window (down)' },
 	['<A-k>'] = { '<C-w>k', 'switch window (up)' },
 	['<A-l>'] = { '<C-w>l', 'switch window (right}' },
-	['<leader>l'] = { ':set !list<CR>', 'toggle list mode' },
+	['<leader>l'] = { function()
+		vim.o.list = not vim.o.list
+	end, 'toggle list mode' },
 }
 wk.register({
 	['<esc>'] = { '<c-\\><c-n>', 'exit insert mode' },

@@ -6,35 +6,45 @@ return {
 	{
 		'hrsh7th/cmp-nvim-lsp',
 		lazy = true,
-		event = 'VeryLazy',
 	},
 	{
 		'hrsh7th/cmp-buffer',
 		lazy = true,
-		event = 'VeryLazy',
 	},
 	{
 		'hrsh7th/cmp-path',
 		lazy = true,
-		event = 'VeryLazy',
 	},
 	{
 		'hrsh7th/cmp-cmdline',
 		lazy = true,
-		event = 'VeryLazy',
 	},
 	{
 		"hrsh7th/cmp-emoji",
-		event = "VeryLazy",
+		lazy = true,
 	},
 	{
-		'hrsh7th/nvim-cmp', -- load by lspconfig
+		"petertriho/cmp-git",
 		lazy = true,
+		config = true,
+	},
+	{
+		'hrsh7th/nvim-cmp',
+		event = "VeryLazy",
 		config = function()
 			local cmp = require'cmp'
 			local lspkind = require'lspkind'
 
 			cmp.setup {
+				experimental = {
+					ghost_text = true,
+				},
+				view = {
+					docs = {
+						auto_open = true,
+					},
+				},
+				preselect = cmp.PreselectMode.Item,
 				formatting = {
 					format = lspkind.cmp_format{
 						mode = 'symbol',
@@ -44,7 +54,7 @@ return {
 				},
 				snippet = {
 					expand = function(args)
-						vim.fn['vsnip#anonymous'](args.body)
+						require("luasnip").lsp_expand(args.body)
 					end,
 				},
 				mapping = cmp.mapping.preset.insert{
@@ -55,19 +65,32 @@ return {
 					['<cr>'] = cmp.mapping.confirm{ select = true },
 				},
 				sources = cmp.config.sources({
+					{ name = "lazydev", group_index=0 },
 					{ name = 'nvim_lsp' },
-					{ name = 'vsnip' },
+					{ name = "luasnip" },
 					{ name = "emoji" },
 				}, {
 					{ name = 'buffer' },
+					{ name = "path" },
 				}),
+				window = {
+					completion = {
+						winblend = 15,
+					},
+					documentation = {
+						winblend = 15
+					},
+				},
 			}
 
 			cmp.setup.filetype('gitcommit', {
 				sources = cmp.config.sources({
 					{ name = 'git' },
 				}, {
+					{ name = "emoji" },
+				}, {
 					{ name = 'buffer' },
+					{ name = "path" },
 				}),
 			})
 
@@ -87,8 +110,20 @@ return {
     			}),
     			matching = { disallow_symbol_nonprefix_matching = false },
 			})
-		end
+		end,
+		dependencies = {
+			"hrsh7th/cmp-path",
+			"petertriho/cmp-git",
+			"hrsh7th/cmp-emoji",
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-cmdline",
+			"hrsh7th/cmp-nvim-lsp",
+			"onsails/lspkind.nvim",
+			"L3MON4D3/LuaSnip",
+			"saadparwaiz1/cmp_luasnip",
+		},
 	},
+--[[
 	{
 		'hrsh7th/cmp-vsnip',
 		lazy = true,
@@ -98,5 +133,24 @@ return {
 		'hrsh7th/vim-vsnip',
 		lazy = true,
 		event = 'VeryLazy',
+	},
+--]]
+	{
+		"L3MON4D3/LuaSnip",
+		lazy = true,
+		-- see the doc of friendly-snippets
+		dependencies = { "rafamadriz/friendly-snippets" },
+		config = function()
+			require("luasnip.loaders.from_vscode").lazy_load()
+		end,
+		build = "make install_jsregexp",
+	},
+	{
+		"saadparwaiz1/cmp_luasnip",
+		lazy = true,
+	},
+	{
+		"rafamadriz/friendly-snippets",
+		lazy = true, -- load by luasnip
 	},
 }

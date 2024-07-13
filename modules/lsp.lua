@@ -1,69 +1,3 @@
-local get_config = function()
-	local config = {
-		clangd = {
-			capabilities = {
-				textDocument = {
-					semanticHighlightingCapabilities = {
-						semanticHighlighting = true,
-					},
-				},
-			},
-			on_init = require'nvim-lsp-clangd-highlight'.on_init
-		},
-		html = {},
-		jsonls = {},
-		ltex = {},
-		lua_ls = {},
-		pyre = {},
-		tsserver = {},
-		leanls = {},
-		lean3ls = {},
-	}
-	function on_attach(client, n_buffer)
-		local wk = require'which-key'
-		wk.register({
-			h = {
-				name = 'call hierarchy',
-				i = { '<cmd>Lspsaga incoming_calls<CR>', 'incoming' },
-				o = { '<cmd>Lspsaga outgoing_calls<CR>', 'outgoing' },
-			},
-			a = { '<cmd>Lspsaga code_action<CR>', 'code action' },
-			d = {
-				name = 'definition',
-				p = { '<cmd>Lspsaga peek_definition<CR>', "peek definition" },
-				P = { '<cmd>Lspsaga peek_type_definition<CR>', "peek type definition" },
-				g = { '<cmd>Lspsaga goto_definition<CR>', "goto definition" },
-				G = { '<cmd>Lspsaga goto_type_definition<CR>', "goto type definition" },
-				o = { '<cmd>Lspsaga outline<cr>', 'symbols outline' },
-				r = { '<cmd>Lspsaga rename<cr>', 'rename' },
-				k = { '<cmd>Lspsaga hover_doc<cr>', 'hover doc' },
-				K = { "<cmd>Lspsaga hover_doc ++keep<cr>", "hover doc (keep)" },
-			},
-			e = {
-				name = 'diagnostic',
-				j = { '<cmd>Lspsaga diagnostic_jump_next<CR>', 'next' },
-				k = { '<cmd>Lspsaga diagnostic_jump_prev<CR>', 'prev' },
-			},
-			f = { '<cmd>Lspsaga finder<CR>', 'lsp finder' },
-
-		}, { prefix = '<leader>', buffer = n_buffer })
-
-	end
-
-
-	-- use cmp's default capabilities
-	for _, each in pairs(config) do
-		each.on_attach = on_attach
-		local capabilities = require("cmp_nvim_lsp").default_capabilities()
-		if nil ~= each.capabilities then
-			table.merge(capabilities, each.capabilities)
-			each.capabilities = capabilities
-		end
-	end
-
-	return config
-end
-
 
 
 return {
@@ -79,28 +13,13 @@ return {
 			-- load order solved there.
 			require'mason'
 			require'mason-lspconfig'
+			-- neoconf must be setup before setting up servers.
+			require"neoconf"
 
-
-			local lspconfig = require'lspconfig'
-
-			local startServer = function(name, config)
-				config.capabilities =
-					require'cmp_nvim_lsp'.default_capabilities()
-				lspconfig[name].setup(config)
-			end
-
-			for k, v in pairs(get_config()) do
-				pcall(startServer, k, v)
-			end
-
-			-- if nvim was start with a file arg,
-			-- i.e. the file was opened before lspconfig was setup,
-			-- we should manually start it.
-		end
-	},
-	{
-		'adam-wolski/nvim-lsp-clangd-highlight',
-		lazy = true,
+		end,
+		init = function()
+			require("NeovimConfig.details.on_lazy").register(require("NeovimConfig.details.lsp_setup").setup)
+		end,
 	},
 	{
 		'nvimdev/lspsaga.nvim',
@@ -110,7 +29,7 @@ return {
 					extend_gitsigns = true,
 				},
 			}
-				end,
+		end,
 		dependencies = {
 			'nvim-treesitter/nvim-treesitter',
 			'nvim-tree/nvim-web-devicons',
@@ -129,16 +48,37 @@ return {
 		event = 'LspAttach',
 	},
 	{
-		"danymat/neogen",
-		config = function()
-			require("neogen").setup{}
+		"folke/lazydev.nvim",
+		-- init = events.lazyfile.loader("lua", "lazydev"),
+		-- lazy = true,
+		event = "User LazyFt lua",
+		dependencies = { "Bilal2453/luvit-meta" },
+		enabled = function()
+			-- only enable when supported
+			local version = vim.version()
+			if version.major == 0 and version.minor < 10 then
+				return false
+			end
+			return true
 
-			require("which-key").register({
-				dn = { "<cmd>Neogen<cr>", "create doc" },
-			}, { prefix = "<leader>" })
 		end,
-		event = "VeryLazy",
+		config = function()
+			require("lazydev").setup {
+				library = {
+					{ path = "luvit-meta/library", words = { "vim%.uv" } },
+				},
+			}
+		end,
 	},
+	{
+		"p00f/clangd_extensions.nvim",
+		config = function()
+			-- according to its intro,
+			-- there is no need to call setup if we satisfy the default config.
 
-
+			-- install
+			_G.clangd_ext = require("clangd_extensions")
+		end,
+		lazy = true,
+	},
 }

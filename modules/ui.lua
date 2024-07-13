@@ -1,3 +1,5 @@
+local on_lazy = require("NeovimConfig.details.on_lazy")
+--[[
 local hl = 'Statement'
 local startUpImage = {
 	'    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠤⠖⠚⢉⣩⣭⡭⠛⠓⠲⠦⣄⡀⠀⠀⠀⠀⠀⠀⠀  ',
@@ -21,6 +23,7 @@ local startUpImage = {
 	'    ⡇⠀⠇⠀⠀⡇⡸⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠮⢧⣀⣻⢂⠀⠀⠀⠀⠀⠀⢧  ',
 	'    ⣇⠀⢠⠀⠀⢳⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⡎⣆⠀⠀⠀⠀⠀⠘  ',
 }
+--]]
 
 return {
 	{
@@ -42,7 +45,7 @@ return {
 		opts = {
 			lsp = {
 				override = {
-					['vim.lsp.util.convert_input_to_markdown'] = true,
+					['vim.lsp.util.convert_input_to_markdown_lines'] = true,
 					['vim.lsp.util.stylize_markdown'] = true,
 					['cmp.entry.get_documentation'] = true,
 				},
@@ -51,7 +54,7 @@ return {
 			presets = {
 				bottom_search = true,
 				command_palette = true,
-				long_message_to_split = true,
+				long_messages_to_split = false,
 			},
 		},
 		dependencies = {
@@ -61,10 +64,8 @@ return {
 	},
 	{
 		'nvim-lualine/lualine.nvim',
-		event = "VeryLazy",
 		dependencies = { 'nvim-tree/nvim-web-devicons' },
 		config = true,
-		priority = 300,	
 	},
 	{
 		'goolord/alpha-nvim',
@@ -75,18 +76,23 @@ return {
 			dashboard.section.header.val = startUpImage
 			alpha.setup(dashboard.config)
 			--]]
+			local modname = "NeovimConfig.details.startup_image"
+			local image = require(modname)
+
 			require'alpha'.setup{
 				layout = {
 					header = {
 						type = 'text',
-						val = startUpImage,
+						val = image.text,
 						opts = {
-							hl = hl,
+							hl = image.hl,
 							position = 'center',
 						},
 					},
 				},
 			}
+
+			package.preload[modname]=nil
 		end,
 		dependencies = {
 			{'nvim-tree/nvim-web-devicons'}
@@ -95,7 +101,6 @@ return {
 	{
 		'akinsho/bufferline.nvim',
 		dependencies = 'nvim-tree/nvim-web-devicons',
-		event = "VeryLazy",
 		config = function()
 			require'bufferline'.setup {
 				options = {
@@ -128,37 +133,90 @@ return {
 					},
 				},
 			}
-			local wk = require'which-key'
-			wk.register{
-				['<C-h>'] = { ':BufferLineCyclePrev<CR>', 'next buffer' },
-				['<C-l>'] = { ':BufferLineCycleNext<CR>', 'prev buffer' },
-				['<C-p>'] = { ':BufferLinePick<CR>', 'pick buffer' },
-			}
-			wk.register({
-				b = {
-					name = 'bufferline operations',
-					x = { '<cmd>bdelete<cr>', 'close buffer' },
-					X = { '<cmd>bdelete!<cr>', 'force close buffer' },
-					t = { '<cmd>term<cr>', 'open terminal buffer' },
+			on_lazy.register(function()
+				local wk = require'which-key'
+				wk.register{
+					['<C-h>'] = { '<cmd>BufferLineCyclePrev<CR>', 'next buffer' },
+					['<C-l>'] = { '<cmd>BufferLineCycleNext<CR>', 'prev buffer' },
+					['<C-p>'] = { '<cmd>BufferLinePick<CR>', 'pick buffer' },
 				}
-			}, { prefix = '<leader>' })
+				wk.register({
+					b = {
+						name = 'bufferline operations',
+						x = { '<cmd>bdelete<cr>', 'close buffer' },
+						X = { '<cmd>bdelete!<cr>', 'force close buffer' },
+						t = { '<cmd>term<cr>', 'open terminal buffer' },
+					}
+				}, { prefix = '<leader>' })
+			end)
 		end,
-		priority = 300,
 	},
 	{
 		'nvim-tree/nvim-tree.lua',
-		lazy = true,
 		dependencies = {
 			'nvim-tree/nvim-web-devicons'
 		},
-		config = function()
-			require'nvim-tree'.setup{}
-			require'which-key'.register{
-				['<A-m>'] = { ':NvimTreeToggle<CR>', 'toggle file explorer' },
-			}
+		init = function()
+			vim.g.loaded_netrw = 1
+			vim.g.loaded_netrwPlugin = 1
 		end,
-		event = 'VeryLazy',
+		event = "VeryLazy",
+		config = function()
+			local function setup()
+				require'nvim-tree'.setup{
+					view = {
+						float = {
+							enable = true,
+							quit_on_focus_loss = false,
+						},
+					},
+					hijack_unnamed_buffer_when_opening = true,
+					on_attach = function(bufnr)
+						local wk = require("which-key")
+						local preview = require("nvim-tree-preview")
+						local api = require("nvim-tree.api")
+
+						-- use default mappings
+						api.config.mappings.default_on_attach(bufnr)
+						wk.register({
+							P = { preview.watch, "nvim-tree: open preview" },
+							["<esc>"] = { preview.unwatch, "nvim-tree: close preview" },
+							-- smart tab behavior: only preview files, expand/collapse directories (recommended)
+							["<tab>"] = {function()
+								local ok, node = pcall(api.tree.get_node_under_cursor)
+								if ok and node then
+									if node.type == 'directory' then
+										api.node.open.edit()
+									else
+										preview.node(node, { toggle_focus = true })
+									end
+								end
+							end, "nvim-tree preview" },
+						}, { buffer = bufnr, nowait = true })
+					end,
+				} -- setup
+
+				local tree = require("nvim-tree.api").tree
+				require'which-key'.register{
+					['<A-m>'] = { tree.toggle, 'toggle file explorer' },
+					["<A-M>"] = { tree.open, "open file explorer" },
+				}
+			end
+
+			setup()
+		end,
 	},
+	{
+		"b0o/nvim-tree-preview.lua",
+		config = function()
+			require("nvim-tree-preview").setup{}
+		end,
+		lazy = true,
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+	},
+
 	{
 		"lewis6991/satellite.nvim",
 		config = true,

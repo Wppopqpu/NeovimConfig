@@ -31,6 +31,7 @@ return {
 					'cmake',
 					'cpp',
 					'csv',
+					"doxygen",
 					'gitattributes',
 					'gitcommit',
 					'gitignore',
@@ -38,21 +39,19 @@ return {
 					'git_rebase',
 					'javascript',
 					'json',
+					"jsonc", -- required by neoconf setting file
 					'lua',
 					'make',
 					'markdown',
 					'markdown_inline', -- two markdown plugin are for lspsaga
 					'query',
+					"regex", -- required by noice
 					'vim',
 					'vimdoc',
 				},
 				highlight = {
 					enable = true,
 					disabled = function(lang, buf)
-						if vim.env.NVIM_NO_CLANGD==nil
-							and (lang=='c' or lang=='cpp') then
-							return false
-						end
 						local max = 100*1024
 						local ok, stats = pcall(vim.loop.fs_stat
 							, vim.api.nvim_buf_get_name(buf))
@@ -60,6 +59,9 @@ return {
 							return true
 						end
 					end,
+				},
+				incremental_selection = {
+					enable = true,
 				},
 			}
 		end,
