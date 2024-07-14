@@ -3,7 +3,14 @@ return {
 		"gbprod/yanky.nvim",
 		event = "VeryLazy",
 		config = function()
-			require("yanky").setup{}
+			require("yanky").setup{
+				ring = {
+					storage = "sqlite",
+				},
+			}
+
+			local tele = require("telescope")
+			tele.load_extension("yank_history")
 
 			local which = require("which-key")
 
@@ -14,12 +21,27 @@ return {
 				gP = { "<plug>(YankyGPutBefore)", "g put before" },
 			}, { mode = { "n", "x" } })
 
+			--[[
 			which.register{
-				["<c-p>"] = { "<plug>(YankyPreviosEntry)", "previos entry" },
-				["<c-n>"] = { "<plug>(YankyNextEntry)", "next entry" },
+				["[y"] = { "<plug>(YankyPreviosEntry)", "previos entry" },
+				["]y"] = { "<plug>(YankyNextEntry)", "next entry" },
 				["["] = {
 					p = { "<plug>(YankyPutIndentBeforeLinewise)", "put indent before linewise" },
 				},
+			}
+			--]]
+			which.add {
+				{ "[y", "<plug>(YankyPreviosEntry)", desc = "yanky: previous entry" },
+				{ "]y", "<plug>(YankyNextEntry)", desc = "yanky: next entry" },
+				{ "[p", "<plug>(YankyPutIndentBeforeLinewise)", desc = "yanky: indent before linewise" },
+				{ "]p", "<plug>(YankyPutIndentAfterLinewise)", desc = "yanky: indent after linewise" },
+				{ "<p", "<plug>(YankyPutIndentAfterShiftLeft)", desc = "yanky: indent after shift left" },
+				{ "<P", "<plug>(YankyPutIndentBeforeShiftLeft)", desc = "yanky: indent before shift left" },
+				{ ">p", "<plug>(YankyPutIndentAfterShiftRight)", desc = "yanky: indent after shift right" },
+				{ ">P", "<plug>(YankyPutIndentBeforeShiftRight)", desc = "yanky: indent before shift right" },
+				{ "<a-p>", "<plug>(YankyPutAfterFilter)", desc = "yanky: after filter" },
+				{ "<a-P>", "<plug>(YankyPutBeforeFilter)", desc = "yanky: before filter" },
+				{ "<a-y>", tele.extensions.yank_history.yank_history, desc = "yanky: pick in telescope" },
 			}
 		end,
 	},
