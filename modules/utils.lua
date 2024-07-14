@@ -85,11 +85,6 @@ return {
 						title = "OUTLINE",
 						size = { width = 30 },
 					},
-					{
-						ft = "gitcommit",
-						title = "GITCOMMIT",
-						size = { width = 0.5 },
-					},
 				},
 			}
 
