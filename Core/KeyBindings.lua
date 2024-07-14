@@ -33,6 +33,10 @@ wk.register({
 	['<esc>'] = { '<c-\\><c-n>', 'exit insert mode' },
 }, { mode = 't' })
 
+wk.add {
+	{ "<a-s>", "<cmd>nohls<cr>", desc = "clear search highlight" },
+}
+
 --[[
 map('v', '<', '<gv', {desc='Adjust indent (less).'})
 map('v', '>', '>gv', {desc='Adjust indent (more).'})
