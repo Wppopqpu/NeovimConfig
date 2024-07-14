@@ -46,8 +46,57 @@ return {
 	{
 		"folke/edgy.nvim",
 		event = "VeryLazy",
+		init = function ()
+			vim.opt.laststatus = 3
+			vim.opt.splitkeep = "screen"
+		end,
 		config =function()
+			_G.edgy = require("edgy")
 			require("edgy").setup{
+				bottom = {
+					{
+						ft = "toggleterm",
+						title = "TERMINAL",
+						size = { height = 0.4 },
+						-- no floating windows
+						filter = function (buf, win)
+							return vim.api.nvim_win_get_config(win).relative == ""
+						end,
+					},
+					"Trouble",
+					{ ft = "qf", title = "QUICKFIX" },
+					{
+						ft = "dap-repl",
+						size = { height = 0.4 },
+						title = "DAP REPLY",
+					}
+				},
+				right = {
+					{
+						ft = "help",
+						title = "HELP",
+						size = { width = 0.5 },
+						filter = function (buf)
+							return vim.bo[buf].buftype == "help"
+						end,
+					},
+					{
+						ft = "sagaoutline",
+						title = "OUTLINE",
+						size = { width = 30 },
+					},
+					{
+						ft = "gitcommit",
+						title = "GITCOMMIT",
+						size = { width = 0.5 },
+					},
+				},
+			}
+
+			require("which-key").add {
+				{ "<a-o>", edgy.select, desc = "edgy: select window" },
+				{ "<a-q>", edgy.goto_main, desc = "edgy: goto last main window" },
+				{ "<a-Q>", edgy.close, desc = "edgy: close all" },
 			}
 		end,
 	},
