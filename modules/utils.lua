@@ -240,4 +240,22 @@ return {
 
 		end,
 	},
+	{
+		"2KAbhishek/nerdy.nvim",
+		event = "VeryLazy",
+		config = function ()
+			local tele = require("telescope")
+			local wk = require("which-key")
+
+			tele.load_extension("nerdy")
+
+			wk.add {
+				{ "<leader>u,",tele.extensions.nerdy.nerdy , desc = "nerd icons" },
+			}
+		end ,
+		dependencies = {
+			"stevearc/dressing.nvim",
+			"nvim-telescope/telescope.nvim",
+		},
+	},
 }
