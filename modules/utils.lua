@@ -296,9 +296,11 @@ return {
 		config = function ()
 			require("which-key").add {
 				mode = { "n", "x", "o" },
-				{ "<leader>jc", require("flash-zh").jump {
-					chinese_only = false,
-				}, desc = "chinese mode" },
+				{ "<leader>jc", function ()
+					require("flash-zh").jump {
+						chinese_only = false,
+					}
+				end, desc = "chinese mode" },
 			}
 		end,
 	},
