@@ -134,7 +134,7 @@ return {
 					m = { function ()
 						man.open_manual_for(vim.fn.expand("<cword>"))
 					end, "for current word" },
-					c = { man.input, "search" },
+					r = { man.input, "search" },
 				},
 			}, { prefix = "<leader>" })
 		end,
