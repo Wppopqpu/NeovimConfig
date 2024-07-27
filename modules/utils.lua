@@ -258,4 +258,48 @@ return {
 			"nvim-telescope/telescope.nvim",
 		},
 	},
+	{
+		"folke/flash.nvim",
+		event = "VeryLazy",
+		config = function ()
+			local wk = require("which-key")
+			local fl = require("flash")
+
+			fl.setup {
+				search = {
+					enabled = true,
+				},
+				label = {
+					rainbow = {
+						enable = true,
+					},
+				},
+			}
+
+			wk.add {
+				mode = { "n", "x", "o"},
+				{ "<leader>j", group = "flash" },
+				{ "<leader>jt", fl.treesitter, desc = "treesitter mode" },
+				{ "<leader>js", fl.treesitter_search, mode = { "o", "x" }, desc = "treesitter search mode" },
+				{ "<leader>jj", fl.jump, desc = "jump" },
+				{ "<leader>jr", fl.remote, mode = "o", desc = "remote mode" },
+				{ "<c-j>", fl.toggle, mode = "c", desc = "toggle in regular search" },
+			}
+		end,
+	},
+	{
+		"rainzm/flash-zh.nvim",
+		event = "VeryLazy",
+		dependencies = {
+			"folke/flash.nvim",
+		},
+		config = function ()
+			require("which-key").add {
+				mode = { "n", "x", "o" },
+				{ "<leader>jc", require("flash-zh").jump {
+					chinese_only = false,
+				}, desc = "chinese mode" },
+			}
+		end,
+	},
 }
