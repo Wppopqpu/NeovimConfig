@@ -41,6 +41,7 @@ return {
 					'json',
 					"jsonc", -- required by neoconf setting file
 					'lua',
+					"latex",
 					'make',
 					'markdown',
 					'markdown_inline', -- two markdown plugin are for lspsaga
