@@ -95,6 +95,7 @@ vim.opt.clipboard:append{ "unnamedplus" }
 
 vim.opt.pumblend = 15
 
+--[[
 vim.api.nvim_create_autocmd("Filetype", {
 	pattern = "help",
 	callback = function (info)
@@ -104,3 +105,4 @@ vim.api.nvim_create_autocmd("Filetype", {
 	 end,
 	group = augroup,
 })
+--]]
