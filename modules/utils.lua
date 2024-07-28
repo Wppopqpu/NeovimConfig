@@ -97,9 +97,17 @@ return {
 					{
 						ft = "help",
 						title = "HELP",
-						size = { width = 0.5 },
+						size = { width = 80 },
 						filter = function (buf)
 							return vim.bo[buf].buftype == "help"
+						end,
+					},
+					{
+						ft = "man",
+						title = "MAN PAGES",
+						size = { width = 80 },
+						filter = function (buf, win)
+							return vim.api.nvim_win_get_config(win).relative == ""
 						end,
 					},
 					{
