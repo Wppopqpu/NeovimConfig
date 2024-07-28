@@ -312,4 +312,8 @@ return {
 			}
 		end,
 	},
+	{
+		"LunarVim/bigfile.nvim",
+		config = true,
+	},
 }
