@@ -251,6 +251,7 @@ return {
 					margin = {
 						horizontal = 0,
 					},
+					zindex = 50,
 				},
 				render = function (props)
 					local helpers = require("incline.helpers")
