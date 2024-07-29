@@ -240,5 +240,40 @@ return {
 		config = true,
 		event = 'VeryLazy',
 	},
+	{
+		"b0o/incline.nvim",
+		event =  "VeryLazy",
+		config = function ()
+			local incline = require("incline")
+			incline.setup {
+				window = {
+					padding = 0,
+					margin = {
+						horizontal = 0,
+					},
+				},
+				render = function (props)
+					local helpers = require("incline.helpers")
+					local devicon = require("nvim-web-devicons")
 
+					local fname = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
+					if fname == "" then
+						fname = "%NO NAME%"
+					end
+
+					local icon, color = devicon.get_icon_color(fname)
+					local mod = vim.bo[props.buf].modified
+
+					return {
+						icon and { " ", icon, " ", guibg = color, guifg = helpers.contrast_color(color) },
+						" ",
+						{ fname, gui = mod and "bold,italic" or "bold" },
+						" ",
+						guibg = "#44406e",
+					}
+				end,
+			}
+			incline.enable()
+		end,
+	},
 }
