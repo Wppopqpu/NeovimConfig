@@ -160,8 +160,14 @@ return {
 				kitty = {
 					enabled = true,
 				},
-				on_open = incline.disable,
-				on_close = incline.enable,
+				on_open = function ()
+					incline.disable()
+					vim.cmd("Hardtime disable")
+				end,
+				on_close = function ()
+					incline.enable()
+					vim.cmd("Hardtime enable")
+				end,
 			}
 			require("which-key").register({
 				z = { "<cmd>ZenMode<cr>", "toggle zen mode" },
