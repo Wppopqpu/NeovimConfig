@@ -16,4 +16,32 @@ return {
 			vim.cmd("RenderMarkdown enable")
 		end,
 	},
+	{
+		"RRethy/vim-illuminate",
+		event = "VeryLazy",
+		config = function ()
+			local illu = require("illuminate")
+			illu.configure {
+				filetypes_denylist = {
+					"NvimTree",
+					"sagaoutline",
+					"lazy",
+					"dirbuf",
+					"dirwish",
+					"fugitive",
+					"mason",
+					"toggleterm",
+					"qf",
+					"Trouble",
+					"noice",
+					"dap-repl",
+					"help",
+					"man",
+				},
+				modes_allowlist = {
+					"n",
+				},
+			}
+		end,
+	},
 }

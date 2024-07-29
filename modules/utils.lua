@@ -39,8 +39,8 @@ return {
 				{ "<P", "<plug>(YankyPutIndentBeforeShiftLeft)", desc = "yanky: indent before shift left" },
 				{ ">p", "<plug>(YankyPutIndentAfterShiftRight)", desc = "yanky: indent after shift right" },
 				{ ">P", "<plug>(YankyPutIndentBeforeShiftRight)", desc = "yanky: indent before shift right" },
-				{ "<a-p>", "<plug>(YankyPutAfterFilter)", desc = "yanky: after filter" },
-				{ "<a-P>", "<plug>(YankyPutBeforeFilter)", desc = "yanky: before filter" },
+				{ "<a-f>", "<plug>(YankyPutAfterFilter)", desc = "yanky: after filter" },
+				{ "<a-F>", "<plug>(YankyPutBeforeFilter)", desc = "yanky: before filter" },
 				{ "<a-y>", tele.extensions.yank_history.yank_history, desc = "yanky: pick in telescope" },
 			}
 		end,
