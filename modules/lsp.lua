@@ -25,6 +25,11 @@ return {
 		'nvimdev/lspsaga.nvim',
 		config = function()
 			require'lspsaga'.setup{
+				symbol_in_winbar = {
+					show_file = false,
+					folder_level = 0,
+					hide_keyword = true,
+				},
 				code_action = {
 					extend_gitsigns = true,
 				},
