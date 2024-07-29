@@ -234,12 +234,20 @@ return {
 			require'NeovimConfig.Core.KeyBindings'
 		end,
 	},
+	-- project-local configuration management.
 	{
 		"folke/neoconf.nvim",
 		config = function()
 			require("neoconf").setup{}
 		end,
 		event = "VeryLazy",
+	},
+	{
+		"jedrzejboczar/exrc.nvim",
+		event = "VeryLazy",
+		opt = {
+			on_vim_enter = false, -- as it is lazy loaded.
+		},
 	},
 	{
 		'azadkuh/vim-cmus',
