@@ -148,14 +148,26 @@ return {
 		end,
 	},
 	{
+		"folke/twilight.nvim",
+		event = "VeryLazy",
+		config = true,
+	},
+	{
 		"folke/zen-mode.nvim",
 		config = function()
-			require("zen-mode").setup{}
+			local incline = require("incline")
+			require("zen-mode").setup{
+				kitty = {
+					enabled = true,
+				},
+				on_open = incline.disable,
+				on_close = incline.enable,
+			}
 			require("which-key").register({
 				z = { "<cmd>ZenMode<cr>", "toggle zen mode" },
 			}, { prefix = "<leader>" })
 		end,
-		event = "VeryLazy"
+		event = "VeryLazy",
 	},
 	{
 		"folke/todo-comments.nvim",
