@@ -44,6 +44,7 @@ return {
 			}
 		end,
 	},
+	-- fold enhancement
 	{
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
@@ -58,5 +59,27 @@ return {
 
 			cmp.event:on("confirm_done", npairs_cmp.on_confirm_done)
 		end,
+	},
+	{
+		"kevinhwang91/nvim-ufo",
+		config = function ()
+			local ufo = require("ufo")
+
+			ufo.setup {
+			}
+
+			require("which-key").add {
+				{ "zR", ufo.openAllFolds, desc = "open all folds" },
+				{ "zM", ufo.closeAllFolds, desc = "close all folds" },
+			}
+		end,
+		dependencies = "kevinhwang91/promise-async",
+		init = function ()
+			vim.opt.foldcolumn = "1"
+			vim.opt.foldlevel = 99
+			vim.opt.foldlevelstart = 99
+			vim.opt.foldenable = true
+		end,
+		event = "VeryLazy",
 	},
 }

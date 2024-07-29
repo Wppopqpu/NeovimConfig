@@ -89,6 +89,12 @@ local get_config = function()
 	-- use cmp's default capabilities
 	local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
+	-- required by nvim-ufo
+	capabilities.textDocument.foldingRange = {
+		dynamicRegistration = false,
+		lineFoldingOnly = true,
+	}
+
 	local default = {
 		on_attach = on_attach,
 		capabilities = capabilities,
