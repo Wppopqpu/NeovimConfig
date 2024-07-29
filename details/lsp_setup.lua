@@ -2,26 +2,6 @@ local M = {}
 local disabled = require("NeovimConfig.details.lsp_disable")
 
 local get_config = function()
-	local config = {
-		clangd = {
-			capabilities = {
-				textDocument = {
-					semanticHighlightingCapabilities = {
-						semanticHighlighting = true,
-					},
-				},
-			},
-			on_init = require'nvim-lsp-clangd-highlight'.on_init
-		},
-		html = {},
-		jsonls = {},
-		ltex = {},
-		lua_ls = {},
-		pyre = {},
-		tsserver = {},
-		leanls = {},
-		lean3ls = {},
-	}
 	local function on_attach(client, n_buffer)
 		local wk = require'which-key'
 		wk.register({
@@ -53,9 +33,67 @@ local get_config = function()
 
 	end
 
+	local config = {
+		clangd = {
+			--[[
+			capabilities = {
+				textDocument = {
+					semanticHighlightingCapabilities = {
+						semanticHighlighting = true,
+					},
+				},
+			},
+			on_init = require'nvim-lsp-clangd-highlight'.on_init,
+			--]]
+			on_attach = function(client, bufnr)
+				on_attach(client, bufnr)
+
+				local clangd_ext = require("clangd_extensions")
+				local inlay = require("clangd_extensions.inlay_hints")
+				local wk = require("which-key")
+
+				inlay.setup_autocmd()
+				inlay.set_inlay_hints()
+
+				vim.api.nvim_create_autocmd({"TextChanged", "InsertLeave"}, {
+					buffer = bufnr,
+					callback = function()
+						require("clangd_extensions.inlay_hints").set_inlay_hints()
+					end,
+				})
+
+				wk.register({
+					gs = { "<cmd>ClangdSwitchSourceHeader<cr>", "switch between src & header" },
+					["<leader>"] = {
+						d = {
+							name = "definition",
+							a = { "<cmd>ClangdAst<cr>", "view ast" },
+							-- TODO: auto open symbol info when cusor dont
+							-- move for seconds
+							s = { "<cmd>ClangdSymbolInfo<cr>", "symbol info" },
+						},
+					},
+				}, { buf = bufnr })
+			end,
+		},
+		html = {},
+		jsonls = {},
+		ltex = {},
+		lua_ls = {},
+		pyre = {},
+		tsserver = {},
+		leanls = {},
+		lean3ls = {},
+	}
 
 	-- use cmp's default capabilities
 	local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+	-- required by nvim-ufo
+	capabilities.textDocument.foldingRange = {
+		dynamicRegistration = false,
+		lineFoldingOnly = true,
+	}
 
 	local default = {
 		on_attach = on_attach,

@@ -1,5 +1,7 @@
 -- Options.lua
 
+local augroup = vim.api.nvim_create_augroup("__option_cmd", { clear = true })
+
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
@@ -90,3 +92,17 @@ vim.opt.listchars:prepend{ eol = '↲', trail = '·', tab = '<->' }
 
 -- integrate with system clipboard
 vim.opt.clipboard:append{ "unnamedplus" }
+
+vim.opt.pumblend = 15
+
+--[[
+vim.api.nvim_create_autocmd("Filetype", {
+	pattern = "help",
+	callback = function (info)
+		vim.api.nvim_set_option_value("wrap", true, {
+			 buf = info.buf
+		})
+	 end,
+	group = augroup,
+})
+--]]

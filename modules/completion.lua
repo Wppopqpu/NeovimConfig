@@ -30,12 +30,24 @@ return {
 	},
 	{
 		'hrsh7th/nvim-cmp',
-		event = "VeryLazy",
+		event = {
+			"InsertEnter",
+			"CmdlineEnter",
+		},
 		config = function()
 			local cmp = require'cmp'
 			local lspkind = require'lspkind'
 
 			cmp.setup {
+				experimental = {
+					ghost_text = true,
+				},
+				view = {
+					docs = {
+						auto_open = true,
+					},
+				},
+				preselect = cmp.PreselectMode.Item,
 				formatting = {
 					format = lspkind.cmp_format{
 						mode = 'symbol',
@@ -64,11 +76,21 @@ return {
 					{ name = 'buffer' },
 					{ name = "path" },
 				}),
+				window = {
+					completion = {
+						winblend = 15,
+					},
+					documentation = {
+						winblend = 15
+					},
+				},
 			}
 
 			cmp.setup.filetype('gitcommit', {
 				sources = cmp.config.sources({
 					{ name = 'git' },
+				}, {
+					{ name = "emoji" },
 				}, {
 					{ name = 'buffer' },
 					{ name = "path" },
@@ -124,6 +146,7 @@ return {
 		config = function()
 			require("luasnip.loaders.from_vscode").lazy_load()
 		end,
+		build = "make install_jsregexp",
 	},
 	{
 		"saadparwaiz1/cmp_luasnip",

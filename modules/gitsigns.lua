@@ -11,12 +11,12 @@ return {
 						name = 'Gitsignes.',
 						[']'] = { function()
 							if vim.wo.diff then return ']' end
-							vim.schedule(function() gs.next_hunk() end)
+							vim.schedule(function() gs.nav_hunk("next") end)
 							return '<Ignore>'
 						end, '(gitsignes) Next hunk.', expr = true },
 						['['] = { function()
 							if vim.wo.diff then return '[' end
-							vim.schedule(function() gs.prev_hunk() end)
+							vim.schedule(function() gs.nav_hunk("prev") end)
 						end, '(gitsignes) Prev hunk.', expr = true },
 
 						s = { gs.stage_hunk, 'Stage hunk' },
@@ -61,7 +61,7 @@ return {
 				wk.register({
 					h = {
 						name = 'Gitsignes.',
-						i = { ':<C-U>Gitsignes select_hunk<CR>'
+						i = { gs.select_hunk
 							, 'Text object.' },
 					},
 				}, { prefix = '<leader>', buffer = buf, mode = {'o', 'x'} })

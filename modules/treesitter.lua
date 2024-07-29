@@ -41,20 +41,18 @@ return {
 					'json',
 					"jsonc", -- required by neoconf setting file
 					'lua',
+					"latex",
 					'make',
 					'markdown',
 					'markdown_inline', -- two markdown plugin are for lspsaga
 					'query',
+					"regex", -- required by noice
 					'vim',
 					'vimdoc',
 				},
 				highlight = {
 					enable = true,
 					disabled = function(lang, buf)
-						if require("NeovimConfig.details.lsp_disable"):has("clangd")
-							and (lang=='c' or lang=='cpp') then
-							return true
-						end
 						local max = 100*1024
 						local ok, stats = pcall(vim.loop.fs_stat
 							, vim.api.nvim_buf_get_name(buf))

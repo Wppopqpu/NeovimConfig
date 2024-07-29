@@ -22,13 +22,14 @@ return {
 		end,
 	},
 	{
-		'adam-wolski/nvim-lsp-clangd-highlight',
-		lazy = true,
-	},
-	{
 		'nvimdev/lspsaga.nvim',
 		config = function()
 			require'lspsaga'.setup{
+				symbol_in_winbar = {
+					show_file = false,
+					folder_level = 0,
+					hide_keyword = true,
+				},
 				code_action = {
 					extend_gitsigns = true,
 				},
@@ -53,7 +54,9 @@ return {
 	},
 	{
 		"folke/lazydev.nvim",
-		event = "VeryLazy",
+		-- init = events.lazyfile.loader("lua", "lazydev"),
+		-- lazy = true,
+		event = "User LazyFt lua",
 		dependencies = { "Bilal2453/luvit-meta" },
 		enabled = function()
 			-- only enable when supported
@@ -71,5 +74,16 @@ return {
 				},
 			}
 		end,
+	},
+	{
+		"p00f/clangd_extensions.nvim",
+		config = function()
+			-- according to its intro,
+			-- there is no need to call setup if we satisfy the default config.
+
+			-- install
+			_G.clangd_ext = require("clangd_extensions")
+		end,
+		lazy = true,
 	},
 }
