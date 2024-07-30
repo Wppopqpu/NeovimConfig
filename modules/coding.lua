@@ -37,6 +37,8 @@ return {
 					"dap-repl",
 					"help",
 					"man",
+					"log",
+					"lspinfo",
 				},
 				modes_allowlist = {
 					"n",
