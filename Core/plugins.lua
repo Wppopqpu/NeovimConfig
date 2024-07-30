@@ -21,5 +21,24 @@ require'lazy'.setup("NeovimConfig.modules", {
 	},
 	ui = {
 		border = "rounded",
+		custom_keys = {
+			["<leader>mm"] = {
+				function (plugin)
+					require("lazy.util").float_term(nil, {
+						dir = plugin.dir,
+					})
+				end,
+				desc = "open terminal in plugin dir",
+			},
+		},
+
+	},
+	rtp = {
+		disabled_plugins = {
+			"netrwPlugin",
+		},
+	},
+	change_detection = {
+		notify = false,
 	},
 })

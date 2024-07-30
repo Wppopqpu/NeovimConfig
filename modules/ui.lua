@@ -162,10 +162,12 @@ return {
 		dependencies = {
 			'nvim-tree/nvim-web-devicons'
 		},
-		init = function()
-			vim.g.loaded_netrw = 1
-			vim.g.loaded_netrwPlugin = 1
-		end,
+		-- disabled by lazy.
+		--
+		-- init = function()
+		-- 	vim.g.loaded_netrw = 1
+		-- 	vim.g.loaded_netrwPlugin = 1
+		-- end,
 		event = "VeryLazy",
 		config = function()
 			local function setup()
