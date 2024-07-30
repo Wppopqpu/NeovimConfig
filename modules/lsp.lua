@@ -86,4 +86,14 @@ return {
 		end,
 		lazy = true,
 	},
+	{
+		"chrisgrieser/nvim-lsp-endhints",
+		config = function ()
+			local endhints = require("lsp-endhints")
+
+			endhints.setup{
+			}
+		end,
+		event = "LspAttach",
+	}
 }

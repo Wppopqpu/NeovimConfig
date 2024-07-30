@@ -1,6 +1,17 @@
 local M = {}
 local disabled = require("NeovimConfig.details.lsp_disable")
 
+local ts_hint_conf = {
+	includeInlayParameterNameHints = "all",
+	includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+	includeInlayFunctionParameterTypeHints = true,
+	includeInlayVariableTypeHints = true,
+	includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+	includeInlayPropertyDeclarationTypeHints = true,
+	includeInlayFunctionLikeReturnTypeHints = true,
+	includeInlayEnumMemberValueHints = true,
+}
+
 local get_config = function()
 	local function on_attach(client, n_buffer)
 		local wk = require'which-key'
@@ -35,6 +46,17 @@ local get_config = function()
 
 	local config = {
 		clangd = {
+			settings = {
+				clangd = {
+					InlayHints = {
+						Designators = true,
+						Enable = true,
+						ParameterNames = true,
+						DeducedTypes = true,
+					},
+					fallbackFlags = { "--std=c++20" },
+				},
+			},
 			--[[
 			capabilities = {
 				textDocument = {
@@ -49,9 +71,11 @@ local get_config = function()
 				on_attach(client, bufnr)
 
 				local clangd_ext = require("clangd_extensions")
-				local inlay = require("clangd_extensions.inlay_hints")
+				-- hints was managed by nvim-lsp-endhints
+				-- local inlay = require("clangd_extensions.inlay_hints")
 				local wk = require("which-key")
 
+				--[[
 				inlay.setup_autocmd()
 				inlay.set_inlay_hints()
 
@@ -61,6 +85,7 @@ local get_config = function()
 						require("clangd_extensions.inlay_hints").set_inlay_hints()
 					end,
 				})
+				--]]
 
 				wk.register({
 					gs = { "<cmd>ClangdSwitchSourceHeader<cr>", "switch between src & header" },
@@ -79,9 +104,26 @@ local get_config = function()
 		html = {},
 		jsonls = {},
 		ltex = {},
-		lua_ls = {},
+		lua_ls = {
+			settings = {
+				Lua = {
+					hint = {
+						enable = true,
+					},
+				},
+			},
+		},
 		pyre = {},
-		tsserver = {},
+		tsserver = {
+			settings = {
+				typescript = {
+					hint = ts_hint_conf,
+				},
+				javascript = {
+					hint = ts_hint_conf,
+				},
+			},
+		},
 		leanls = {},
 		lean3ls = {},
 	}
