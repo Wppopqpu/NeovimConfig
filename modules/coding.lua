@@ -82,4 +82,9 @@ return {
 		end,
 		event = "VeryLazy",
 	},
+	{
+		"numToStr/Comment.nvim",
+		event = "VeryLazy",
+		config = true,
+	},
 }
