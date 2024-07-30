@@ -87,4 +87,11 @@ return {
 		event = "VeryLazy",
 		config = true,
 	},
+	{
+		-- abbr reminder
+		"0styx0/abbreinder.nvim",
+		event = "InsertEnter",
+		config = true,
+		dependencies = "0styx0/abbremand.nvim",
+	}
 }
