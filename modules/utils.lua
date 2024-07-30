@@ -103,6 +103,14 @@ return {
 						end,
 					},
 					{
+						ft = "markdown",
+						title = "HELP",
+						size = { width = 80 },
+						filter = function (buf)
+							return vim.bo[buf].buftype == "help"
+						end,
+					},
+					{
 						ft = "man",
 						title = "MAN PAGES",
 						size = { width = 80 },
