@@ -25,7 +25,7 @@ require'lazy'.setup("NeovimConfig.modules", {
 			["<leader>mm"] = {
 				function (plugin)
 					require("lazy.util").float_term(nil, {
-						dir = plugin.dir,
+						cwd = plugin.dir,
 					})
 				end,
 				desc = "open terminal in plugin dir",
