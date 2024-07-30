@@ -200,6 +200,23 @@ return {
 									end
 								end
 							end, "nvim-tree preview" },
+							["<leader>mm"] = { function ()
+								local ok, node = pcall(api.tree.get_node_under_cursor)
+								if not ok then
+									return
+								end
+
+								local path = node.absolute_path
+
+								if node.type ~= "directory" then
+									path = vim.fn.fnamemodify(path, ":h")
+								end
+								-- print(path)
+
+								require("lazy.util").float_term(nil, {
+									cwd = path,
+								})
+							end, "open term in folder" },
 						}, { buffer = bufnr, nowait = true })
 					end,
 				} -- setup

@@ -35,6 +35,8 @@ wk.register({
 
 wk.add {
 	{ "<a-s>", "<cmd>nohls<cr>", desc = "clear search highlight" },
+	{ "<leader>m", group = "terminal" },
+	{ "<leader>mm", require("lazy.util").float_term, desc = "float (lazy)" },
 }
 
 --[[
