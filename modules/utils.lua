@@ -350,4 +350,21 @@ return {
 		"LunarVim/bigfile.nvim",
 		config = true,
 	},
+	{
+		"akinsho/toggleterm.nvim",
+		version = "*",
+		event = "VeryLazy",
+		config = function ()
+			require("toggleterm").setup {
+				-- winbar = {
+				-- 	enabled = true,
+				-- },
+			}
+
+			require("which-key").add {
+				{ "<leader>mt", "<cmd>ToggleTerm<cr>", desc = "toggleterm" },
+				{ "<leader>ms", "<cmd>TermSelect<cr>", desc = "select toggleterm" },
+			}
+		end,
+	}
 }

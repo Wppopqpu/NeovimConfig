@@ -30,6 +30,13 @@ require'lazy'.setup("NeovimConfig.modules", {
 				end,
 				desc = "open terminal in plugin dir",
 			},
+			["<leader>mt"] = {
+				function (plugin)
+					vim.cmd("close")
+					vim.cmd("ToggleTerm dir='"..plugin.dir.."'")
+				end,
+				desc = "open toggleterm in plugin dir",
+			},
 		},
 
 	},

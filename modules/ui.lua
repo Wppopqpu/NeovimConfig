@@ -171,6 +171,7 @@ return {
 		event = "VeryLazy",
 		config = function()
 			local function setup()
+
 				require'nvim-tree'.setup{
 					view = {
 						float = {
@@ -183,6 +184,21 @@ return {
 						local wk = require("which-key")
 						local preview = require("nvim-tree-preview")
 						local api = require("nvim-tree.api")
+
+						-- get dir to open term
+						local function get_term_dir()
+							local ok, node = pcall(api.tree.get_node_under_cursor)
+							if not (ok and node) then
+								return nil
+							end
+
+							local dir = node.absolute_path
+							if node.type == "directory" then
+								return dir
+							end
+
+							return vim.fn.fnamemodify(dir, ":h")
+						end
 
 						-- use default mappings
 						api.config.mappings.default_on_attach(bufnr)
@@ -201,22 +217,14 @@ return {
 								end
 							end, "nvim-tree preview" },
 							["<leader>mm"] = { function ()
-								local ok, node = pcall(api.tree.get_node_under_cursor)
-								if not ok then
-									return
-								end
-
-								local path = node.absolute_path
-
-								if node.type ~= "directory" then
-									path = vim.fn.fnamemodify(path, ":h")
-								end
-								-- print(path)
-
 								require("lazy.util").float_term(nil, {
-									cwd = path,
+									cwd = get_term_dir() or ".",
 								})
-							end, "open term in folder" },
+							end, "open lazy term in folder" },
+							["<leader>mt"] = { function ()
+								api.tree.close()
+								vim.cmd("ToggleTerm dir="..(get_term_dir() or "."))
+							end, "open toggleterm in folder"},
 						}, { buffer = bufnr, nowait = true })
 					end,
 				} -- setup
