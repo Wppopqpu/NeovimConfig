@@ -80,7 +80,9 @@ M.raw.old_hide = vim.api.nvim_win_hide
 M.raw.old_close = vim.api.nvim_win_close
 M.raw.old_set_width = vim.api.nvim_win_set_width
 M.raw.old_set_height = vim.api.nvim_win_set_height
-M.raw.old_set_option_value = vim.api.nvim_set_option_value
+-- M.raw.old_set_option_value = vim.api.nvim_set_option_value
+-- use raw api from blend
+M.raw.old_set_option_value = require("NeovimConfig.details.float_mod.blend").set_option
 M.raw.old_win_call = vim.api.nvim_win_call
 
 

@@ -1,3 +1,5 @@
+local M = {}
+
 local config = require("NeovimConfig.details.float_mod.config").blend
 assert(config~=nil)
 
@@ -15,6 +17,7 @@ assert(math.abs(calculate_blendness(100)-100)<=1)
 
 local old_open_win = vim.api.nvim_open_win
 local old_set_option = vim.api.nvim_set_option_value
+M.set_option = old_set_option
 local old_set_var = vim.api.nvim_win_set_var
 
 
@@ -73,4 +76,4 @@ vim.api.nvim_win_set_var = function(win, name, value)
 	old_set_var(win, name, value)
 end
 
-
+return M

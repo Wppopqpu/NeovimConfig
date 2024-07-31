@@ -6,7 +6,7 @@ local M = {
 		},
 		shadow = {
 			enabled = true,
-			blendness = 5,
+			blendness = 40,
 			zindex = 1,
 			h_offset = 3,
 			v_offset = 3,
