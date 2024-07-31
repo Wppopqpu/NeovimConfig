@@ -37,6 +37,20 @@ return {
 		"m4xshen/hardtime.nvim",
 		event = "VeryLazy",
 		dependencies = "MunifTanjim/nui.nvim",
-		config = true,
+		opt = {
+			disable_mouse = false,
+		},
 	},
+	{
+		"rktjmp/playtime.nvim",
+		init = function()
+			vim.api.nvim_create_user_command("LoadPlaytime", function (info)
+				require("playtime")
+			end, {
+				desc = "load playtime.nvim"
+			})
+		end,
+		lazy = true,
+		config = true,
+	}
 }
