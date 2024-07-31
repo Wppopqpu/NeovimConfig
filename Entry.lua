@@ -15,6 +15,7 @@ require("NeovimConfig.details.events")
 
 on_lazy.register(function()
 	require("NeovimConfig.details.float_mod").setup{}
+	require("NeovimConfig.details.helper")
 end)
 
 require'NeovimConfig.Core.Options'
