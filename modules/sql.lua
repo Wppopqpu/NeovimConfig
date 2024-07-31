@@ -1,6 +1,6 @@
 return {
 	{
 		"kkharji/sqlite.lua",
-		event = "VeryLazy",
+		lazy = true,
 	},
 }
