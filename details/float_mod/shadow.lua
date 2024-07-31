@@ -257,7 +257,7 @@ local protoshadow = {
 			logfile:write("shadow close: "..self:get_desc().."\n")
 		end
 		if self:is_open() then
-			M.raw.old_close(self.win_handle, true)
+			M.raw.old_hide(self.win_handle)
 		end
 		self:delete()
 	end,
