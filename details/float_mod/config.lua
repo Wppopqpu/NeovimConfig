@@ -13,6 +13,16 @@ local M = {
 			use_debug = false,
 			purge_interval = 500,
 			hl = "#01013B",
+			-- overriden by filter
+			disabled_fts = {
+				"incline",
+			},
+			-- true to enable,
+			-- false to disable,
+			-- nil not to decide
+			filter = function (win, buf)
+				return nil
+			end,
 		},
 	},
 }

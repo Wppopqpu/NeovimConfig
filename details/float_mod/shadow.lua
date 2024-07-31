@@ -97,6 +97,24 @@ local function set_hl(win_id)
 	vim.wo[win_id].winhighlight = winhl
 end
 
+local function check_allowed (win)
+	local buf = vim.api.nvim_win_get_buf(win)
+
+	local result = config.filter(win, buf)
+	if result == true then
+		return true
+	elseif result == false then
+		return false
+	end
+
+	local ft = vim.bo[buf].filetype
+	if vim.tbl_contains(config.disabled_fts, ft) then
+		return false
+	end
+
+	return true
+end
+
 
 --- generate shadow window config
 ---@param shadow Shadow
@@ -187,6 +205,9 @@ local protoshadow = {
 	target = 0,
 	init = function(self, target)
 		assert(target > 0)
+		if not check_allowed(target) then
+			return self
+		end
 		self.target = target
 
 		-- self.win_handle = M.raw.old_open_win(buffer, false, get_win_config(self))
