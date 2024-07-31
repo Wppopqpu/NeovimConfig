@@ -84,6 +84,16 @@ M.raw.old_set_option_value = vim.api.nvim_set_option_value
 M.raw.old_win_call = vim.api.nvim_win_call
 
 
+-- use a different hl_group from Normal.
+
+vim.api.nvim_set_hl(0, "ShadowNormal", {
+	bg = config.hl,
+})
+local winhl = "Normal:ShadowNormal"
+
+local function set_hl(win_id)
+	vim.wo[win_id].winhighlight = winhl
+end
 
 
 --- generate shadow window config
@@ -185,6 +195,8 @@ local protoshadow = {
 		set_win_option(self)
 		assert(managed_windows[target] == nil)
 		managed_windows[target] = self
+
+		set_hl(self.win_handle)
 
 		if in_debug then
 			logfile:write("shadow init: "..self:get_desc().."\n")

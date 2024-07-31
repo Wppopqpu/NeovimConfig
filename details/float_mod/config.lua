@@ -11,7 +11,8 @@ local M = {
 			h_offset = 3,
 			v_offset = 3,
 			use_debug = false,
-			purge_interval = 500
+			purge_interval = 500,
+			hl = "#01013B",
 		},
 	},
 }
