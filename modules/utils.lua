@@ -384,4 +384,27 @@ return {
 			}
 		end,
 	},
+	{
+		"folke/persistence.nvim",
+		-- it is not only used as a session saver, but also as a loader.
+		event = "VeryLazy",
+		config = function ()
+			local ps = require("persistence")
+			
+			ps.setup {}
+
+			require("which-key").add {
+				{ "<leader>q", group = "session management" },
+				{ "<leader>qq", ps.load, desc = "for pwd" },
+				{ "<leader>qs", ps.select, desc = "select to load" },
+				{ "<leader>ql", function ()
+					ps.load {last = true}
+				end, desc = "last one" },
+				{ "<leader>qd", function ()
+					ps.stop()
+					vim.cmd("qa!")
+				end, desc = "exit without saving" },
+			}
+		end,
+	}
 }
