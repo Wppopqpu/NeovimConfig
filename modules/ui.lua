@@ -31,7 +31,12 @@ return {
 		lazy = false,
 		priority = 1000, -- Make sure to load this plugin before others.
 		config = function()
-			vim.cmd'colorscheme tokyonight'
+			require("tokyonight").setup {
+				lualine_bold = true,
+				dim_inactive = true,
+			}
+
+			vim.cmd'colorscheme tokyonight-moon'
 		end,
 	},
 	{
