@@ -57,7 +57,10 @@ return {
 		-- init = events.lazyfile.loader("lua", "lazydev"),
 		-- lazy = true,
 		event = "User LazyFt lua",
-		dependencies = { "Bilal2453/luvit-meta" },
+		dependencies = {
+			"Bilal2453/luvit-meta",
+			"LelouchHe/xmake-luals-addon",
+		},
 		enabled = function()
 			-- only enable when supported
 			local version = vim.version()
@@ -71,6 +74,7 @@ return {
 			require("lazydev").setup {
 				library = {
 					{ path = "luvit-meta/library", words = { "vim%.uv" } },
+					{ path = "xmake-luals-addon/library", file = "xmake.lua" },
 				},
 			}
 		end,
