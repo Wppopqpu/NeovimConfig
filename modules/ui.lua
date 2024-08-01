@@ -273,6 +273,9 @@ return {
 		config = function ()
 			local incline = require("incline")
 			incline.setup {
+				hide = {
+					cursorline = true,
+				},
 				window = {
 					padding = 0,
 					margin = {
