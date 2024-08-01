@@ -366,5 +366,22 @@ return {
 				{ "<leader>ms", "<cmd>TermSelect<cr>", desc = "select toggleterm" },
 			}
 		end,
-	}
+	},
+	{
+		"stevearc/stickybuf.nvim",
+		event = "VeryLazy",
+		config = function ()
+			local sb = require("stickybuf")
+
+			sb.setup {
+				get_auto_pin = function(buf)
+					if vim.bo[buf].filetype == "toggleterm" then
+						return nil
+					end
+
+					return sb.should_auto_pin(buf)
+				end,
+			}
+		end,
+	},
 }
