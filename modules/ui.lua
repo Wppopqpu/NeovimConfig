@@ -66,6 +66,7 @@ return {
 
 			require("which-key").add {
 				{ "<a-a>", "<cmd>NoiceLast<cr>", desc = "noice: last msg" },
+				{ "<a-A>", "<cmd>NoiceAll<cr>", desc = "noice: all msg" },
 			}
 		end,
 		dependencies = {
