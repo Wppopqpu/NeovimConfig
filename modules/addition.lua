@@ -39,6 +39,7 @@ return {
 		dependencies = "MunifTanjim/nui.nvim",
 		opts = {
 			disable_mouse = false,
+			disabled_filetypes = { "qf", "netrw", "NvimTree", "lazy", "mason", "sagaoutline", "help", "man" },
 		},
 	},
 	{
