@@ -14,8 +14,20 @@ return {
 			'MunifTanjim/nui.nvim',
 			'nvim-lua/plenary.nvim',
 		},
+		init = function ()
+			on_lazy.after(function ()
+				if vim.uv.fs_stat("./xmake.lua") then
+					vim.cmd("e xmake.lua")
+				end
+			end)
+		end,
 		config = function()
-			require'xmake'.setup{}
+			require'xmake'.setup{
+				compile_command = {
+					lsp = "clangd",
+					dir = ".",
+				},
+			}
 			local xmakeComponent = {
 				function()
 					local xmake = require'xmake.project'.info

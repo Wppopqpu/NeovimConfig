@@ -9,7 +9,7 @@ if nil == table.merge then
 end
 --]]
 
-local on_lazy = require("NeovimConfig.details.on_lazy")
+on_lazy = require("NeovimConfig.details.on_lazy")
 
 require("NeovimConfig.details.events")
 

@@ -14,4 +14,18 @@ function M.register(fun)
 	})
 end
 
+local after_lazy_handlers = {}
+
+M.register(function ()
+	vim.uv.new_timer():start(1000, 0, vim.schedule_wrap(function ()
+		for _, each in ipairs(after_lazy_handlers) do
+			each()
+		end
+	end))
+end)
+
+function M.after(fun)
+	table.insert(after_lazy_handlers, fun)
+end
+
 return M

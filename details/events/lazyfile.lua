@@ -85,7 +85,7 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
 	group = augroup,
 	pattern = "*",
 	callback = function(info)
-		local fname = info.file
+		local fname = vim.fn.fnamemodify(info.file, ":t")
 
 		if M.lazied then
 			post_fname(fname)
