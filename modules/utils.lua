@@ -308,8 +308,10 @@ return {
 			local fl = require("flash")
 
 			fl.setup {
-				search = {
-					enabled = true,
+				modes = {
+					search = {
+						enabled = true,
+					},
 				},
 				label = {
 					rainbow = {
