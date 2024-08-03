@@ -377,9 +377,9 @@ return {
 
 			sb.setup {
 				get_auto_pin = function(buf)
-					if vim.bo[buf].filetype == "toggleterm" then
-						return nil
-					end
+					-- if vim.bo[buf].filetype == "toggleterm" then
+					-- 	return nil
+					-- end
 
 					return sb.should_auto_pin(buf)
 				end,
