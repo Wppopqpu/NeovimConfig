@@ -25,7 +25,7 @@ return {
 			require'xmake'.setup{
 				compile_command = {
 					lsp = "clangd",
-					dir = vim.fn.getcwd(),
+					dir = ".nvim",
 				},
 			}
 			local xmakeComponent = {

@@ -67,6 +67,9 @@ local get_config = function()
 			},
 			on_init = require'nvim-lsp-clangd-highlight'.on_init,
 			--]]
+			init_options = {
+				compilationDatabasePath = ".nvim",
+			},
 			on_attach = function(client, bufnr)
 				on_attach(client, bufnr)
 
