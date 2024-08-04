@@ -16,6 +16,10 @@ return {
 		},
 		init = function ()
 			on_lazy.after(function ()
+				if vim.tbl_contains({ "gitcommit", "git_rebase" }, vim.o.filetype) then
+					return
+				end
+
 				if vim.uv.fs_stat("./xmake.lua") then
 					vim.cmd("e xmake.lua")
 				end
