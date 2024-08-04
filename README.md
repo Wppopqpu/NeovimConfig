@@ -4,7 +4,7 @@
 
 # Screenshot
 
-[Screenshot](https://raw.github.com/Wppopqpu/NeovimConfig/dev/assets/ps.png)
+![Screenshot](https://raw.github.com/Wppopqpu/NeovimConfig/dev/assets/ps.png)
 
 ***81*** plugins!
 
