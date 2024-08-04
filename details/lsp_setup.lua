@@ -35,8 +35,20 @@ local get_config = function()
 			},
 			e = {
 				name = 'diagnostic',
-				j = { '<cmd>Lspsaga diagnostic_jump_next<CR>', 'next' },
-				k = { '<cmd>Lspsaga diagnostic_jump_prev<CR>', 'prev' },
+				j = { function ()
+					vim.g.minianimate_disable = true
+					vim.cmd("Lspsaga diagnostic_jump_next")
+					vim.uv.new_timer():start(1000, 0, vim.schedule_wrap(function ()
+						vim.g.minianimate_disable = false
+					end))
+				end, 'next' },
+				k = { function ()
+					vim.g.minianimate_disable = true
+					vim.cmd("Lspsaga diagnostic_jump_prev")
+					vim.uv.new_timer():start(1000, 0, vim.schedule_wrap(function ()
+						vim.g.minianimate_disable = false
+					end))
+				end, 'prev' },
 			},
 			f = { '<cmd>Lspsaga finder<CR>', 'lsp finder' },
 
