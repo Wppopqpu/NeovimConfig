@@ -377,9 +377,18 @@ return {
 
 			sb.setup {
 				get_auto_pin = function(buf)
-					-- if vim.bo[buf].filetype == "toggleterm" then
-					-- 	return nil
-					-- end
+					if vim.bo[buf].filetype == "toggleterm" then
+						return {
+							allow = function (buf)
+								local ft = vim.bo[buf].filetype
+
+								return vim.tbl_contains({
+									"gitcommit",
+									"gitrebase",
+								}, ft)
+							end,
+						}
+					end
 
 					return sb.should_auto_pin(buf)
 				end,
