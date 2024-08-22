@@ -51,6 +51,7 @@ return {
 			grace_period = 60*15,
 		},
 		event = 'LspAttach',
+		enabled = false,
 	},
 	{
 		"folke/lazydev.nvim",
