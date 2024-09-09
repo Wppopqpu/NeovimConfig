@@ -129,7 +129,7 @@ local get_config = function()
 			},
 		},
 		pyre = {},
-		tsserver = {
+		ts_ls = {
 			settings = {
 				typescript = {
 					hint = ts_hint_conf,
