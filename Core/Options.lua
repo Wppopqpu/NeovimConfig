@@ -30,6 +30,7 @@ vim.opt.sidescrolloff = 8
 
 -- tab settings
 vim.opt.tabstop = 4
+-- vim.opt.softtabstop = 4
 vim.opt.expandtab = false
 vim.opt.autoindent = true
 vim.opt.smartindent = true
@@ -106,3 +107,11 @@ vim.api.nvim_create_autocmd("Filetype", {
 	group = augroup,
 })
 --]]
+
+vim.api.nvim_create_autocmd("User", {
+	pattern = "LazyFt rust",
+	callback = function (info)
+		local bo = vim.bo[info.buf]
+		bo.softtabstop = 4
+	end,
+})
