@@ -141,6 +141,8 @@ local get_config = function()
 		},
 		leanls = {},
 		lean3ls = {},
+		-- This is set up by rustaceanvim.
+		-- rust_analyzer = {},
 	}
 
 	-- use cmp's default capabilities
@@ -161,14 +163,14 @@ local get_config = function()
 		config[k] = vim.tbl_deep_extend("keep", each, default)
 	end
 
-	return config
+	return config, default
 end
 
 local config_server = function(name, config)
 	local lspconfig = require'lspconfig'
 
-	config.capabilities =
-		require'cmp_nvim_lsp'.default_capabilities()
+	-- config.capabilities =
+		-- require'cmp_nvim_lsp'.default_capabilities()
 	lspconfig[name].setup(config)
 end
 
@@ -178,13 +180,16 @@ end
 function M.setup()
 
 
-	for k, v in pairs(get_config()) do
+	local config, default = get_config()
+
+	for k, v in pairs(config) do
 		if not disabled:has(k) then
 			config_server(k, v)
 		end
 	end
 
-
+	M.default = default
+	require("rustaceanvim")
 end
 
 return M
