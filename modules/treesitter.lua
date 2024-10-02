@@ -40,6 +40,7 @@ return {
 					'javascript',
 					'json',
 					"jsonc", -- required by neoconf setting file
+					"kdl",
 					'lua',
 					"latex",
 					'make',
