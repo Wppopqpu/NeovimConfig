@@ -96,19 +96,4 @@ return {
 		config = true,
 		dependencies = "0styx0/abbremand.nvim",
 	},
-	{
-		"mrcjkb/rustaceanvim",
-		version = "^5",
-		-- loaded by lsp_setup.lua
-		lazy = true,
-		config = function ()
-			vim.g.rustaceanvim = {
-				server = {
-					on_attach = require("NeovimConfig.details.lsp_setup").default.on_attach,
-				},
-			}
-			vim.cmd.ca("rsl", "RustLsp")
-			require("rustaceanvim")
-		end,
-	},
 }
