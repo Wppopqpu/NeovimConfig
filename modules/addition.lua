@@ -32,6 +32,7 @@ return {
 				max = math.floor(vim.o.lines * vim.o.columns / 80)
 			}
 		end,
+		enabled = false,
 	},
 	{
 		"m4xshen/hardtime.nvim",
