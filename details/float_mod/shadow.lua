@@ -15,7 +15,7 @@ _G.shadow = M
 --- @field is_open fun(self:Shadow):boolean check if shadow window is valid
 --- @field get_desc fun(self:Shadow):string get log desc
 
-local config = require("NeovimConfig.details.float_mod.config").shadow
+local config = detail("float_mod.config").shadow
 
 
 local managed_windows = {}
@@ -82,7 +82,7 @@ M.raw.old_set_width = vim.api.nvim_win_set_width
 M.raw.old_set_height = vim.api.nvim_win_set_height
 -- M.raw.old_set_option_value = vim.api.nvim_set_option_value
 -- use raw api from blend
-M.raw.old_set_option_value = require("NeovimConfig.details.float_mod.blend").set_option
+M.raw.old_set_option_value = detail("float_mod.blend").set_option
 M.raw.old_win_call = vim.api.nvim_win_call
 
 

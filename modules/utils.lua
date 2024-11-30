@@ -245,7 +245,7 @@ return {
 					wk.show{ global = true }
 				end, desc = "which key" },
 			}
-			require'NeovimConfig.Core.KeyBindings'
+			core("key_bindings")
 		end,
 	},
 	-- project-local configuration management.

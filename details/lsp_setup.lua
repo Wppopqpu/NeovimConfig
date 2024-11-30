@@ -1,5 +1,5 @@
 local M = {}
-local disabled = require("NeovimConfig.details.lsp_disable")
+local disabled = detail("lsp_disable")
 
 local ts_hint_conf = {
 	includeInlayParameterNameHints = "all",

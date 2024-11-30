@@ -1,6 +1,6 @@
 local M = {}
 
-local config = require("NeovimConfig.details.float_mod.config").blend
+local config = detail("float_mod.config").blend
 assert(config~=nil)
 
 --- calculate new blendness with old blendness

@@ -1,5 +1,5 @@
 -- file for treesitter to update at most once a day automatically.
-local dateFile = require'NeovimConfig.Core.lazypath'
+local dateFile = core("lazypath")
 	..'ts_last_update_time.txt'
 --[[
 local tsUpdate = function()

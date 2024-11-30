@@ -1,4 +1,3 @@
-local on_lazy = require("NeovimConfig.details.on_lazy")
 --[[
 local hl = 'Statement'
 local startUpImage = {
@@ -89,7 +88,7 @@ return {
 			alpha.setup(dashboard.config)
 			--]]
 			local modname = "NeovimConfig.details.startup_image"
-			local image = require(modname)
+			local image = detail("startup_image")
 
 			require'alpha'.setup{
 				layout = {

@@ -18,7 +18,7 @@ return {
 
 		end,
 		init = function()
-			require("NeovimConfig.details.on_lazy").register(require("NeovimConfig.details.lsp_setup").setup)
+			on_lazy.register(detail("lsp_setup").setup)
 		end,
 	},
 	{
@@ -109,7 +109,7 @@ return {
 		config = function ()
 			vim.g.rustaceanvim = {
 				server = {
-					on_attach = require("NeovimConfig.details.lsp_setup").default.on_attach,
+					on_attach = detail("lsp_setup").default.on_attach,
 				},
 			}
 			vim.cmd.ca("rsl", "RustLsp")

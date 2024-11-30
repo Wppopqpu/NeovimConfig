@@ -1,4 +1,4 @@
-local path2Lazy = require'NeovimConfig.Core.lazypath'..'lazy.nvim'
+local path2Lazy = core("lazypath")..'lazy.nvim'
 
 -- if there is no lazy.nvim, we download it.
 if not vim.loop.fs_stat(path2Lazy) then

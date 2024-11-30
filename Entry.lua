@@ -1,22 +1,23 @@
 -- Entry.lua
+require("NeovimConfig.details.mod_loader")
 -- fix missing vim.iter
 if nil == vim.iter then
-	vim.iter = require"NeovimConfig.details.iter"
+	vim.iter = detail("iter")
 end
 --[[
 if nil == table.merge then
-	table.merge = require("NeovimConfig.details.table_merge")
+	table.merge = detail("table_merge")
 end
 --]]
 
-on_lazy = require("NeovimConfig.details.on_lazy")
+on_lazy = detail("on_lazy")
 
-require("NeovimConfig.details.events")
+detail("events")
 
 on_lazy.register(function()
-	require("NeovimConfig.details.float_mod").setup{}
-	require("NeovimConfig.details.helper")
+	detail("float_mod").setup{}
+	detail("helper")
 end)
 
-require'NeovimConfig.Core.Options'
-require'NeovimConfig.Core.plugins'
+core("options")
+core("plugins")
