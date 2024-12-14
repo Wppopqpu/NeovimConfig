@@ -46,22 +46,22 @@ return {
 			}
 		end,
 	},
+	-- {
+	-- 	"windwp/nvim-autopairs",
+	-- 	event = "InsertEnter",
+	-- 	config = function ()
+	-- 		local npairs = require("nvim-autopairs")
+	-- 		local npairs_cmp = require("nvim-autopairs.completion.cmp")
+	-- 		local cmp = require("cmp")
+	--
+	-- 		npairs.setup {
+	-- 			check_ts = true,
+	-- 		}
+	--
+	-- 		cmp.event:on("confirm_done", npairs_cmp.on_confirm_done)
+	-- 	end,
+	-- },
 	-- fold enhancement
-	{
-		"windwp/nvim-autopairs",
-		event = "InsertEnter",
-		config = function ()
-			local npairs = require("nvim-autopairs")
-			local npairs_cmp = require("nvim-autopairs.completion.cmp")
-			local cmp = require("cmp")
-
-			npairs.setup {
-				check_ts = true,
-			}
-
-			cmp.event:on("confirm_done", npairs_cmp.on_confirm_done)
-		end,
-	},
 	{
 		"kevinhwang91/nvim-ufo",
 		config = function ()
