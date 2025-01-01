@@ -326,6 +326,7 @@ return {
 				{ "<leader>jt", fl.treesitter, desc = "treesitter mode" },
 				{ "<leader>js", fl.treesitter_search, mode = { "o", "x" }, desc = "treesitter search mode" },
 				{ "<leader>jj", fl.jump, desc = "jump" },
+				{ "<leader><leader>", fl.jump, desc = "jump" },
 				{ "<leader>jr", fl.remote, mode = "o", desc = "remote mode" },
 				{ "<c-j>", fl.toggle, mode = "c", desc = "toggle in regular search" },
 			}
