@@ -358,6 +358,7 @@ return {
 		event = "VeryLazy",
 		config = function ()
 			require("toggleterm").setup {
+				open_mapping = "<c-\\>",
 				-- winbar = {
 				-- 	enabled = true,
 				-- },
