@@ -419,5 +419,19 @@ return {
 				end, desc = "exit without saving" },
 			}
 		end,
-	}
+	},
+	{
+		"wppopqpu/crook.nvim",
+		config = function ()
+			local crook = require("crook")
+			crook.setup{}
+			-- crook.install_hook(vim.api, "nvim_echo", {
+			-- 	proc = function (context)
+			-- 		context.args[1][1] = context.args[1][1] .."xxxx"
+			-- 	end,
+			-- })
+		end,
+		dev = true,
+		lazy = false,
+	},
 }
