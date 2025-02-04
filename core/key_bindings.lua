@@ -38,7 +38,12 @@ wk.add {
 	{ "<leader>m", group = "terminal" },
 	{ "<leader>mm", require("lazy.util").float_term, desc = "float (lazy)" },
 	{ "<c-space>", "f,wciw", desc = "change next word" },
-
+	{ "<a-w>", function ()
+		wk.show {
+			keys = "<c-w>",
+			loop = true,
+		}
+	end, desc = "change window" },
 }
 
 --[[

@@ -15,6 +15,9 @@ local ts_hint_conf = {
 local get_config = function()
 	local function on_attach(client, n_buffer)
 		local wk = require'which-key'
+		wk.add {
+			{ "K", "<cmd>Lspsaga hover_doc<cr>", desc = "hover doc", buffer  = n_buffer },
+		}
 		wk.register({
 			h = {
 				name = 'call hierarchy',
