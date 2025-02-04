@@ -425,9 +425,13 @@ return {
 		config = function ()
 			local crook = require("crook")
 			crook.setup{}
+			-- local utils = require("crook.utils")
 			-- crook.install_hook(vim.api, "nvim_echo", {
 			-- 	proc = function (context)
-			-- 		context.args[1][1] = context.args[1][1] .."xxxx"
+			-- 		vim.cmd"echo \"x\""
+			-- 	end,
+			-- 	proc_post = function (context)
+			-- 		vim.cmd"echo \"aaa\""
 			-- 	end,
 			-- })
 		end,
