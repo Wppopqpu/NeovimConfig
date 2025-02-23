@@ -1,74 +1,119 @@
+local blink_keymap = {
+	preset = "default",
+	["<c-k>"] = { "select_prev", "fallback" },
+	["<c-j>"] = { "select_next", "fallback" },
+	["<c-p>"] = { "fallback" }, -- disabled
+	["<c-n>"] = { "fallback" },
+	["<c-space>"] = { "show", "fallback" },
+	["<a-space>"] = { "show", "fallback" },
+}
+
+for i = 1,10 do
+	blink_keymap["<a-"..tostring(i)..">"] = {
+		function(cmp)
+			cmp.accept({ index = 1 })
+		end,
+	}
+end
+
 return {
 	{
 		"saghen/blink.cmp",
-		-- dependencies = "rafamadriz/friendly-snippets",
-		version = "v0.*",
+		dependencies = "rafamadriz/friendly-snippets",
+		version = "*",
 		lazy = false, -- handled internally
+		opts_extend = { "sources.default" },
 		opts = {
 			snippets = {
-				expand =function(snippet)
-					require("luasnip").lsp_expand(snippet)
-				end,
-				active = function(filter)
-					if filter and filter.direction then
-						return require("luasnip").jumpable(filter.direction)
-					end
-					return require("luasnip").in_snippet()
-				end,
-				jump = function(direction)
-					require("luasnip").jump(direction)
-				end,
+				preset = "luasnip",
 			},
-			draw = {
-				treesitter = { "lsp" },
-			},
-			documentation = {
-				auto_show = true,
-			},
-			keymap = {
-				preset = "default",
-				["<c-k>"] = { "select_prev", "fallback" },
-				["<c-j>"] = { "select_next", "fallback" },
-				["<c-p>"] = {}, -- disabled
-				["<c-n>"] = {},
-				cmdline = {
-					preset = "super-tab",
+			completion = {
+				accept = {
+					auto_brackets = {
+						enabled = true,
+					},
 				},
-			},
-			appearance = {
-				use_nvim_cmp_as_default = true,
-				nerd_font_variant = "mono",
-			},
-			accept = {
-				auto_brackets = {
+				menu = {
+					auto_show = false,
+					draw = {
+						columns = { { 'item_idx' }, { 'kind_icon' }, { 'label', 'label_description', gap = 1 } },
+						components = {
+							kind_icon = {
+								ellipsis = false,
+								text = function (ctx)
+									local lspkind = require("lspkind")
+									local icon = ctx.kind_icon
+									local provider = require("nvim-web-devicons")
+									if vim.tbl_contains({ "Path" }, ctx.source_name) then
+										local dev_icon, _ = provider.get_icon(ctx.label)
+										if dev_icon then
+											icon = dev_icon
+										end
+									else
+										icon = lspkind.symbolic(ctx.kind, {
+											mode = "symbol",
+										})
+									end
+
+									return icon .. ctx.icon_gap
+								end,
+							},
+							item_idx = {
+								text = function (ctx)
+									return ctx.idx == 10 and '0' or ctx.idx >= 10 and ' ' or tostring(ctx.idx)
+								end,
+							},
+						},
+						treesitter = { "lsp" },
+					},
+				},
+				documentation = {
+					auto_show = true,
+				},
+				ghost_text = {
 					enabled = true,
 				},
 			},
+			keymap = blink_keymap,
+			appearance = {
+				use_nvim_cmp_as_default = false,
+				nerd_font_variant = "mono",
+			},
 			sources = {
-				completion = {
-					enabled_providers = {
-						"lsp",
-						"path",
-						"luasnip",
-						"lazydev",
-						"buffer",
-					},
+				default = {
+					"lsp",
+					"buffer",
+					"lazydev",
+					"snippets",
+					"path",
+					"cmdline",
 				},
 				providers = {
-					lsp = { fallback_for = { "lazydev" } },
-					lazydev = { name = "LazyDev", module = "lazydev.integrations.blink" },
+					lsp = {},
+					lazydev = {
+						name = "LazyDev",
+						module = "lazydev.integrations.blink",
+						fallbacks = { "lsp" },
+					},
+					cmdline = {
+						enabled = function ()
+							return vim.fn.getcmdtype() ~= ":" or not vim.fn.getcmdline():match("^[%%0-9,'<>%-]*!")
+						end,
+					},
 				}
 			},
 			signature = {
 				enabled = true,
-				scrollbar = true,
+				window = {
+					scrollbar = true,
+				},
 			},
 		},
 	},
--- 	{
--- 		'onsails/lspkind.nvim',
--- 		lazy = true,
--- 	},
+	{
+		'onsails/lspkind.nvim',
+		lazy = true,
+	},
 -- 	{
 -- 		'hrsh7th/cmp-nvim-lsp',
 -- 		lazy = true,
