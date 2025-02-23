@@ -23,92 +23,99 @@ return {
 		version = "*",
 		lazy = false, -- handled internally
 		opts_extend = { "sources.default" },
-		opts = {
-			snippets = {
-				preset = "luasnip",
-			},
-			completion = {
-				accept = {
-					auto_brackets = {
+		config = function ()
+			local cmp = require("blink.cmp")
+			local cmp_helper = detail("show_cmp_menu")
+			cmp.setup{
+				snippets = {
+					preset = "luasnip",
+				},
+				completion = {
+					accept = {
+						auto_brackets = {
+							enabled = true,
+						},
+					},
+					menu = {
+						auto_show = false,
+						draw = {
+							columns = { { 'item_idx' }, { 'kind_icon' }, { 'label', 'label_description', gap = 1 } },
+							components = {
+								kind_icon = {
+									ellipsis = false,
+									text = function (ctx)
+										local lspkind = require("lspkind")
+										local icon = ctx.kind_icon
+										local provider = require("nvim-web-devicons")
+										if vim.tbl_contains({ "Path" }, ctx.source_name) then
+											local dev_icon, _ = provider.get_icon(ctx.label)
+											if dev_icon then
+												icon = dev_icon
+											end
+										else
+											icon = lspkind.symbolic(ctx.kind, {
+												mode = "symbol",
+											})
+										end
+
+										return icon .. ctx.icon_gap
+									end,
+								},
+								item_idx = {
+									text = function (ctx)
+										return ctx.idx == 10 and '0' or ctx.idx >= 10 and ' ' or tostring(ctx.idx)
+									end,
+								},
+							},
+							treesitter = { "lsp" },
+						},
+						scrollbar = false,
+					},
+					documentation = {
+						auto_show = true,
+					},
+					ghost_text = {
 						enabled = true,
 					},
 				},
-				menu = {
-					auto_show = false,
-					draw = {
-						columns = { { 'item_idx' }, { 'kind_icon' }, { 'label', 'label_description', gap = 1 } },
-						components = {
-							kind_icon = {
-								ellipsis = false,
-								text = function (ctx)
-									local lspkind = require("lspkind")
-									local icon = ctx.kind_icon
-									local provider = require("nvim-web-devicons")
-									if vim.tbl_contains({ "Path" }, ctx.source_name) then
-										local dev_icon, _ = provider.get_icon(ctx.label)
-										if dev_icon then
-											icon = dev_icon
-										end
-									else
-										icon = lspkind.symbolic(ctx.kind, {
-											mode = "symbol",
-										})
-									end
-
-									return icon .. ctx.icon_gap
-								end,
-							},
-							item_idx = {
-								text = function (ctx)
-									return ctx.idx == 10 and '0' or ctx.idx >= 10 and ' ' or tostring(ctx.idx)
-								end,
-							},
+				keymap = blink_keymap,
+				appearance = {
+					use_nvim_cmp_as_default = false,
+					nerd_font_variant = "mono",
+				},
+				sources = {
+					default = {
+						"lsp",
+						"buffer",
+						"lazydev",
+						"snippets",
+						"path",
+						"cmdline",
+					},
+					providers = {
+						lsp = {},
+						lazydev = {
+							name = "LazyDev",
+							module = "lazydev.integrations.blink",
+							fallbacks = { "lsp" },
 						},
-						treesitter = { "lsp" },
-					},
+						cmdline = {
+							enabled = function ()
+								return vim.fn.getcmdtype() ~= ":" or not vim.fn.getcmdline():match("^[%%0-9,'<>%-]*!")
+							end,
+						},
+					}
 				},
-				documentation = {
-					auto_show = true,
-				},
-				ghost_text = {
+				signature = {
 					enabled = true,
-				},
-			},
-			keymap = blink_keymap,
-			appearance = {
-				use_nvim_cmp_as_default = false,
-				nerd_font_variant = "mono",
-			},
-			sources = {
-				default = {
-					"lsp",
-					"buffer",
-					"lazydev",
-					"snippets",
-					"path",
-					"cmdline",
-				},
-				providers = {
-					lsp = {},
-					lazydev = {
-						name = "LazyDev",
-						module = "lazydev.integrations.blink",
-						fallbacks = { "lsp" },
+					window = {
+						scrollbar = true,
 					},
-					cmdline = {
-						enabled = function ()
-							return vim.fn.getcmdtype() ~= ":" or not vim.fn.getcmdline():match("^[%%0-9,'<>%-]*!")
-						end,
-					},
-				}
-			},
-			signature = {
-				enabled = true,
-				window = {
-					scrollbar = true,
 				},
-			},
-		},
+			}
+
+			cmp_helper.setup()
+		end
 	},
 	{
 		'onsails/lspkind.nvim',
