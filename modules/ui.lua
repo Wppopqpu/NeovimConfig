@@ -262,6 +262,9 @@ return {
 		"lewis6991/satellite.nvim",
 		config = true,
 		event = "VeryLazy",
+		opts = {
+			current_only = true,
+		},
 		enabled = function()
 			local version = vim.version()
 			if version.major == 0 and version.minor < 10 then
