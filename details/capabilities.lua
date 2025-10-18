@@ -23,8 +23,12 @@ local function test_capability(c, name)
 	end
 end
 
-function M.get_filter(c, to_remove)
+function M.get_filter(c, to_remove, delete_action)
 	to_remove = to_remove or true
+	local delete_action = delete_action or function (t, i)
+		t[i].enabled = false
+	end
+
 	assert(type(c) == "table")
 	return function(t)
 		assert(type(t) == "table")
@@ -35,7 +39,8 @@ function M.get_filter(c, to_remove)
 					v[M.config.capability_field] = nil
 				end
 			else
-				t[i].enabled = false
+				-- t[i].enabled = false
+				delete_action(t, i)
 			end
 		end
 		return t
