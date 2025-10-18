@@ -32,6 +32,7 @@ local capabilities = {
 	python = true,
 	rust = true,
 	typst = true,
+	web_basic = true,
 
 	default = true,
 }
