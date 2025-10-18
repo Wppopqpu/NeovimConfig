@@ -59,8 +59,9 @@ local get_config = function()
 
 	end
 
-	local config = {
+	local config = c_filter {
 		clangd = {
+			capability = "cpp",
 			settings = {
 				clangd = {
 					InlayHints = {
@@ -119,10 +120,11 @@ local get_config = function()
 				}, { buf = bufnr })
 			end,
 		},
-		html = {},
+		html = { capability = "web_basic" },
 		jsonls = {},
-		ltex = {},
+		ltex = { capability = "latex" },
 		lua_ls = {
+			capability = "lua",
 			settings = {
 				Lua = {
 					hint = {
@@ -131,8 +133,9 @@ local get_config = function()
 				},
 			},
 		},
-		pyre = {},
+		pyre = { capability = "python" },
 		ts_ls = {
+			capability = "web_basic",
 			settings = {
 				typescript = {
 					hint = ts_hint_conf,
@@ -142,8 +145,8 @@ local get_config = function()
 				},
 			},
 		},
-		leanls = {},
-		lean3ls = {},
+		leanls = { capability = "lean" },
+		lean3ls = { capability = "lean" },
 		-- This is set up by rustaceanvim.
 		-- rust_analyzer = {},
 	}
@@ -192,7 +195,9 @@ function M.setup()
 	end
 
 	M.default = default
-	require("rustaceanvim")
+	if test_capability("rust") then
+		require("rustaceanvim")
+	end
 end
 
 return M

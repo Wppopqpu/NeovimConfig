@@ -11,6 +11,10 @@ end
 --]]
 
 on_lazy = detail("on_lazy")
+fast_remove = detail("fast_remove").remove
+common_remove = function (t, i)
+	t[i] = nil
+end,
 
 detail("events")
 
@@ -40,6 +44,15 @@ local user_capabilities = user("local_capabilities") or {}
 vim.tbl_deep_extend("force", capabilities, user_capabilities)
 -- filter for plugin system
 g_filter = cap.get_filter(capabilities)
+-- filter for common usage (table)
+c_filter = cap.get_filter(capabilities, false, common_remove)
+-- filter for common usage (array)
+a_filter = cap.get_filter(capabilities, false, fast_remove)
+
+function test_capability(name)
+	return cap.test_capability(capabilities, name)
+end
+
 
 
 

@@ -12,7 +12,7 @@ local function setup(opt)
 	M.config = vim.tbl_deep_extend("force", M.config, opt)
 end
 
-local function test_capability(c, name)
+function M.test_capability(c, name)
 	assert(type(c) == "table")
 	assert(type(name) == "string")
 	
@@ -33,7 +33,7 @@ function M.get_filter(c, to_remove, delete_action)
 	return function(t)
 		assert(type(t) == "table")
 		for i, v in pairs(t) do
-			if test_capability(c, v[M.config.capability_field] 
+			if M.test_capability(c, v[M.config.capability_field] 
 				or M.config.default_capability) then
 				if to_remove then
 					v[M.config.capability_field] = nil
