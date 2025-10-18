@@ -6,3 +6,8 @@ end
 _G.core = function (mod)
 	return require("NeovimConfig.core."..mod)
 end
+
+_G.user = function (mod)
+	local res = pcall(require, "NeovimConfig.user."..mod)
+	return res
+end
