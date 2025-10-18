@@ -16,7 +16,7 @@ for i = 1,10 do
 	}
 end
 
-return {
+return g_filter {
 	{
 		"saghen/blink.cmp",
 		dependencies = "rafamadriz/friendly-snippets",

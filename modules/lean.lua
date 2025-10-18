@@ -1,6 +1,7 @@
-return {
+return g_filter {
 	{
 		'Julian/lean.nvim',
+		capability = "lean",
 		--[[
 		event = {
 			'BufReadPre *.lean',

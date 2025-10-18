@@ -1,4 +1,4 @@
-return {
+return g_filter {
 	{
 		"nvim-telescope/telescope.nvim",
 		event = "VeryLazy",

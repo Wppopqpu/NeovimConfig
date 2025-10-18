@@ -1,4 +1,4 @@
-return {
+return g_filter {
 	{
 		"folke/drop.nvim",
 		event = "VeryLazy",

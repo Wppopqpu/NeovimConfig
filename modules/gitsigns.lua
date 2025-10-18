@@ -1,4 +1,4 @@
-return {
+return g_filter {
 	'lewis6991/gitsigns.nvim',
 	event = 'VeryLazy',
 	config = function()

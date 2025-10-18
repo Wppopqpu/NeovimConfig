@@ -24,7 +24,7 @@ local startUpImage = {
 }
 --]]
 
-return {
+return g_filter {
 	{
 		'folke/tokyonight.nvim',
 		lazy = false,

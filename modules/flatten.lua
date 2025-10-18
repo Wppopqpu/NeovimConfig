@@ -1,4 +1,4 @@
-return {
+return g_filter {
 	{
 		'willothy/flatten.nvim',
 		opts = {

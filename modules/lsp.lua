@@ -1,6 +1,6 @@
 
 
-return {
+return g_filter {
 	{
 		'williamboman/mason-lspconfig.nvim',
 		lazy = true,
@@ -55,6 +55,7 @@ return {
 	},
 	{
 		"folke/lazydev.nvim",
+		capability = "lua",
 		-- init = events.lazyfile.loader("lua", "lazydev"),
 		-- lazy = true,
 		event = "User LazyFt lua",
@@ -82,6 +83,7 @@ return {
 	},
 	{
 		"p00f/clangd_extensions.nvim",
+		capability = "cpp",
 		config = function()
 			-- according to its intro,
 			-- there is no need to call setup if we satisfy the default config.
@@ -103,6 +105,7 @@ return {
 	},
 	{
 		"mrcjkb/rustaceanvim",
+		capability = "rust",
 		version = "^5",
 		-- loaded by lsp_setup.lua
 		lazy = true,

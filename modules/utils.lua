@@ -1,4 +1,4 @@
-return {
+return g_filter {
 	{
 		"gbprod/yanky.nvim",
 		event = "VeryLazy",
@@ -135,6 +135,7 @@ return {
 	},
 	{
 		"madskjeldgaard/cppman.nvim",
+		capability = "cpp",
 		event = "User LazyFt cpp",
 		dependencies = {
 			"MunifTanjim/nui.nvim",

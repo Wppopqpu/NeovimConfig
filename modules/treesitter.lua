@@ -15,7 +15,7 @@ local tsUpdate = function()
 end
 --]]
 
-return {
+return g_filter {
 	{
 		'nvim-treesitter/nvim-treesitter',
 		event = 'VeryLazy',

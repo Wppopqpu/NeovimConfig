@@ -1,4 +1,4 @@
-return {
+return g_filter {
 	{
 		"mfussenegger/nvim-dap",
 		event = "VeryLazy",

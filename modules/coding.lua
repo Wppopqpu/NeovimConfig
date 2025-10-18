@@ -1,6 +1,7 @@
-return {
+return g_filter {
 	{
 		"MeanderingProgrammer/markdown.nvim",
+		capability = "markdown",
 		main = "render-markdown",
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",

@@ -3,9 +3,10 @@ if vim.system == nil then
 	branch = "v1"
 end
 
-return {
+return g_filter {
 	{
 		'Mythos-404/xmake.nvim',
+		capability = "cpp",
 		lazy = true,
 		branch = branch,
 		-- event = 'BufReadPost xmake.lua',
