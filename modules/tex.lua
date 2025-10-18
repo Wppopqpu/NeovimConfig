@@ -1,6 +1,7 @@
-return {
+return g_filter {
 	{
 		"lervag/vimtex",
+		capability = "latex",
 		lazy = false, -- lazy loading handled internally
 		init = function ()
 			vim.g.vimtex_view_method = "zathura"
