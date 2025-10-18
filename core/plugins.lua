@@ -10,7 +10,7 @@ local capabilities = {
 	rust = true,
 	typst = true,
 
-	default = false,
+	default = true,
 }
 local user_capabilities = user("local_capabilities") or {}
 vim.tbl_deep_extend("force", capabilities, user_capabilities)

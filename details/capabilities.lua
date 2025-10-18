@@ -16,10 +16,10 @@ local function test_capability(c, name)
 	assert(type(c) == "table")
 	assert(type(name) == "string")
 	
-	if c.name == nil then
+	if c[name] == nil then
 		return c.default or M.config.global_default
 	else
-		return c.name
+		return c[name]
 	end
 end
 
@@ -35,9 +35,10 @@ function M.get_filter(c, to_remove)
 					v[M.config.capability_field] = nil
 				end
 			else
-				t[i] = nil
+				t[i].enabled = false
 			end
 		end
+		return t
 	end
 end
 
@@ -46,6 +47,6 @@ return setmetatable({}, {
 		if k == "setup" then
 			return setup
 		end
-		return M.config[k]
+		return M[k]
 	end,
 })
