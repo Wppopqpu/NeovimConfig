@@ -4,6 +4,7 @@ local cap = detail("capabilities")
 local capabilities = {
 	cpp = false,
 	latex = true,
+	lean = false,
 	lua = true,
 	python = true,
 	rust = true,
