@@ -24,7 +24,7 @@ local function test_capability(c, name)
 end
 
 function M.get_filter(c, to_remove, delete_action)
-	to_remove = to_remove or true
+	local to_remove = to_remove or true
 	local delete_action = delete_action or function (t, i)
 		t[i].enabled = false
 	end
