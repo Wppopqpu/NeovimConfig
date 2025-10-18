@@ -20,4 +20,28 @@ on_lazy.register(function()
 end)
 
 core("options")
+
+-- set up capability filter to adapt to different occasions
+local cap = detail("capabilities")
+-- default values
+local capabilities = {
+	cpp = false,
+	latex = true,
+	lean = false,
+	lua = true,
+	python = true,
+	rust = true,
+	typst = true,
+
+	default = true,
+}
+local user_capabilities = user("local_capabilities") or {}
+vim.tbl_deep_extend("force", capabilities, user_capabilities)
+-- filter for plugin system
+g_filter = cap.get_filter(capabilities)
+
+
+
+
+
 core("plugins")

@@ -1,22 +1,3 @@
--- set up capability filter to adapt to different occasions
-local cap = detail("capabilities")
--- default values
-local capabilities = {
-	cpp = false,
-	latex = true,
-	lean = false,
-	lua = true,
-	python = true,
-	rust = true,
-	typst = true,
-
-	default = true,
-}
-local user_capabilities = user("local_capabilities") or {}
-vim.tbl_deep_extend("force", capabilities, user_capabilities)
-g_filter = cap.get_filter(capabilities)
-
-
 local path2Lazy = core("lazypath")..'lazy.nvim'
 
 -- if there is no lazy.nvim, we download it.
