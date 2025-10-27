@@ -165,22 +165,8 @@ local get_config = function()
 		capabilities = capabilities,
 	}
 
-	for k, each in pairs(config) do
-		config[k] = vim.tbl_deep_extend("keep", each, default)
-	end
-
 	return config, default
 end
-
-local config_server = function(name, config)
-	local lspconfig = require'lspconfig'
-
-	-- config.capabilities =
-		-- require'cmp_nvim_lsp'.default_capabilities()
-	lspconfig[name].setup(config)
-end
-
-
 
 
 function M.setup()
@@ -188,9 +174,11 @@ function M.setup()
 
 	local config, default = get_config()
 
+	vim.lsp.config("*", default)
 	for k, v in pairs(config) do
+		vim.lsp.config(k, v)
 		if not disabled:has(k) then
-			config_server(k, v)
+			vim.lsp.enable(k)
 		end
 	end
 
