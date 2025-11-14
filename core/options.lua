@@ -96,6 +96,8 @@ vim.opt.clipboard:append{ "unnamedplus" }
 
 vim.opt.pumblend = 15
 
+vim.g.clipboard = "wl-copy"
+
 --[[
 vim.api.nvim_create_autocmd("Filetype", {
 	pattern = "help",
