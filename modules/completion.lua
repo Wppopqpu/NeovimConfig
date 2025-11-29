@@ -25,7 +25,7 @@ return g_filter {
 		opts_extend = { "sources.default" },
 		config = function ()
 			local cmp = require("blink.cmp")
-			local cmp_helper = detail("show_cmp_menu")
+			-- local cmp_helper = detail("show_cmp_menu")
 			cmp.setup{
 				snippets = {
 					preset = "luasnip",
@@ -37,7 +37,7 @@ return g_filter {
 						},
 					},
 					menu = {
-						auto_show = false,
+						auto_show = true,
 						draw = {
 							columns = { { 'item_idx' }, { 'kind_icon' }, { 'label', 'label_description', gap = 1 } },
 							components = {
@@ -114,7 +114,7 @@ return g_filter {
 				},
 			}
 
-			cmp_helper.setup()
+			-- cmp_helper.setup()
 		end
 	},
 	{
