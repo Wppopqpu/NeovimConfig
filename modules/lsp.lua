@@ -4,7 +4,9 @@ return g_filter {
 	{
 		'williamboman/mason-lspconfig.nvim',
 		lazy = true,
-		config = true
+		opts = {
+			automatic_enable = false,
+		},
 	},
 	{
 		'neovim/nvim-lspconfig',
