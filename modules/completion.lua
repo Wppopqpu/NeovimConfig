@@ -33,7 +33,7 @@ return g_filter {
 				completion = {
 					accept = {
 						auto_brackets = {
-							enabled = true,
+							enabled = false,
 						},
 					},
 					menu = {

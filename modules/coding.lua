@@ -47,6 +47,12 @@ return g_filter {
 			}
 		end,
 	},
+	{
+		"saghen/blink.pairs",
+		dependencies = "saghen/blink.download",
+		version = "*",
+		opts = {},
+	},
 	-- {
 	-- 	"windwp/nvim-autopairs",
 	-- 	event = "InsertEnter",
