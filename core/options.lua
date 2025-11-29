@@ -98,6 +98,11 @@ vim.opt.pumblend = 15
 
 vim.g.clipboard = "wl-copy"
 
+vim.diagnostic.config {
+	virtual_text = false,
+	virtual_lines = true,
+}
+
 --[[
 vim.api.nvim_create_autocmd("Filetype", {
 	pattern = "help",
