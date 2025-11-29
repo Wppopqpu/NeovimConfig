@@ -112,9 +112,19 @@ return g_filter {
 		-- loaded by lsp_setup.lua
 		lazy = true,
 		config = function ()
+			local default_on_attach = detail("lsp_setup").default.on_attach
 			vim.g.rustaceanvim = {
+				tools = {
+					enable_clippy = true,
+				},
 				server = {
-					on_attach = detail("lsp_setup").default.on_attach,
+					on_attach = function (client, n_buffer)
+						default_on_attach(client, n_buffer)
+
+						require("which-key").add({
+							{ "<F4>", "<cmd>RustLsp run<enter>", desc = "run target (rust)" },
+						}, { buffer = n_buffer })
+					end,
 				},
 			}
 			vim.cmd.ca("rsl", "RustLsp")
