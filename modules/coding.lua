@@ -1,21 +1,35 @@
 return g_filter {
+	-- {
+	-- 	"MeanderingProgrammer/markdown.nvim",
+	-- 	capability = "markdown",
+	-- 	main = "render-markdown",
+	-- 	dependencies = {
+	-- 		"nvim-treesitter/nvim-treesitter",
+	-- 		"nvim-tree/nvim-web-devicons",
+	-- 	},
+	-- 	event = "User LazyFt markdown",
+	-- 	config = function ()
+	-- 		local m = require("render-markdown")
+	--
+	-- 		m.setup {
+	-- 		}
+	--
+	-- 		vim.cmd("RenderMarkdown enable")
+	-- 	end,
+	-- },
 	{
-		"MeanderingProgrammer/markdown.nvim",
-		capability = "markdown",
-		main = "render-markdown",
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter",
-			"nvim-tree/nvim-web-devicons",
+		'MeanderingProgrammer/render-markdown.nvim',
+		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim' },            -- if you use the mini.nvim suite
+		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.icons' },        -- if you use standalone mini plugins
+		dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+		-- lazy = true,
+		---@module 'render-markdown'
+		---@type render.md.UserConfig
+		opts = {
+			enabled = true,
+			file_types = { "markdown", "Avante", "help" },
 		},
-		event = "User LazyFt markdown",
-		config = function ()
-			local m = require("render-markdown")
-
-			m.setup {
-			}
-
-			vim.cmd("RenderMarkdown enable")
-		end,
+		-- ft = { "markdown", "Avante"},
 	},
 	{
 		"RRethy/vim-illuminate",
