@@ -24,7 +24,7 @@ local get_config = function()
 				i = { '<cmd>Lspsaga incoming_calls<CR>', 'incoming' },
 				o = { '<cmd>Lspsaga outgoing_calls<CR>', 'outgoing' },
 			},
-			a = { '<cmd>Lspsaga code_action<CR>', 'code action' },
+			v = { '<cmd>Lspsaga code_action<CR>', 'code action' },
 			d = {
 				name = '+definition',
 				p = { '<cmd>Lspsaga peek_definition<CR>', "peek definition" },
