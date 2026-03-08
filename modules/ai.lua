@@ -15,12 +15,20 @@ return {
 			provider = "openai",
 			auto_suggestions_provider = "openai",
 			providers = {
+				-- openai = {
+				-- 	-- endpoint = "https://qianfan.baidubce.com/v2/chat/completions",
+				-- 	endpoint = "https://qianfan.baidubce.com/v2",
+				-- 	model = "deepseek-v3.2-think",
+				-- 	api_key_name = "OPENAI_API_KEY",
+				-- 	max_tokens = 4096,
+				-- },
 				openai = {
-					-- endpoint = "https://qianfan.baidubce.com/v2/chat/completions",
-					endpoint = "https://qianfan.baidubce.com/v2",
-					model = "deepseek-v3.2-think",
+					endpoint = "https://integrate.api.nvidia.com/v1",
+					model = "moonshotai/kimi-k2-instruct",
 					api_key_name = "OPENAI_API_KEY",
-					max_tokens = 4096,
+					extra_request_body = {
+						temperature = 0.6,
+					},
 				},
 			},
 		},
