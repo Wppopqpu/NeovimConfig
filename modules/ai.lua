@@ -14,6 +14,11 @@ return {
 		opts = {
 			provider = "openai",
 			auto_suggestions_provider = "openai",
+			behaviour = {
+				auto_suggestion = true,
+				auto_apply_diff_after_generation = false,
+				auto_approve_tool_permissions = { "view", "ls", "grep" },
+			},
 			providers = {
 				-- openai = {
 				-- 	-- endpoint = "https://qianfan.baidubce.com/v2/chat/completions",
