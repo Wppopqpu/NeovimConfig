@@ -12,7 +12,7 @@ return {
 		---@module 'avante'
 		---@type avante.Config
 		opts = {
-			provider = "openai",
+			provider = "baidu",
 			auto_suggestions_provider = "openai",
 			behaviour = {
 				auto_suggestion = true,
@@ -20,31 +20,41 @@ return {
 				auto_approve_tool_permissions = { "view", "ls", "grep" },
 			},
 			providers = {
-				-- openai = {
-				-- 	-- endpoint = "https://qianfan.baidubce.com/v2/chat/completions",
-				-- 	endpoint = "https://qianfan.baidubce.com/v2",
-				-- 	model = "deepseek-v3.2-think",
-				-- 	api_key_name = "OPENAI_API_KEY",
-				-- 	max_tokens = 4096,
-				-- },
-				openai = {
-					endpoint = "https://integrate.api.nvidia.com/v1",
-					model = "moonshotai/kimi-k2-instruct",
-					api_key_name = "OPENAI_API_KEY",
+				baidu = {
+					__inherited_from = "openai",
+					-- endpoint = "https://qianfan.baidubce.com/v2/chat/completions",
+					endpoint = "https://qianfan.baidubce.com/v2",
+					model = "deepseek-v3.2-think",
+					api_key_name = "BAIDU_API_KEY",
 					extra_request_body = {
 						temperature = 0.6,
+						max_tokens = 4096,
+					}
+				},
+				nvidia = {
+					__inherited_from = "openai",
+					endpoint = "https://integrate.api.nvidia.com/v1",
+					model = "moonshotai/kimi-k2-instruct",
+					api_key_name = "NVIDIA_API_KEY",
+					extra_request_body = {
+						temperature = 0.7,
 					},
 				},
 			},
 		},
 		init = function ()
-			local api_key_path = "/home/branch/documents/important/default_api_key"
-			local file = io.open(api_key_path, "r")
-			if not file then
-				return
+			local function read_key(filename, envname)
+				local api_key_path = "/home/branch/documents/important/"..filename
+				local file = io.open(api_key_path, "r")
+				if not file then
+					return
+				end
+				vim.env[envname] = file:read()
+				file:close()
 			end
-			vim.env.OPENAI_API_KEY = file:read()
-			file:close()
+
+			read_key("baidu_api_key", "BAIDU_API_KEY")
+			read_key("nvidia_api_key", "NVIDIA_API_KEY")
 		end,
 		dependencies = {
 			"nvim-lua/plenary.nvim",
