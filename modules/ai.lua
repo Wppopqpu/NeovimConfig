@@ -13,7 +13,7 @@ return {
 		---@type avante.Config
 		opts = {
 			provider = "baidu",
-			auto_suggestions_provider = "openai",
+			auto_suggestions_provider = "nvidia",
 			behaviour = {
 				auto_suggestion = true,
 				auto_apply_diff_after_generation = false,
