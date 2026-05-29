@@ -149,10 +149,17 @@ return g_filter {
 			}
 			on_lazy.register(function()
 				local wk = require'which-key'
+				local edgy = require("edgy")
+				local function make_cmd(c)
+					return function ()
+						edgy.goto_main()
+						vim.cmd(c)
+					end
+				end
 				wk.register{
-					['<C-h>'] = { '<cmd>BufferLineCyclePrev<CR>', 'next buffer' },
-					['<C-l>'] = { '<cmd>BufferLineCycleNext<CR>', 'prev buffer' },
-					['<C-p>'] = { '<cmd>BufferLinePick<CR>', 'pick buffer' },
+					['<C-h>'] = { make_cmd'BufferLineCyclePrev', 'next buffer' },
+					['<C-l>'] = { make_cmd'BufferLineCycleNext', 'prev buffer' },
+					['<C-p>'] = { make_cmd'BufferLinePick', 'pick buffer' },
 				}
 				wk.register({
 					b = {
