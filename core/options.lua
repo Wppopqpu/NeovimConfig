@@ -104,6 +104,8 @@ vim.diagnostic.config {
 	virtual_lines = true,
 }
 
+vim.opt.jumpoptions = "stack"
+
 --[[
 vim.api.nvim_create_autocmd("Filetype", {
 	pattern = "help",
