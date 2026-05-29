@@ -422,6 +422,33 @@ return g_filter {
 		end,
 	},
 	{
+		"wppopqpu/fcitx-helper.nvim",
+		config = function ()
+			local helper = require("fcitx-helper")
+			helper.setup({
+				backend = "fcitx5-remote", -- or fcitx-remote
+				save_state_relative_to = "buffer", -- or "global", "never"
+				inactivate_in_normal = true,
+			})
+
+			require("which-key").add({
+				{ "<leader>\\", helper.state.toggle_current_state, desc = "toggle input method state" },
+			})
+
+			local text = {
+				active = "中",
+				inactive = "EN",
+			}
+			require("lualine").setup({
+				sections = {
+					lualine_y = { require("fcitx-helper.lualine_widget").make_widget(text), "location" },
+				},
+			})
+		end,
+		event = "VeryLazy",
+		dev = true,
+	},
+	{
 		"wppopqpu/crook.nvim",
 		config = function ()
 			local crook = require("crook")
