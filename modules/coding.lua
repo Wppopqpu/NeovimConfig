@@ -63,7 +63,8 @@ return g_filter {
 	},
 	{
 		"saghen/blink.pairs",
-		dependencies = "saghen/blink.download",
+		dependencies = "saghen/blink.lib",
+		build = function() require('blink.pairs').download():pwait(600000) end,
 		version = "*",
 		opts = {},
 	},
