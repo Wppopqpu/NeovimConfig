@@ -14,7 +14,6 @@ vim.filetype.add{
 		ixx = 'cpp',
 		cppm = 'cpp',
 		mxx = 'cpp',
-		tsqx = "tsqx",
 	},
 }
 
