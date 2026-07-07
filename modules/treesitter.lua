@@ -37,6 +37,7 @@ return g_filter {
 					'gitignore',
 					'git_config',
 					'git_rebase',
+					"html",
 					'javascript',
 					'json',
 					"jsonc", -- required by neoconf setting file
@@ -52,6 +53,7 @@ return g_filter {
 					"toml",
 					'vim',
 					'vimdoc',
+					"yaml",
 				},
 				highlight = {
 					enable = true,
