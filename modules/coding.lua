@@ -28,7 +28,13 @@ return g_filter {
 		opts = {
 			enabled = true,
 			file_types = { "markdown", "Avante", "help" },
+			completions = {
+				lsp = {
+					enabled = true,
+				},
+			},
 		},
+		-- enabled = false,
 		-- ft = { "markdown", "Avante"},
 	},
 	{
