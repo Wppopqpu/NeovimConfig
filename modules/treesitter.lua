@@ -54,6 +54,7 @@ return g_filter {
 					'vim',
 					'vimdoc',
 					"yaml",
+					"zig",
 				},
 				highlight = {
 					enable = true,

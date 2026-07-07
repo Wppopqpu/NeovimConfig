@@ -37,6 +37,7 @@ local capabilities = {
 	rust = true,
 	typst = true,
 	web_basic = true,
+	zig = true,
 
 	default = true,
 }
@@ -55,7 +56,7 @@ end
 
 
 
-
+detail("zig")
 
 
 core("plugins")

@@ -149,6 +149,13 @@ local get_config = function()
 		lean3ls = { capability = "lean" },
 		-- This is set up by rustaceanvim.
 		-- rust_analyzer = {},
+		zls = {
+			capability = "zig",
+			settings = {
+				enable_autofix = true,
+				warn_style = true,
+			},
+		},
 	}
 
 	-- local capabilities = require("cmp_nvim_lsp").default_capabilities()
