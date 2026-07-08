@@ -56,6 +56,7 @@ end
 
 
 
+detail("treesitter")
 detail("zig")
 
 
