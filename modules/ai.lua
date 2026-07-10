@@ -44,7 +44,7 @@ return {
 		},
 		init = function ()
 			local function read_key(filename, envname)
-				local api_key_path = "/home/branch/documents/important/"..filename
+				local api_key_path = "/home/branch/important/"..filename
 				local file = io.open(api_key_path, "r")
 				if not file then
 					return
