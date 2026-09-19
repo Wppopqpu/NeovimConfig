@@ -26,6 +26,25 @@ local startUpImage = {
 
 return g_filter {
 	{
+		"wppopqpu/shadowy.nvim",
+		enabled = false,
+		lazy = true,
+		event = "VeryLazy",
+		dev = true,
+		dependencies = { "wppopqpu/crook.nvim" },
+		opts = {
+			strategy = "both",
+			shadow = {
+				enabled = true,
+				h_offset = 3,
+				v_offset = 2,
+			},
+			blend = {
+				enabled = true,
+			}
+		},
+	},
+	{
 		'folke/tokyonight.nvim',
 		lazy = false,
 		priority = 1000, -- Make sure to load this plugin before others.
@@ -216,7 +235,8 @@ return g_filter {
 						end
 
 						-- use default mappings
-						api.config.mappings.default_on_attach(bufnr)
+						-- api.config.mappings.default_on_attach(bufnr)
+						api.map.on_attach.default(bufnr)
 						wk.register({
 							P = { preview.watch, "nvim-tree: open preview" },
 							["<esc>"] = { preview.unwatch, "nvim-tree: close preview" },
@@ -262,6 +282,7 @@ return g_filter {
 		lazy = true,
 		dependencies = {
 			"nvim-lua/plenary.nvim",
+			"3rd/image.nvim",
 		},
 	},
 

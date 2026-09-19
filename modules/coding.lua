@@ -70,8 +70,8 @@ return g_filter {
 	{
 		"saghen/blink.pairs",
 		dependencies = "saghen/blink.lib",
-		build = function() require('blink.pairs').download():pwait(600000) end,
-		version = "*",
+		-- Build from source (requires Rust/Cargo)
+		build = function() require('blink.pairs').build():pwait(600000) end,
 		opts = {},
 	},
 	-- {
