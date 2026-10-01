@@ -19,7 +19,7 @@ end
 return g_filter {
 	{
 		"saghen/blink.cmp",
-		dependencies = { "rafamadriz/friendly-snippets", "Kaiser-Yang/blink-cmp-avante" },
+		dependencies = { "rafamadriz/friendly-snippets" },
 		version = "*",
 		lazy = false, -- handled internally
 		opts_extend = { "sources.default" },
@@ -85,7 +85,6 @@ return g_filter {
 				},
 				sources = {
 					default = {
-						"avante",
 						"lsp",
 						"buffer",
 						"lazydev",
@@ -94,11 +93,6 @@ return g_filter {
 						"cmdline",
 					},
 					providers = {
-						avante = {
-							module = "blink-cmp-avante",
-							name = "Avante",
-							opts = {},
-						},
 						lsp = {},
 						lazydev = {
 							name = "LazyDev",

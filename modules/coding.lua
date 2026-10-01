@@ -27,7 +27,7 @@ return g_filter {
 		---@type render.md.UserConfig
 		opts = {
 			enabled = true,
-			file_types = { "markdown", "Avante", "help" },
+			file_types = { "markdown", "help" },
 			completions = {
 				lsp = {
 					enabled = true,

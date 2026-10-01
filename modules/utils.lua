@@ -123,6 +123,18 @@ return g_filter {
 						title = "OUTLINE",
 						size = { width = 30 },
 					},
+					{
+						ft = "opencode",
+						title = "OPENCODE",
+						size = { width = 50 },
+					},
+				},
+				options = {
+					right = {
+						size = function()
+							return math.max(50, math.floor(vim.o.columns / 2))
+						end,
+					},
 				},
 			}
 
