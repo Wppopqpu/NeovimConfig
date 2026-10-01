@@ -8,6 +8,27 @@ local blink_keymap = {
 	["<a-space>"] = { "show", "fallback" },
 }
 
+-- Keep buffer completion useful for code-style identifiers while ignoring
+-- words written in non-Latin scripts, such as Chinese or Japanese.
+local function is_latin_keyword(keyword)
+	for _, position in ipairs(vim.str_utf_pos(keyword)) do
+		local codepoint = vim.fn.char2nr(keyword:sub(position))
+		local is_latin = codepoint == string.byte("_") -- underscore
+			or codepoint <= 0x024F -- Basic Latin, Latin-1 Supplement, and Latin Extended-A/B
+			or codepoint >= 0x1E00 and codepoint <= 0x1EFF -- Latin Extended Additional
+			or codepoint >= 0x2C60 and codepoint <= 0x2C7F -- Latin Extended-C
+			or codepoint >= 0xA720 and codepoint <= 0xA7FF -- Latin Extended-D
+			or codepoint >= 0xAB30 and codepoint <= 0xAB6F -- Latin Extended-E
+			or codepoint >= 0x0300 and codepoint <= 0x036F -- Combining diacritical marks
+
+		if not is_latin then
+			return false
+		end
+	end
+
+	return true
+end
+
 for i = 1,10 do
 	blink_keymap["<a-"..tostring(i)..">"] = {
 		function(cmp)
@@ -93,6 +114,11 @@ return g_filter {
 						"cmdline",
 					},
 					providers = {
+						buffer = {
+							should_show_items = function (ctx)
+								return is_latin_keyword(ctx:get_keyword())
+							end,
+						},
 						lsp = {},
 						lazydev = {
 							name = "LazyDev",
