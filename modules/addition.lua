@@ -54,5 +54,23 @@ return g_filter {
 		end,
 		lazy = true,
 		config = true,
+	},
+	{
+		-- Auto-reload files when changed on disk
+		-- Only for nvim < 0.13 (0.13+ has native support)
+		"diogo464/hotreload.nvim",
+		enabled = function()
+			local ok, version = pcall(vim.version)
+			if ok and version then
+				local num = version.major * 10000 + version.minor * 100 + version.patch
+				return num < 1300  -- Enable only for nvim < 0.13.0
+			end
+			return false  -- Disable if version check fails
+		end,
+		event = { "BufReadPost", "BufNewFile" },
+		opts = {
+			interval = nil,  -- Use fs_event watchers (no polling)
+			silent = true,   -- No reload notifications
+		},
 	}
 }
